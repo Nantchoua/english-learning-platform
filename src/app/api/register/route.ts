@@ -13,6 +13,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.redirect(new URL('/register?error=missing', req.url));
   }
 
+  // Email format validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return NextResponse.redirect(new URL('/register?error=invalid_email', req.url));
+  }
+
+  // Password strength check (Minimum 8 chars, at least one letter and one number)
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+  if (!passwordRegex.test(password)) {
+    return NextResponse.redirect(new URL('/register?error=weak_password', req.url));
+  }
+
   // Only allow valid roles; default to STUDENT for safety
   const role: 'STUDENT' | 'INSTRUCTOR' =
     roleInput === 'INSTRUCTOR' ? 'INSTRUCTOR' : 'STUDENT';
