@@ -45,7 +45,7 @@ export default async function InstructorDashboard() {
               </tr>
             </thead>
             <tbody>
-              {courses.map((course) => (
+              {courses.map((course: any) => (
                 <tr key={course.id} className="border-b border-slate-200 hover:bg-slate-50">
                   <td className="p-4 font-medium text-slate-900">{course.title}</td>
                   <td className="p-4 text-slate-500">{course.level}</td>

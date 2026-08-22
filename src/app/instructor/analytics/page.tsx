@@ -47,18 +47,18 @@ export default async function InstructorAnalyticsPage() {
   let totalProgressPercentagesSum = 0;
   let studentProgressCount = 0;
 
-  const courseStats = (courses || []).map((course) => {
-    const allLessons = course.modules?.flatMap((m) => m.lessons || []) || [];
+  const courseStats = (courses || []).map((course: any) => {
+    const allLessons = course.modules?.flatMap((m: any) => m.lessons || []) || [];
     const lessonCount = allLessons.length;
     const enrollmentsCount = course.enrollments?.length || 0;
     totalEnrollments += enrollmentsCount;
     totalLessonsAcrossAll += lessonCount;
 
     let progressSum = 0;
-    (course.enrollments || []).forEach((enrollment) => {
+    (course.enrollments || []).forEach((enrollment: any) => {
       if (lessonCount > 0 && enrollment.user?.progress) {
-        const completedCount = allLessons.filter((lesson) =>
-          enrollment.user.progress.some((p) => p.lessonId === lesson.id && p.isCompleted)
+        const completedCount = allLessons.filter((lesson: any) =>
+          enrollment.user.progress.some((p: any) => p.lessonId === lesson.id && p.isCompleted)
         ).length;
         const progressPercentage = (completedCount / lessonCount) * 100;
         progressSum += progressPercentage;
@@ -92,14 +92,14 @@ export default async function InstructorAnalyticsPage() {
     progressPercentage: number;
   }> = [];
 
-  (courses || []).forEach((course) => {
-    const allLessons = course.modules?.flatMap((m) => m.lessons || []) || [];
-    (course.enrollments || []).forEach((enrollment) => {
+  (courses || []).forEach((course: any) => {
+    const allLessons = course.modules?.flatMap((m: any) => m.lessons || []) || [];
+    (course.enrollments || []).forEach((enrollment: any) => {
       const lessonCount = allLessons.length;
       let progressPercentage = 0;
       if (lessonCount > 0 && enrollment.user?.progress) {
-        const completedCount = allLessons.filter((lesson) =>
-          enrollment.user.progress.some((p) => p.lessonId === lesson.id && p.isCompleted)
+        const completedCount = allLessons.filter((lesson: any) =>
+          enrollment.user.progress.some((p: any) => p.lessonId === lesson.id && p.isCompleted)
         ).length;
         progressPercentage = Math.round((completedCount / lessonCount) * 100);
       }
@@ -182,7 +182,7 @@ export default async function InstructorAnalyticsPage() {
               </tr>
             </thead>
             <tbody>
-              {courseStats.map((stat) => (
+              {courseStats.map((stat: any) => (
                 <tr key={stat.id} className="border-b border-slate-200 hover:bg-slate-50/30 text-sm">
                   <td className="p-4 font-semibold text-slate-900">
                     {stat.title}

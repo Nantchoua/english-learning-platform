@@ -33,14 +33,14 @@ export default async function DashboardPage() {
     where: { userId, isCompleted: true },
     select: { lessonId: true },
   });
-  const completedIds = new Set(progress.map((p) => p.lessonId));
+  const completedIds = new Set(progress.map((p: any) => p.lessonId));
 
   // Get issued certificates
   const certificates = await db.certificate.findMany({
     where: { userId },
     select: { courseId: true },
   });
-  const completedCourseIds = new Set(certificates.map((c) => c.courseId));
+  const completedCourseIds = new Set(certificates.map((c: any) => c.courseId));
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -64,10 +64,10 @@ export default async function DashboardPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {enrollments.map(({ course, status, paymentType }) => {
-              const allLessons = course.modules.flatMap((m) => m.lessons);
+            {enrollments.map(({ course, status, paymentType }: any) => {
+              const allLessons = course.modules.flatMap((m: any) => m.lessons);
               const totalLessons = allLessons.length;
-              const completedCount = allLessons.filter((l) => completedIds.has(l.id)).length;
+              const completedCount = allLessons.filter((l: any) => completedIds.has(l.id)).length;
               const pct = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
               const firstLesson = course.modules[0]?.lessons[0];
 

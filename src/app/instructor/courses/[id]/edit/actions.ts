@@ -50,7 +50,7 @@ export async function togglePublish(formData: FormData) {
     });
     if (!course) throw new Error('Course not found');
 
-    const totalLessons = course.modules.reduce((acc, m) => acc + m.lessons.length, 0);
+    const totalLessons = course.modules.reduce((acc: number, m: any) => acc + m.lessons.length, 0);
     const errors: string[] = [];
 
     if (!course.title?.trim()) errors.push('Course title is required');

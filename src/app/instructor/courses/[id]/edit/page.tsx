@@ -37,7 +37,7 @@ export default async function CourseEditorPage({
   if (!course) notFound();
 
   // Compute publish checklist
-  const totalLessons = course.modules.reduce((acc, m) => acc + m.lessons.length, 0);
+  const totalLessons = course.modules.reduce((acc: number, m: any) => acc + m.lessons.length, 0);
   const checks = [
     { label: 'Course title',       done: !!course.title?.trim() },
     { label: 'Course description', done: !!course.description?.trim() },
@@ -218,7 +218,7 @@ export default async function CourseEditorPage({
               </div>
             ) : (
               <div className="space-y-4">
-                {course.modules.map((mod) => (
+                {course.modules.map((mod: any) => (
                   <div key={mod.id} className="border border-slate-200 rounded-lg overflow-hidden">
                     {/* Module Header */}
                     <div className="bg-slate-50 px-4 py-3 flex items-center justify-between">
@@ -234,7 +234,7 @@ export default async function CourseEditorPage({
 
                     {/* Lessons */}
                     <div className="p-3 space-y-2">
-                      {mod.lessons.map((lesson) => (
+                      {mod.lessons.map((lesson: any) => (
                         <div key={lesson.id} className="flex items-center justify-between bg-white border border-slate-200 rounded px-3 py-2 group">
                           <Link href={`/instructor/courses/${course.id}/lessons/${lesson.id}/edit`}
                             className="text-sm text-slate-700 hover:text-[#0056D2] hover:underline flex-1">

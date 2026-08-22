@@ -29,7 +29,7 @@ export default async function CourseDetailPage({
   if (!course) notFound();
 
   const userId = (session?.user as any)?.id as string | undefined;
-  const totalLessons = course.modules.reduce((acc, m) => acc + m.lessons.length, 0);
+  const totalLessons = course.modules.reduce((acc, m: any) => acc + m.lessons.length, 0);
 
   // Instructor who owns the course gets full access automatically (no enrollment needed)
   const isOwner = userId && course.instructor.id === userId;
@@ -45,7 +45,7 @@ export default async function CourseDetailPage({
   const hasAccess = !!enrollment || !!isOwner;
 
   // Get first lesson for "Start Learning" CTA
-  const firstLesson = course.modules.flatMap((m) => m.lessons)[0];
+  const firstLesson = course.modules.flatMap((m: any) => m.lessons)[0];
 
 
   return (
@@ -159,7 +159,7 @@ export default async function CourseDetailPage({
         <div className="lg:col-span-2">
           <h2 className="text-xl font-bold text-slate-800 mb-6">Course Curriculum</h2>
           <div className="space-y-3">
-            {course.modules.map((mod, mIdx) => (
+            {course.modules.map((mod: any, mIdx: number) => (
               <div key={mod.id} className="bg-white border border-slate-200 rounded-lg overflow-hidden">
                 <div className="bg-slate-50 px-5 py-4 flex items-center justify-between">
                   <h3 className="font-semibold text-slate-800 text-sm">
@@ -168,7 +168,7 @@ export default async function CourseDetailPage({
                   <span className="text-xs text-slate-400">{mod.lessons.length} lessons</span>
                 </div>
                 <div className="divide-y divide-slate-100">
-                  {mod.lessons.map((lesson) => (
+                  {mod.lessons.map((lesson: any) => (
                     <div key={lesson.id} className="px-5 py-3 flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         {lesson.isFree || enrollment ? (
