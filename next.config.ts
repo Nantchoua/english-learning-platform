@@ -7,10 +7,6 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // Skip ESLint checks during Vercel production builds
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
 };
 
 export default nextConfig;
