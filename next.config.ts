@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Disabled to prevent Server Actions firing twice in development (React Strict Mode double-invoke)
+  reactStrictMode: false,
 };
 
 export default nextConfig;
