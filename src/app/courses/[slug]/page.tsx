@@ -34,6 +34,15 @@ export default async function CourseDetailPage({
   // Instructor who owns the course gets full access automatically (no enrollment needed)
   const isOwner = userId && course.instructor.id === userId;
 
+  // Fetch current user details to check for ADMIN status
+  const dbUser = userId
+    ? await db.user.findUnique({
+        where: { id: userId },
+        select: { role: true },
+      })
+    : null;
+  const isAdmin = dbUser?.role === 'ADMIN';
+
   // Check if current user is enrolled
   const enrollment = userId && !isOwner
     ? await db.enrollment.findUnique({
@@ -41,8 +50,8 @@ export default async function CourseDetailPage({
       })
     : null;
 
-  // Can access if enrolled OR is the course owner
-  const hasAccess = !!enrollment || !!isOwner;
+  // Can access if enrolled OR is the course owner OR is an Admin
+  const hasAccess = !!enrollment || !!isOwner || isAdmin;
 
   // Get first lesson for "Start Learning" CTA
   const firstLesson = course.modules.flatMap((m: any) => m.lessons)[0];

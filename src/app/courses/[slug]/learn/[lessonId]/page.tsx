@@ -68,7 +68,7 @@ export default async function LessonViewerPage({
   const currentLesson = allLessons.find((l) => l.id === lessonId);
   if (!currentLesson) notFound();
 
-  // Gate checkouts for students
+  // Gate checkouts for students (Admins and Instructors bypass)
   if (!isAuthorizedStaff) {
     const isPaidCourse = course.price && course.price > 0;
 
