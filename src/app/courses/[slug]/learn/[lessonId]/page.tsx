@@ -77,8 +77,8 @@ export default async function LessonViewerPage({
       redirect(`/courses/${slug}/checkout`);
     }
 
-    // 2. Unenrolled non-free lessons block
-    if (!currentLesson.isFree && !enrollment) {
+    // 2. Unenrolled lessons block (previews disabled)
+    if (!enrollment) {
       redirect(`/courses/${slug}/checkout`);
     }
 

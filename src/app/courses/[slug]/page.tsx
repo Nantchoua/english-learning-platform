@@ -171,12 +171,12 @@ export default async function CourseDetailPage({
                   {mod.lessons.map((lesson: any) => (
                     <div key={lesson.id} className="px-5 py-3 flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        {lesson.isFree || enrollment ? (
+                        {enrollment ? (
                           <PlayCircle className="w-4 h-4 text-[#0056D2] flex-shrink-0" />
                         ) : (
                           <Lock className="w-4 h-4 text-slate-300 flex-shrink-0" />
                         )}
-                        {lesson.isFree || enrollment ? (
+                        {enrollment ? (
                           <Link href={`/courses/${slug}/learn/${lesson.id}`}
                             className="text-sm text-slate-700 hover:text-[#0056D2] hover:underline">
                             {lesson.title}
@@ -185,11 +185,6 @@ export default async function CourseDetailPage({
                           <span className="text-sm text-slate-500">{lesson.title}</span>
                         )}
                       </div>
-                      {lesson.isFree && !enrollment && (
-                        <span className="text-xs bg-green-100 text-green-700 font-medium px-2 py-0.5 rounded-full">
-                          Free
-                        </span>
-                      )}
                     </div>
                   ))}
                 </div>
