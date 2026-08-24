@@ -11,8 +11,9 @@ export async function POST(req: NextRequest) {
   const courseId = formData.get('courseId') as string;
   const title = formData.get('title') as string;
 
-  const course = await db.course.findFirst({ where: { id: courseId, instructorId: session.user.id } });
-  if (!course) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  const { checkCourseEditorAccess } = await import('@/lib/auth-helpers');
+  const hasAccess = await checkCourseEditorAccess(courseId, session.user.id, session.user.role);
+  if (!hasAccess) return NextResponse.json({ error: 'Access denied' }, { status: 403 });
 
   const count = await db.module.count({ where: { courseId } });
   await db.module.create({ data: { title, courseId, order: count + 1 } });

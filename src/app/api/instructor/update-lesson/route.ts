@@ -22,8 +22,16 @@ export async function POST(req: NextRequest) {
     include: { module: { include: { course: true } } },
   });
 
-  if (!lesson || lesson.module.course.instructorId !== session.user.id) {
+  if (!lesson) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
+  // Verify ownership
+  const { checkCourseEditorAccess } = await import('@/lib/auth-helpers');
+  const hasAccess = await checkCourseEditorAccess(lesson.module.courseId, session.user.id, session.user.role);
+
+  if (!hasAccess) {
+    return NextResponse.json({ error: 'Access denied' }, { status: 403 });
   }
 
   await db.lesson.update({
