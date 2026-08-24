@@ -79,8 +79,8 @@ export default async function DashboardPage() {
                 <div key={course.id} className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
                   <div>
                     {/* Thumbnail */}
-                    <div className="h-36 bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center relative">
-                      <BookOpen className="w-12 h-12 text-[#0056D2] opacity-40" />
+                    <div className="h-36 bg-gradient-to-br from-emerald-50 to-emerald-100/50 flex items-center justify-center relative">
+                      <BookOpen className="w-12 h-12 text-emerald-600 opacity-40" />
                       {isPartiallyPaid && (
                         <span className="absolute top-3 right-3 bg-orange-100 text-orange-700 border border-orange-200 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
                           Partially Paid (1/2)
@@ -99,21 +99,21 @@ export default async function DashboardPage() {
                     </div>
 
                     <div className="p-5 pb-2">
-                      <span className="text-xs font-bold text-[#0056D2] bg-blue-50 px-2 py-0.5 rounded-full uppercase">
+                      <span className="text-xs font-bold text-emerald-750 bg-emerald-50 px-2.5 py-1 rounded-md uppercase tracking-wider border border-emerald-100">
                         {course.level}
                       </span>
-                      <h3 className="font-bold text-slate-800 mt-2 mb-1 line-clamp-2">{course.title}</h3>
-                      <p className="text-xs text-slate-400 mb-4">{course.instructor.name}</p>
+                      <h3 className="font-extrabold text-slate-900 mt-3 mb-1 line-clamp-2 leading-snug">{course.title}</h3>
+                      <p className="text-xs text-slate-400 mb-4">Instructor: {course.instructor.name}</p>
 
                       {/* Progress bar */}
                       <div className="mb-4">
                         <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
                           <span>{completedCount} / {totalLessons} lessons</span>
-                          <span className="font-semibold text-[#0056D2]">{pct}%</span>
+                          <span className="font-bold text-emerald-600">{pct}%</span>
                         </div>
                         <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-[#0056D2] rounded-full transition-all"
+                            className="h-full bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full transition-all"
                             style={{ width: `${pct}%` }}
                           />
                         </div>
@@ -124,20 +124,20 @@ export default async function DashboardPage() {
                   <div className="p-5 pt-0 space-y-2">
                     {isPartiallyPaid && (
                       <Link href={`/courses/${course.slug}/checkout`}
-                        className="flex items-center gap-1.5 w-full border border-orange-500 hover:bg-orange-50 text-orange-600 py-2 rounded-md text-sm font-semibold transition justify-center">
+                        className="flex items-center gap-1.5 w-full border border-orange-500 hover:bg-orange-50 text-orange-600 py-2.5 rounded-lg text-sm font-semibold transition justify-center">
                         <CreditCard className="w-4 h-4" />
                         Pay 2nd Installment (€{(course.price ? course.price / 2 : 0).toFixed(2)})
                       </Link>
                     )}
 
                     {isPending && (
-                      <div className="bg-slate-50 border border-slate-200 text-center py-2.5 rounded-md text-xs text-slate-500 font-medium">
+                      <div className="bg-slate-50 border border-slate-200 text-center py-2.5 rounded-lg text-xs text-slate-500 font-medium">
                         Verifying Revolut Payment Reference...
                       </div>
                     )}
 
                     {isPending2 && (
-                      <div className="bg-slate-50 border border-slate-200 text-center py-2.5 rounded-md text-xs text-slate-500 font-medium">
+                      <div className="bg-slate-50 border border-slate-200 text-center py-2.5 rounded-lg text-xs text-slate-500 font-medium">
                         Verifying Final Installment...
                       </div>
                     )}
@@ -157,7 +157,7 @@ export default async function DashboardPage() {
                         </div>
                       ) : firstLesson ? (
                         <Link href={`/courses/${course.slug}/learn/${firstLesson.id}`}
-                          className="flex items-center gap-2 w-full bg-[#0056D2] hover:bg-blue-700 text-white py-2 rounded-md text-sm font-medium transition justify-center">
+                          className="flex items-center gap-2 w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-lg text-sm font-semibold transition justify-center shadow-sm">
                           <PlayCircle className="w-4 h-4" />
                           {completedCount > 0 ? 'Continue' : 'Start Learning'}
                         </Link>
