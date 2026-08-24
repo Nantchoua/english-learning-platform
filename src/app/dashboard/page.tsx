@@ -72,6 +72,8 @@ export default async function DashboardPage() {
               const firstLesson = course.modules[0]?.lessons[0];
 
               const isPartiallyPaid = status === 'PARTIALLY_PAID';
+              const isPending = status === 'PENDING';
+              const isPending2 = status === 'PENDING_INSTALLMENT_2';
 
               return (
                 <div key={course.id} className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
@@ -82,6 +84,16 @@ export default async function DashboardPage() {
                       {isPartiallyPaid && (
                         <span className="absolute top-3 right-3 bg-orange-100 text-orange-700 border border-orange-200 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
                           Partially Paid (1/2)
+                        </span>
+                      )}
+                      {isPending && (
+                        <span className="absolute top-3 right-3 bg-blue-100 text-blue-700 border border-blue-200 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
+                          Pending Verification
+                        </span>
+                      )}
+                      {isPending2 && (
+                        <span className="absolute top-3 right-3 bg-yellow-100 text-yellow-700 border border-yellow-200 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
+                          Installment 2 Pending
                         </span>
                       )}
                     </div>
@@ -118,25 +130,39 @@ export default async function DashboardPage() {
                       </Link>
                     )}
 
-                    {pct === 100 ? (
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-green-600 text-sm font-semibold justify-center py-1">
-                          <CheckCircle className="w-4 h-4" /> Completed!
-                        </div>
-                        {completedCourseIds.has(course.id) && (
-                          <Link href={`/courses/${course.slug}/certificate`}
-                            className="flex items-center gap-1.5 w-full bg-amber-600 hover:bg-amber-700 text-white py-2 rounded-md text-sm font-semibold transition justify-center shadow">
-                            View Certificate 🎓
-                          </Link>
-                        )}
+                    {isPending && (
+                      <div className="bg-slate-50 border border-slate-200 text-center py-2.5 rounded-md text-xs text-slate-500 font-medium">
+                        Verifying Revolut Payment Reference...
                       </div>
-                    ) : firstLesson ? (
-                      <Link href={`/courses/${course.slug}/learn/${firstLesson.id}`}
-                        className="flex items-center gap-2 w-full bg-[#0056D2] hover:bg-blue-700 text-white py-2 rounded-md text-sm font-medium transition justify-center">
-                        <PlayCircle className="w-4 h-4" />
-                        {completedCount > 0 ? 'Continue' : 'Start Learning'}
-                      </Link>
-                    ) : null}
+                    )}
+
+                    {isPending2 && (
+                      <div className="bg-slate-50 border border-slate-200 text-center py-2.5 rounded-md text-xs text-slate-500 font-medium">
+                        Verifying Final Installment...
+                      </div>
+                    )}
+
+                    {!isPending && !isPending2 && (
+                      pct === 100 ? (
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2 text-green-600 text-sm font-semibold justify-center py-1">
+                            <CheckCircle className="w-4 h-4" /> Completed!
+                          </div>
+                          {completedCourseIds.has(course.id) && (
+                            <Link href={`/courses/${course.slug}/certificate`}
+                              className="flex items-center gap-1.5 w-full bg-amber-600 hover:bg-amber-700 text-white py-2 rounded-md text-sm font-semibold transition justify-center shadow">
+                              View Certificate 🎓
+                            </Link>
+                          )}
+                        </div>
+                      ) : firstLesson ? (
+                        <Link href={`/courses/${course.slug}/learn/${firstLesson.id}`}
+                          className="flex items-center gap-2 w-full bg-[#0056D2] hover:bg-blue-700 text-white py-2 rounded-md text-sm font-medium transition justify-center">
+                          <PlayCircle className="w-4 h-4" />
+                          {completedCount > 0 ? 'Continue' : 'Start Learning'}
+                        </Link>
+                      ) : null
+                    )}
                   </div>
                 </div>
               );

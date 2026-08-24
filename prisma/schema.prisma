@@ -30,6 +30,8 @@ model User {
   role          Role         @default(STUDENT)
   image         String?
   registrationFeePaid Boolean @default(false)
+  registrationFeePending Boolean @default(false)
+  registrationFeeReference String?
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   
@@ -141,8 +143,9 @@ model Enrollment {
   courseId         String
   paymentType      String   @default("FULL")        // "FULL" or "INSTALLMENT"
   installmentsPaid Int      @default(1)             // 1 or 2
-  status           String   @default("ACTIVE")      // "ACTIVE" or "PARTIALLY_PAID"
-  
+  status           String   @default("ACTIVE")      // "ACTIVE" or "PARTIALLY_PAID" or "PENDING" or "PENDING_INSTALLMENT_2"
+  revolutReference String?  // Stores the Revolut payment reference code/name
+
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   course           Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   
