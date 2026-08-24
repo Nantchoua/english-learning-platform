@@ -18,15 +18,15 @@ export default async function RegisterPage({
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center px-4 py-12">
       {/* Logo */}
-      <Link href="/" className="flex items-center gap-2 text-[#0056D2] font-bold text-2xl mb-8">
-        <BookOpen className="w-7 h-7" /> EnglishPro
+      <Link href="/" className="mb-8">
+        <img src="/logo.svg" alt="Speaking Express" className="h-10 w-auto" />
       </Link>
 
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm w-full max-w-md p-8">
         <h1 className="text-2xl font-bold text-slate-900 mb-1">Create your account</h1>
         <p className="text-slate-500 text-sm mb-6">
           Already have an account?{' '}
-          <Link href="/login" className="text-[#0056D2] hover:underline font-medium">
+          <Link href="/login" className="text-emerald-650 hover:underline font-semibold">
             Sign in
           </Link>
         </p>
@@ -49,7 +49,7 @@ export default async function RegisterPage({
               required
               autoFocus
               placeholder="Jane Doe"
-              className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#0056D2] focus:border-[#0056D2] outline-none transition"
+              className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition"
             />
           </div>
 
@@ -60,7 +60,7 @@ export default async function RegisterPage({
               name="email"
               required
               placeholder="jane@example.com"
-              className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#0056D2] focus:border-[#0056D2] outline-none transition"
+              className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition"
             />
           </div>
 
@@ -72,13 +72,13 @@ export default async function RegisterPage({
               required
               minLength={6}
               placeholder="At least 6 characters"
-              className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#0056D2] focus:border-[#0056D2] outline-none transition"
+              className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-[#0056D2] hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg transition"
+            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-lg transition cursor-pointer shadow-sm"
           >
             Create Account
           </button>

@@ -42,14 +42,51 @@ export default async function DashboardPage() {
   });
   const completedCourseIds = new Set(certificates.map((c: any) => c.courseId));
 
+  const totalEnrolled = enrollments.length;
+  const totalCompletedLessons = completedIds.size;
+  const totalCertificates = completedCourseIds.size;
+
   return (
     <div className="min-h-screen bg-slate-50">
       <Navbar />
 
-      <main className="max-w-6xl mx-auto px-6 py-12">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900">My Learning</h1>
-          <p className="text-slate-500 mt-1">Welcome back, {session.user.name ?? 'Learner'}!</p>
+      <main className="max-w-6xl mx-auto px-6 py-12 space-y-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">My Learning</h1>
+            <p className="text-slate-500 mt-1">Welcome back, {session.user.name ?? 'Learner'}!</p>
+          </div>
+        </div>
+
+        {/* Dynamic Performance Stats Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <div className="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs flex items-center justify-between">
+            <div>
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Enrolled Courses</span>
+              <span className="text-2xl font-black text-slate-900 mt-1 block">{totalEnrolled}</span>
+            </div>
+            <div className="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-lg flex items-center justify-center font-bold">
+              📚
+            </div>
+          </div>
+          <div className="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs flex items-center justify-between">
+            <div>
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Finished Lessons</span>
+              <span className="text-2xl font-black text-slate-900 mt-1 block">{totalCompletedLessons}</span>
+            </div>
+            <div className="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-lg flex items-center justify-center font-bold">
+              ✅
+            </div>
+          </div>
+          <div className="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs flex items-center justify-between">
+            <div>
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Certificates Earned</span>
+              <span className="text-2xl font-black text-slate-900 mt-1 block">{totalCertificates}</span>
+            </div>
+            <div className="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-lg flex items-center justify-center font-bold">
+              🎓
+            </div>
+          </div>
         </div>
 
         {enrollments.length === 0 ? (
@@ -58,7 +95,7 @@ export default async function DashboardPage() {
             <h3 className="text-lg font-semibold text-slate-700 mb-2">No courses yet</h3>
             <p className="text-slate-400 mb-6">Start learning by enrolling in a course.</p>
             <Link href="/"
-              className="bg-[#0056D2] hover:bg-blue-700 text-white px-6 py-2.5 rounded-md font-medium transition">
+              className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-md font-medium transition">
               Browse Courses
             </Link>
           </div>
@@ -162,6 +199,14 @@ export default async function DashboardPage() {
                           {completedCount > 0 ? 'Continue' : 'Start Learning'}
                         </Link>
                       ) : null
+                    )}
+
+                    {/* Download payment invoice / receipt action link */}
+                    {!isPending && !isPending2 && (
+                      <Link href={`/dashboard/receipts/${course.id}`}
+                        className="flex items-center gap-1.5 w-full border border-slate-200 hover:bg-slate-50 text-slate-500 py-2 rounded-lg text-xs font-semibold transition justify-center">
+                        Download Receipt 🧾
+                      </Link>
                     )}
                   </div>
                 </div>

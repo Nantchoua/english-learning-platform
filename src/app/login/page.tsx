@@ -48,15 +48,15 @@ function LoginForm() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center px-4">
       {/* Logo */}
-      <Link href="/" className="flex items-center gap-2 text-[#0056D2] font-bold text-2xl mb-8">
-        <BookOpen className="w-7 h-7" /> EnglishPro
+      <Link href="/" className="mb-8">
+        <img src="/logo.svg" alt="Speaking Express" className="h-10 w-auto" />
       </Link>
 
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm w-full max-w-md p-8">
         <h1 className="text-2xl font-bold text-slate-900 mb-1">Welcome back</h1>
         <p className="text-slate-500 text-sm mb-6">
           Don&apos;t have an account?{' '}
-          <Link href="/register" className="text-[#0056D2] hover:underline font-medium">
+          <Link href="/register" className="text-emerald-650 hover:underline font-semibold">
             Sign up free
           </Link>
         </p>
@@ -83,7 +83,7 @@ function LoginForm() {
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:ring-[#0056D2] focus:border-[#0056D2] outline-none transition"
+              className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:ring-emerald-500 focus:border-emerald-500 outline-none transition"
             />
           </div>
 
@@ -95,14 +95,14 @@ function LoginForm() {
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:ring-[#0056D2] focus:border-[#0056D2] outline-none transition"
+              className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:ring-emerald-500 focus:border-emerald-500 outline-none transition"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#0056D2] hover:bg-blue-700 disabled:opacity-60 text-white font-semibold py-2.5 rounded-lg transition mt-2"
+            className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 text-white font-semibold py-2.5 rounded-lg transition mt-2 cursor-pointer shadow-sm"
           >
             {loading ? 'Signing in...' : 'Sign in'}
           </button>
