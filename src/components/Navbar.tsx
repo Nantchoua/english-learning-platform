@@ -1,11 +1,17 @@
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { BookOpen, LayoutDashboard, LogOut, LogIn, UserCircle } from 'lucide-react';
+import { LogOut, LogIn, UserCircle } from 'lucide-react';
+import { headers } from 'next/headers';
 
 export default async function Navbar() {
   const session = await getServerSession(authOptions);
   const role = session?.user?.role;
+
+  // Extract pathname to determine which view is currently active
+  const headerList = await headers();
+  const pathname = headerList.get('x-pathname') || '';
+  const isInstructorMode = pathname.startsWith('/instructor');
 
   return (
     <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
@@ -26,18 +32,25 @@ export default async function Navbar() {
             <>
               {role === 'INSTRUCTOR' || role === 'ADMIN' ? (
                 <>
+                  {isInstructorMode ? (
+                    <Link href="/dashboard"
+                      className="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-sm">
+                      🎓 Student View
+                    </Link>
+                  ) : (
+                    <Link href="/instructor/courses"
+                      className="border border-emerald-600 text-emerald-650 hover:bg-emerald-50 px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-xs">
+                      ⚙️ Instructor View
+                    </Link>
+                  )}
                   <Link href="/instructor/verifications"
                     className="text-sm text-slate-650 hover:text-emerald-600 transition font-semibold flex items-center gap-1">
                     Approvals
                   </Link>
-                  <Link href="/instructor/courses"
-                    className="text-sm text-slate-600 hover:text-emerald-600 transition font-medium flex items-center gap-1">
-                    <LayoutDashboard className="w-4 h-4" /> Teach
-                  </Link>
                 </>
               ) : null}
               <Link href="/dashboard"
-                className="text-sm text-slate-600 hover:text-[#0056D2] transition font-medium">
+                className="text-sm text-slate-600 hover:text-emerald-600 transition font-medium">
                 My Learning
               </Link>
               <Link href="/profile"

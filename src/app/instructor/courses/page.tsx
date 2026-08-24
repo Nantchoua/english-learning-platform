@@ -8,7 +8,7 @@ export default async function InstructorDashboard() {
   const session = await getServerSession(authOptions);
   
   const courses = await db.course.findMany({
-    where: { instructorId: session?.user?.id as string },
+    orderBy: { createdAt: 'desc' }
   });
 
   return (

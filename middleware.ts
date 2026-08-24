@@ -4,7 +4,8 @@ import { getToken } from 'next-auth/jwt';
 
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-  const isInstructorPath = req.nextUrl.pathname.startsWith('/instructor');
+  const pathname = req.nextUrl.pathname;
+  const isInstructorPath = pathname.startsWith('/instructor');
 
   if (isInstructorPath) {
     if (!token) {
@@ -15,10 +16,18 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  return NextResponse.next();
+  // Clone headers and set x-pathname for Server Component visibility
+  const requestHeaders = new Headers(req.headers);
+  requestHeaders.set('x-pathname', pathname);
+
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    }
+  });
 }
 
 export const config = {
-  // Only run on instructor page routes, NOT on API routes or Server Actions
-  matcher: ['/instructor/:path*'],
+  // Run middleware globally but ignore static assets, API calls, or Next internals
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|logo.svg|api/).*)'],
 };
