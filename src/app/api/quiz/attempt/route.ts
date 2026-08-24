@@ -45,10 +45,17 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    // Create safe correct answers mapping for client feedback after submission
+    const correctAnswers: Record<string, number> = {};
+    quiz.questions.forEach((q) => {
+      correctAnswers[q.id] = q.correctOption;
+    });
+
     return NextResponse.json({
       id: attempt.id,
       score,
       total: quiz.questions.length,
+      correctAnswers,
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message || 'Something went wrong' }, { status: 500 });

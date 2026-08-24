@@ -19,7 +19,7 @@ export default async function CheckoutPage({
   // Load user data to check registration fee status
   const user = await db.user.findUnique({
     where: { id: userId },
-    select: { registrationFeePaid: true },
+    select: { registrationFeePaid: true, registrationFeePending: true, registrationFeeReference: true },
   });
 
   if (!user) redirect(`/login`);
@@ -56,15 +56,29 @@ export default async function CheckoutPage({
     redirect(`/dashboard`);
   }
 
+  // Check if the user is already pending approval
+  const isRegistrationPending = user.registrationFeePending === true;
+  const isEnrollmentPending = !!(enrollment && (enrollment.status === 'PENDING' || enrollment.status === 'PENDING_INSTALLMENT_2'));
+
   const needsRegistrationFee = user.registrationFeePaid !== true;
   const isPayingInstallment2 = !!(enrollment && enrollment.status === 'PARTIALLY_PAID');
 
   let checkoutTitle = 'Payment Details';
-  let checkoutDesc = 'Complete your payment using our simulated payment gateway.';
+  let checkoutDesc = 'Complete your payment using Revolut bank transfer.';
   let orderItemTitle = course.title;
   let orderItemPrice = course.price;
 
-  if (needsRegistrationFee) {
+  if (isRegistrationPending) {
+    checkoutTitle = 'Registration Pending Approval';
+    checkoutDesc = `Your registration payment proof is currently under review. Reference: "${user.registrationFeeReference}"`;
+    orderItemTitle = 'Student Registration Fee';
+    orderItemPrice = 20.00;
+  } else if (isEnrollmentPending) {
+    checkoutTitle = 'Course Purchase Pending Approval';
+    checkoutDesc = `Your Revolut payment reference "${enrollment?.revolutReference}" is pending verification by the instructor.`;
+    orderItemTitle = course.title;
+    orderItemPrice = enrollment?.paymentType === 'INSTALLMENT' ? course.price / 2 : course.price;
+  } else if (needsRegistrationFee) {
     checkoutTitle = 'Pay Registration Fee';
     checkoutDesc = 'You must pay a one-time registration fee of €20.00 before enrolling in any courses.';
     orderItemTitle = 'Student Registration Fee';
@@ -87,13 +101,24 @@ export default async function CheckoutPage({
             <h1 className="text-xl font-bold text-slate-800 mb-4">{checkoutTitle}</h1>
             <p className="text-xs text-slate-400 mb-6">{checkoutDesc}</p>
             
-            <CheckoutForm
-              courseId={course.id}
-              slug={slug}
-              needsRegistrationFee={needsRegistrationFee}
-              isPayingInstallment2={isPayingInstallment2}
-              coursePrice={course.price}
-            />
+            {isRegistrationPending || isEnrollmentPending ? (
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 text-center space-y-3">
+                <p className="text-sm text-slate-600">
+                  Your Revolut payment reference is currently being verified by the instructor (**Nantchoua**).
+                </p>
+                <p className="text-xs text-slate-400">
+                  Once verified, your course content will be unlocked automatically. Please check back later.
+                </p>
+              </div>
+            ) : (
+              <CheckoutForm
+                courseId={course.id}
+                slug={slug}
+                needsRegistrationFee={needsRegistrationFee}
+                isPayingInstallment2={isPayingInstallment2}
+                coursePrice={course.price}
+              />
+            )}
           </div>
         </div>
 

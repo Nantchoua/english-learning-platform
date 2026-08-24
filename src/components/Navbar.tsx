@@ -18,6 +18,9 @@ export default async function Navbar() {
           <Link href="/" className="text-sm text-slate-600 hover:text-emerald-600 transition font-medium">
             Courses
           </Link>
+          <Link href="/about" className="text-sm text-slate-600 hover:text-emerald-600 transition font-medium">
+            About
+          </Link>
 
           {session ? (
             <>
