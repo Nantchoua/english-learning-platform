@@ -24,3 +24,8 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Force typed content text in all inputs, textareas, and select elements globally to be black */
+input, textarea, select {
+  color: #000000 !important;
+}
