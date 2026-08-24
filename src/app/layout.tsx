@@ -13,8 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EnglishPro — Master English Online",
-  description: "High-quality English courses for business, test prep, and everyday conversation.",
+  title: "Speaking Express English Academy",
+  description: "Unlock English conversation and speaking fluency, one word at a time.",
+  icons: {
+    icon: '/logo.svg', // Sets tab icon to SpeakingExpress logo
+  }
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
