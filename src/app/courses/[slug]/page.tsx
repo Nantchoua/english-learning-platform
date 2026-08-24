@@ -4,7 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
-import { BookOpen, CheckCircle, Clock, Lock, PlayCircle, Users } from 'lucide-react';
+import { BookOpen, CheckCircle, Clock, Lock, PlayCircle, Users, Award } from 'lucide-react';
 
 export default async function CourseDetailPage({
   params,
@@ -181,12 +181,12 @@ export default async function CourseDetailPage({
                   {mod.lessons.map((lesson: any) => (
                     <div key={lesson.id} className="px-5 py-3 flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        {enrollment ? (
+                        {hasAccess ? (
                           <PlayCircle className="w-4 h-4 text-[#0056D2] flex-shrink-0" />
                         ) : (
                           <Lock className="w-4 h-4 text-slate-300 flex-shrink-0" />
                         )}
-                        {enrollment ? (
+                        {hasAccess ? (
                           <Link href={`/courses/${slug}/learn/${lesson.id}`}
                             className="text-sm text-slate-700 hover:text-[#0056D2] hover:underline">
                             {lesson.title}
