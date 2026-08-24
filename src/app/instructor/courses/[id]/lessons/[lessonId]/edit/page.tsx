@@ -31,7 +31,11 @@ export default async function LessonEditorPage({
   });
 
 
-  if (!lesson || lesson.module.course.instructorId !== session.user.id) notFound();
+  const isAdminOrInstructor = session.user.role === 'ADMIN' || session.user.role === 'INSTRUCTOR';
+
+  if (!lesson || (!isAdminOrInstructor && lesson.module.course.instructorId !== session.user.id)) {
+    notFound();
+  }
 
   const course = lesson.module.course;
 

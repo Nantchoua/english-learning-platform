@@ -9,6 +9,12 @@ import { redirect } from 'next/navigation';
 async function verifyOwnership(courseId: string) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) throw new Error('Unauthorized');
+  
+  const role = session.user.role;
+  if (role === 'ADMIN' || role === 'INSTRUCTOR') {
+    return session.user.id;
+  }
+
   const course = await db.course.findFirst({
     where: { id: courseId, instructorId: session.user.id },
   });

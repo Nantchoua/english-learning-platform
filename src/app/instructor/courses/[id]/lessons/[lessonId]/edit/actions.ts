@@ -20,7 +20,9 @@ async function verifyLessonOwnership(lessonId: string) {
     },
   });
 
-  if (!lesson || lesson.module.course.instructorId !== session.user.id) {
+  const isAdminOrInstructor = session.user.role === 'ADMIN' || session.user.role === 'INSTRUCTOR';
+
+  if (!lesson || (!isAdminOrInstructor && lesson.module.course.instructorId !== session.user.id)) {
     throw new Error('Lesson not found or access denied');
   }
 

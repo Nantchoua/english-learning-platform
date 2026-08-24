@@ -24,8 +24,10 @@ export default async function CourseEditorPage({
   const { publishError } = await searchParams;
 
 
+  const isAdminOrInstructor = session.user.role === 'ADMIN' || session.user.role === 'INSTRUCTOR';
+  
   const course = await db.course.findFirst({
-    where: { id, instructorId: session.user.id },
+    where: isAdminOrInstructor ? { id } : { id, instructorId: session.user.id },
     include: {
       modules: {
         orderBy: { order: 'asc' },
