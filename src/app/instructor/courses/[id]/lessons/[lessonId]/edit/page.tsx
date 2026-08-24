@@ -113,9 +113,9 @@ export default async function LessonEditorPage({
                 <input type="hidden" name="videoUrl" value={lesson.videoUrl ?? ''} />
                 <input type="hidden" name="isFree" value={lesson.isFree ? 'on' : ''} />
                 <input type="hidden" name="isPublished" value={lesson.isPublished ? 'on' : ''} />
-                <textarea name="content" defaultValue={lesson.content ?? ''} rows={16}
+                 <textarea name="content" defaultValue={lesson.content ?? ''} rows={16}
                   placeholder={`Write your lesson content here using Markdown...\n\n# Introduction\n\nYour lesson content goes here.\n\n## Key Points\n- Point 1\n- Point 2`}
-                  className="w-full border border-slate-300 rounded-md px-4 py-3 text-sm font-mono focus:ring-[#0056D2] focus:border-[#0056D2] resize-none" />
+                  className="w-full border border-slate-300 rounded-md px-4 py-3 text-sm font-mono focus:ring-[#0056D2] focus:border-[#0056D2] resize-none text-slate-900" />
                 <div className="flex justify-end mt-4">
                   <button type="submit"
                     className="bg-[#0056D2] hover:bg-blue-700 text-white px-6 py-2 rounded-md text-sm font-medium transition">
@@ -147,13 +147,13 @@ export default async function LessonEditorPage({
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
                 <input type="text" name="title" defaultValue={lesson.title} required
-                  className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-[#0056D2] focus:border-[#0056D2]" />
+                  className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-[#0056D2] focus:border-[#0056D2] text-slate-900" />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
                 <textarea name="description" defaultValue={lesson.description ?? ''} rows={3}
-                  className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-[#0056D2] focus:border-[#0056D2]"
+                  className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-[#0056D2] focus:border-[#0056D2] text-slate-900"
                   placeholder="Short description of this lesson..." />
               </div>
 
@@ -162,7 +162,7 @@ export default async function LessonEditorPage({
                   <Video className="w-3.5 h-3.5" /> Video URL
                 </label>
                 <input type="url" name="videoUrl" defaultValue={lesson.videoUrl ?? ''}
-                  className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-[#0056D2] focus:border-[#0056D2]"
+                  className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-[#0056D2] focus:border-[#0056D2] text-slate-900"
                   placeholder="https://youtube.com/watch?v=..." />
                 <p className="text-xs text-slate-400 mt-1">YouTube URLs are supported.</p>
               </div>

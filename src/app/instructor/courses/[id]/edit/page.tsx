@@ -116,17 +116,17 @@ export default async function CourseEditorPage({
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
                 <input type="text" name="title" defaultValue={course.title} required
-                  className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-[#0056D2] focus:border-[#0056D2]" />
+                  className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-[#0056D2] focus:border-[#0056D2] text-slate-900" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
                 <textarea name="description" defaultValue={course.description ?? ''} rows={4}
-                  className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-[#0056D2] focus:border-[#0056D2]" />
+                  className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-[#0056D2] focus:border-[#0056D2] text-slate-900" />
               </div>
                <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Level</label>
                 <select name="level" defaultValue={course.level}
-                  className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm">
+                  className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900">
                   <option value="A1">A1 – Beginner</option>
                   <option value="A2">A2 – Elementary</option>
                   <option value="B1">B1 – Intermediate</option>
@@ -144,7 +144,7 @@ export default async function CourseEditorPage({
                   min="0"
                   defaultValue={course.price ?? 0}
                   placeholder="0.00 for free course"
-                  className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-[#0056D2] focus:border-[#0056D2]"
+                  className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-[#0056D2] focus:border-[#0056D2] text-slate-900"
                 />
               </div>
               <button type="submit"
