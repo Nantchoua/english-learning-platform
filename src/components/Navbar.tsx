@@ -10,23 +10,28 @@ export default async function Navbar() {
   return (
     <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 font-bold text-[#0056D2] text-xl">
-          <BookOpen className="w-6 h-6" />
-          EnglishPro
+        <Link href="/" className="flex items-center gap-2">
+          <img src="/logo.svg" alt="Speaking Express" className="h-8 w-auto" />
         </Link>
 
         <div className="flex items-center gap-6">
-          <Link href="/" className="text-sm text-slate-600 hover:text-[#0056D2] transition font-medium">
+          <Link href="/" className="text-sm text-slate-600 hover:text-emerald-600 transition font-medium">
             Courses
           </Link>
 
           {session ? (
             <>
               {role === 'INSTRUCTOR' || role === 'ADMIN' ? (
-                <Link href="/instructor/courses"
-                  className="text-sm text-slate-600 hover:text-[#0056D2] transition font-medium flex items-center gap-1">
-                  <LayoutDashboard className="w-4 h-4" /> Teach
-                </Link>
+                <>
+                  <Link href="/instructor/verifications"
+                    className="text-sm text-slate-650 hover:text-emerald-600 transition font-semibold flex items-center gap-1">
+                    Approvals
+                  </Link>
+                  <Link href="/instructor/courses"
+                    className="text-sm text-slate-600 hover:text-emerald-600 transition font-medium flex items-center gap-1">
+                    <LayoutDashboard className="w-4 h-4" /> Teach
+                  </Link>
+                </>
               ) : null}
               <Link href="/dashboard"
                 className="text-sm text-slate-600 hover:text-[#0056D2] transition font-medium">
