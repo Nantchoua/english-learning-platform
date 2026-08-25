@@ -56,6 +56,10 @@ export default async function CheckoutPage({
     redirect(`/dashboard`);
   }
 
+  // Fetch the registration fee from settings
+  const regFeeSetting = await db.setting.findUnique({ where: { key: 'registration_fee' } });
+  const registrationFee = regFeeSetting ? parseFloat(regFeeSetting.value) : 20.00;
+
   // Check if the user is already pending approval
   const isRegistrationPending = user.registrationFeePending === true;
   const isEnrollmentPending = !!(enrollment && (enrollment.status === 'PENDING' || enrollment.status === 'PENDING_INSTALLMENT_2'));
@@ -72,7 +76,7 @@ export default async function CheckoutPage({
     checkoutTitle = 'Registration Pending Approval';
     checkoutDesc = `Your registration payment proof is currently under review. Reference: "${user.registrationFeeReference}"`;
     orderItemTitle = 'Student Registration Fee';
-    orderItemPrice = 20.00;
+    orderItemPrice = registrationFee;
   } else if (isEnrollmentPending) {
     checkoutTitle = 'Course Purchase Pending Approval';
     checkoutDesc = `Your Revolut payment reference "${enrollment?.revolutReference}" is pending verification by the instructor.`;
@@ -80,15 +84,16 @@ export default async function CheckoutPage({
     orderItemPrice = enrollment?.paymentType === 'INSTALLMENT' ? course.price / 2 : course.price;
   } else if (needsRegistrationFee) {
     checkoutTitle = 'Pay Registration Fee';
-    checkoutDesc = 'You must pay a one-time registration fee of €20.00 before enrolling in any courses.';
+    checkoutDesc = `You must pay a one-time registration fee of €${registrationFee.toFixed(2)} before enrolling in any courses.`;
     orderItemTitle = 'Student Registration Fee';
-    orderItemPrice = 20.00;
+    orderItemPrice = registrationFee;
   } else if (isPayingInstallment2) {
     checkoutTitle = 'Pay Final Installment';
     checkoutDesc = 'Complete the remaining 50% installment payment to fully unlock this course.';
     orderItemTitle = `${course.title} (Installment 2/2)`;
     orderItemPrice = course.price / 2;
   }
+
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
@@ -117,7 +122,9 @@ export default async function CheckoutPage({
                 needsRegistrationFee={needsRegistrationFee}
                 isPayingInstallment2={isPayingInstallment2}
                 coursePrice={course.price}
+                registrationFee={registrationFee}
               />
+
             )}
           </div>
         </div>

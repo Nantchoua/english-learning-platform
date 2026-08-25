@@ -10,6 +10,7 @@ type CheckoutFormProps = {
   needsRegistrationFee: boolean;
   isPayingInstallment2: boolean;
   coursePrice: number;
+  registrationFee?: number;
 };
 
 export default function CheckoutForm({
@@ -18,6 +19,7 @@ export default function CheckoutForm({
   needsRegistrationFee,
   isPayingInstallment2,
   coursePrice,
+  registrationFee = 20.00,
 }: CheckoutFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -31,18 +33,19 @@ export default function CheckoutForm({
   const revolutUsername = '@nantchoua'; 
 
   const getChargeAmount = () => {
-    if (needsRegistrationFee) return '20.00';
+    if (needsRegistrationFee) return registrationFee.toFixed(2);
     if (isPayingInstallment2) return installmentAmount;
     return paymentType === 'INSTALLMENT' ? installmentAmount : coursePrice.toFixed(2);
   };
 
   const getChargeDescription = () => {
-    if (needsRegistrationFee) return 'One-time Student Registration Fee (€20.00)';
+    if (needsRegistrationFee) return `One-time Student Registration Fee (€${registrationFee.toFixed(2)})`;
     if (isPayingInstallment2) return `Final 50% Installment (€${installmentAmount})`;
     return paymentType === 'INSTALLMENT'
       ? `First Installment (€${installmentAmount})`
       : `Full Course Payment (€${coursePrice.toFixed(2)})`;
   };
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

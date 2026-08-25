@@ -1,10 +1,8 @@
-import Navbar from '@/components/Navbar';
 import Link from 'next/link';
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-      <Navbar />
 
       <main className="flex-grow max-w-4xl w-full mx-auto px-6 py-16 space-y-12">
         {/* Hero Section */}

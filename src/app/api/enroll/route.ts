@@ -30,17 +30,22 @@ export async function POST(req: NextRequest) {
       data: { registrationFeePaid: true },
     });
 
+    const regFeeSetting = await db.setting.findUnique({ where: { key: 'registration_fee' } });
+    const registrationFee = regFeeSetting ? parseFloat(regFeeSetting.value) : 20.00;
+
     await sendEmailSimulated({
       userId,
       toEmail: email,
       subject: 'Receipt: Student Registration Fee Paid',
-      body: `Hello ${name},\n\nWe have successfully received your one-time Student Registration Fee payment of €20.00.\n\nYou can now proceed to purchase your courses!\n\nBest regards,\nThe EnglishPro Team`,
+      body: `Hello ${name},\n\nWe have successfully received your one-time Student Registration Fee payment of €${registrationFee.toFixed(2)}.\n\nYou can now proceed to purchase your courses!\n\nBest regards,\nThe EnglishPro Team`,
       type: 'REGISTRATION',
     });
 
     const slug = formData.get('slug') as string;
-    return NextResponse.redirect(new URL(`/courses/${slug}/checkout`, req.url));
+    // Redirect back to checkout or dashboard if slug isn't provided
+    return NextResponse.redirect(new URL(slug ? `/courses/${slug}/checkout` : '/dashboard', req.url));
   }
+
 
   // 2. Action: Pay Second Installment
   if (action === 'pay-second-installment') {

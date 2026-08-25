@@ -65,7 +65,6 @@ export default async function CourseEditorPage({
             </span>
             <Link
               href={`/courses/${course.slug}`}
-              target="_blank"
               className="flex items-center gap-1.5 border border-slate-300 hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-md font-medium text-sm transition"
             >
               <ExternalLink className="w-4 h-4" /> Preview Course

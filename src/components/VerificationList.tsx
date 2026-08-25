@@ -92,8 +92,9 @@ export default function VerificationList({
           {registrations.length > 0 && (
             <div className="space-y-4">
               <h3 className="text-sm font-bold text-slate-600 uppercase tracking-wider">
-                Pending Registration Fees (€20.00)
+                Pending Registration Fees
               </h3>
+
               <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden divide-y divide-slate-100">
                 {registrations.map((reg) => (
                   <div key={reg.id} className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
