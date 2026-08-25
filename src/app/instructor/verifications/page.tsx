@@ -20,17 +20,20 @@ export default async function VerificationsDashboardPage() {
     notFound();
   }
 
-  // Fetch or create registration fee setting
-  let regFeeSetting = await db.setting.findUnique({ where: { key: 'registration_fee' } });
-  if (!regFeeSetting) {
-    try {
+  // Fetch or create registration fee setting safely
+  let regFeeSetting = null;
+  try {
+    regFeeSetting = await db.setting.findUnique({ where: { key: 'registration_fee' } });
+    if (!regFeeSetting) {
       regFeeSetting = await db.setting.create({
         data: { key: 'registration_fee', value: '20.00' }
       });
-    } catch (e) {
-      regFeeSetting = { key: 'registration_fee', value: '20.00' };
     }
+  } catch (e) {
+    console.error('Failed to fetch/create registration_fee setting:', e);
+    regFeeSetting = { key: 'registration_fee', value: '20.00' };
   }
+
 
   async function updateFeeAction(formData: FormData) {
     'use server';

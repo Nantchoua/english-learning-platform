@@ -40,11 +40,17 @@ export default async function RegistrationFeePage() {
     redirect('/dashboard');
   }
 
-  // Fetch current fee from Settings database
-  const regFeeSetting = await db.setting.findUnique({
-    where: { key: 'registration_fee' }
-  });
+  // Fetch current fee from Settings database safely
+  let regFeeSetting = null;
+  try {
+    regFeeSetting = await db.setting.findUnique({
+      where: { key: 'registration_fee' }
+    });
+  } catch (e) {
+    console.error('Failed to fetch registration fee setting:', e);
+  }
   const fee = regFeeSetting ? parseFloat(regFeeSetting.value) : 20.00;
+
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center px-4 py-12">

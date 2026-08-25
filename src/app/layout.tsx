@@ -40,24 +40,25 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const session = await getServerSession(authOptions);
   if (session?.user?.id) {
     const isPublic = isPublicPath(pathname);
-    if (!isPublic) {
-      const user = await db.user.findUnique({
+    let user = null;
+    try {
+      user = await db.user.findUnique({
         where: { id: session.user.id },
         select: { role: true, registrationFeePaid: true }
       });
-      if (user && user.role === 'STUDENT' && !user.registrationFeePaid) {
+    } catch (e) {
+      console.error('Failed to fetch user in layout:', e);
+    }
+
+    if (user) {
+      if (!isPublic && user.role === 'STUDENT' && !user.registrationFeePaid) {
         redirect('/registration-fee');
-      }
-    } else if (pathname === '/registration-fee') {
-      const user = await db.user.findUnique({
-        where: { id: session.user.id },
-        select: { role: true, registrationFeePaid: true }
-      });
-      if (user && (user.role !== 'STUDENT' || user.registrationFeePaid)) {
+      } else if (pathname === '/registration-fee' && (user.role !== 'STUDENT' || user.registrationFeePaid)) {
         redirect('/dashboard');
       }
     }
   }
+
 
   return (
     <html

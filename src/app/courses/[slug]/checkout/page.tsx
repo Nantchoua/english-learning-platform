@@ -56,9 +56,15 @@ export default async function CheckoutPage({
     redirect(`/dashboard`);
   }
 
-  // Fetch the registration fee from settings
-  const regFeeSetting = await db.setting.findUnique({ where: { key: 'registration_fee' } });
+  // Fetch the registration fee from settings safely
+  let regFeeSetting = null;
+  try {
+    regFeeSetting = await db.setting.findUnique({ where: { key: 'registration_fee' } });
+  } catch (e) {
+    console.error('Failed to fetch registration fee setting:', e);
+  }
   const registrationFee = regFeeSetting ? parseFloat(regFeeSetting.value) : 20.00;
+
 
   // Check if the user is already pending approval
   const isRegistrationPending = user.registrationFeePending === true;
