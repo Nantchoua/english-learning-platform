@@ -10,6 +10,8 @@ import {
 } from 'lucide-react';
 import QuizViewer from '@/components/QuizViewer';
 import DiscussionForum from '@/components/DiscussionForum';
+import SpeakingPracticeStudio from '@/components/SpeakingPracticeStudio';
+
 
 export default async function LessonViewerPage({
   params,
@@ -224,8 +226,15 @@ export default async function LessonViewerPage({
               )}
             </div>
 
+            {/* Interactive Speaking & Pronunciation Practice Studio */}
+            <SpeakingPracticeStudio
+              lessonTitle={currentLesson.title}
+              lessonContent={currentLesson.content}
+            />
+
             {/* Lesson written content */}
             {currentLesson.content && (
+
               <div className="bg-slate-800 rounded-xl p-6 mb-8 border border-slate-700">
                 <div className="flex items-center gap-2 text-slate-400 text-sm mb-4">
                   <FileText className="w-4 h-4" /> Lesson Notes
