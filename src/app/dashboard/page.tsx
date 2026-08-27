@@ -94,10 +94,11 @@ export default async function DashboardPage() {
             <BookOpen className="w-12 h-12 mx-auto mb-4 text-slate-300" />
             <h3 className="text-lg font-semibold text-slate-700 mb-2">No courses yet</h3>
             <p className="text-slate-400 mb-6">Start learning by enrolling in a course.</p>
-            <Link href="/#courses"
+            <Link href="/courses"
               className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-md font-medium transition inline-block">
               Browse Courses
             </Link>
+
 
           </div>
         ) : (

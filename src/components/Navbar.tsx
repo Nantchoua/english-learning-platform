@@ -21,9 +21,10 @@ export default async function Navbar() {
         </Link>
 
         <div className="flex items-center gap-6">
-          <Link href="/#courses" className="text-sm text-slate-600 hover:text-emerald-600 transition font-medium">
+          <Link href="/courses" className="text-sm text-slate-600 hover:text-emerald-600 transition font-medium">
             Courses
           </Link>
+
 
           <Link href="/about" className="text-sm text-slate-600 hover:text-emerald-600 transition font-medium">
             About

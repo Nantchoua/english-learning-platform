@@ -26,12 +26,14 @@ export const metadata: Metadata = {
 };
 
 function isPublicPath(path: string) {
-  const publicPaths = ['/', '/about', '/login', '/register', '/registration-fee'];
+  const publicPaths = ['/', '/about', '/login', '/register', '/registration-fee', '/courses'];
   if (publicPaths.includes(path)) return true;
+  if (path.startsWith('/courses/')) return true;
   if (path.startsWith('/api/')) return true;
   if (path.startsWith('/_next/')) return true;
   return false;
 }
+
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const headersList = await headers();
