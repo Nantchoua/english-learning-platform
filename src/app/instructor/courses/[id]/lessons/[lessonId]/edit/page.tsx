@@ -5,6 +5,8 @@ import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Eye, EyeOff, BookOpen, Video, FileText, Gift } from 'lucide-react';
 import QuizBuilder from '@/components/QuizBuilder';
+import MarkdownEditor from '@/components/MarkdownEditor';
+
 
 export default async function LessonEditorPage({
   params,
@@ -98,33 +100,13 @@ export default async function LessonEditorPage({
             )}
           </div>
 
-          {/* Content Editor */}
-          <div className="bg-white rounded-xl border border-slate-200 shadow-sm">
-            <div className="flex items-center gap-2 px-6 py-4 border-b border-slate-100">
-              <FileText className="w-4 h-4 text-slate-500" />
-              <h2 className="font-semibold text-slate-800 text-sm">Lesson Content</h2>
-              <span className="text-xs text-slate-400 ml-1">(Markdown supported)</span>
-            </div>
-            <div className="p-6">
-              <form action="/api/instructor/update-lesson" method="POST">
-                <input type="hidden" name="lessonId" value={lesson.id} />
-                <input type="hidden" name="title" value={lesson.title} />
-                <input type="hidden" name="description" value={lesson.description ?? ''} />
-                <input type="hidden" name="videoUrl" value={lesson.videoUrl ?? ''} />
-                <input type="hidden" name="isFree" value={lesson.isFree ? 'on' : ''} />
-                <input type="hidden" name="isPublished" value={lesson.isPublished ? 'on' : ''} />
-                 <textarea name="content" defaultValue={lesson.content ?? ''} rows={16}
-                  placeholder={`Write your lesson content here using Markdown...\n\n# Introduction\n\nYour lesson content goes here.\n\n## Key Points\n- Point 1\n- Point 2`}
-                  className="w-full border border-slate-300 rounded-md px-4 py-3 text-sm font-mono focus:ring-[#0056D2] focus:border-[#0056D2] resize-none text-slate-900" />
-                <div className="flex justify-end mt-4">
-                  <button type="submit"
-                    className="bg-[#0056D2] hover:bg-blue-700 text-white px-6 py-2 rounded-md text-sm font-medium transition">
-                    Save Content
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
+          {/* Rich Content Editor with Live Preview */}
+          <MarkdownEditor
+            lessonId={lesson.id}
+            lessonTitle={lesson.title}
+            initialContent={lesson.content ?? ''}
+          />
+
 
           {/* Quiz Builder */}
           <QuizBuilder

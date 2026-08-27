@@ -115,10 +115,75 @@ export async function deleteLesson(formData: FormData) {
   redirect(`/instructor/courses/${courseId}/edit`);
 }
 
+export async function moveModule(formData: FormData) {
+  const courseId = formData.get('courseId') as string;
+  const moduleId = formData.get('moduleId') as string;
+  const direction = formData.get('direction') as 'up' | 'down';
+  await verifyOwnership(courseId);
+
+  const modules = await db.module.findMany({
+    where: { courseId },
+    orderBy: { order: 'asc' },
+  });
+
+  const currentIndex = modules.findIndex((m) => m.id === moduleId);
+  if (currentIndex === -1) return;
+
+  const targetIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
+  if (targetIndex < 0 || targetIndex >= modules.length) return;
+
+  const currentMod = modules[currentIndex];
+  const targetMod = modules[targetIndex];
+
+  // Swap their orders in transaction
+  await db.$transaction([
+    db.module.update({ where: { id: currentMod.id }, data: { order: targetMod.order } }),
+    db.module.update({ where: { id: targetMod.id }, data: { order: currentMod.order } }),
+  ]);
+
+  revalidatePath(`/instructor/courses/${courseId}/edit`);
+}
+
+export async function moveLesson(formData: FormData) {
+  const courseId = formData.get('courseId') as string;
+  const lessonId = formData.get('lessonId') as string;
+  const direction = formData.get('direction') as 'up' | 'down';
+  await verifyOwnership(courseId);
+
+  const lesson = await db.lesson.findUnique({
+    where: { id: lessonId },
+    select: { moduleId: true, order: true },
+  });
+  if (!lesson) return;
+
+  const lessons = await db.lesson.findMany({
+    where: { moduleId: lesson.moduleId },
+    orderBy: { order: 'asc' },
+  });
+
+  const currentIndex = lessons.findIndex((l) => l.id === lessonId);
+  if (currentIndex === -1) return;
+
+  const targetIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
+  if (targetIndex < 0 || targetIndex >= lessons.length) return;
+
+  const currentLesson = lessons[currentIndex];
+  const targetLesson = lessons[targetIndex];
+
+  // Swap their orders in transaction
+  await db.$transaction([
+    db.lesson.update({ where: { id: currentLesson.id }, data: { order: targetLesson.order } }),
+    db.lesson.update({ where: { id: targetLesson.id }, data: { order: currentLesson.order } }),
+  ]);
+
+  revalidatePath(`/instructor/courses/${courseId}/edit`);
+}
+
 export async function deleteCourse(formData: FormData) {
   const courseId = formData.get('courseId') as string;
   await verifyOwnership(courseId);
   await db.course.delete({ where: { id: courseId } });
   redirect('/instructor/courses');
 }
+
 

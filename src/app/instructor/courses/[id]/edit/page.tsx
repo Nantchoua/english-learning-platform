@@ -5,10 +5,12 @@ import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import {
   Plus, Settings, Trash2, BookOpen, LayoutDashboard, Eye, EyeOff,
-  CheckCircle2, Circle, AlertTriangle, ExternalLink,
+  CheckCircle2, Circle, AlertTriangle, ExternalLink, ChevronUp, ChevronDown,
+  FileText, Video, Gift
 } from 'lucide-react';
-import { updateCourse, togglePublish } from './actions';
+import { updateCourse, togglePublish, moveModule, moveLesson } from './actions';
 import DeleteCourseButton from '@/components/DeleteCourseButton';
+
 
 export default async function CourseEditorPage({
   params,
@@ -219,15 +221,48 @@ export default async function CourseEditorPage({
               </div>
             ) : (
               <div className="space-y-4">
-                {course.modules.map((mod: any) => (
-                  <div key={mod.id} className="border border-slate-200 rounded-lg overflow-hidden">
+                {course.modules.map((mod: any, modIdx: number) => (
+                  <div key={mod.id} className="border border-slate-200 rounded-lg overflow-hidden bg-white shadow-2xs">
                     {/* Module Header */}
-                    <div className="bg-slate-50 px-4 py-3 flex items-center justify-between">
-                      <span className="font-medium text-slate-800 text-sm">{mod.title}</span>
+                    <div className="bg-slate-50 px-4 py-3 flex items-center justify-between border-b border-slate-100">
+                      <div className="flex items-center gap-2">
+                        {/* Module Reorder buttons */}
+                        <div className="flex items-center gap-0.5">
+                          <form action={moveModule}>
+                            <input type="hidden" name="courseId" value={course.id} />
+                            <input type="hidden" name="moduleId" value={mod.id} />
+                            <input type="hidden" name="direction" value="up" />
+                            <button
+                              type="submit"
+                              disabled={modIdx === 0}
+                              title="Move Module Up"
+                              className="p-1 rounded hover:bg-slate-200 text-slate-500 disabled:opacity-20 disabled:hover:bg-transparent transition cursor-pointer"
+                            >
+                              <ChevronUp className="w-3.5 h-3.5" />
+                            </button>
+                          </form>
+                          <form action={moveModule}>
+                            <input type="hidden" name="courseId" value={course.id} />
+                            <input type="hidden" name="moduleId" value={mod.id} />
+                            <input type="hidden" name="direction" value="down" />
+                            <button
+                              type="submit"
+                              disabled={modIdx === course.modules.length - 1}
+                              title="Move Module Down"
+                              className="p-1 rounded hover:bg-slate-200 text-slate-500 disabled:opacity-20 disabled:hover:bg-transparent transition cursor-pointer"
+                            >
+                              <ChevronDown className="w-3.5 h-3.5" />
+                            </button>
+                          </form>
+                        </div>
+                        <span className="font-bold text-slate-800 text-sm">{mod.title}</span>
+                        <span className="text-xs text-slate-400">({mod.lessons.length} {mod.lessons.length === 1 ? 'lesson' : 'lessons'})</span>
+                      </div>
+
                       <form action="/api/instructor/delete-module" method="POST">
                         <input type="hidden" name="courseId" value={course.id} />
                         <input type="hidden" name="moduleId" value={mod.id} />
-                        <button type="submit" className="text-slate-400 hover:text-red-500 transition p-1">
+                        <button type="submit" title="Delete Module" className="text-slate-400 hover:text-red-500 transition p-1">
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </form>
@@ -235,17 +270,71 @@ export default async function CourseEditorPage({
 
                     {/* Lessons */}
                     <div className="p-3 space-y-2">
-                      {mod.lessons.map((lesson: any) => (
-                        <div key={lesson.id} className="flex items-center justify-between bg-white border border-slate-200 rounded px-3 py-2 group">
-                          <Link href={`/instructor/courses/${course.id}/lessons/${lesson.id}/edit`}
-                            className="text-sm text-slate-700 hover:text-[#0056D2] hover:underline flex-1">
-                            {lesson.title}
-                          </Link>
-                          <form action="/api/instructor/delete-lesson" method="POST">
+                      {mod.lessons.map((lesson: any, lesIdx: number) => (
+                        <div key={lesson.id} className="flex items-center justify-between bg-slate-50/50 hover:bg-slate-50 border border-slate-200 rounded-lg px-3 py-2.5 group transition">
+                          <div className="flex items-center gap-2 flex-1 min-w-0">
+                            {/* Lesson Reorder Buttons */}
+                            <div className="flex items-center gap-0.5">
+                              <form action={moveLesson}>
+                                <input type="hidden" name="courseId" value={course.id} />
+                                <input type="hidden" name="lessonId" value={lesson.id} />
+                                <input type="hidden" name="direction" value="up" />
+                                <button
+                                  type="submit"
+                                  disabled={lesIdx === 0}
+                                  title="Move Lesson Up"
+                                  className="p-0.5 rounded hover:bg-slate-200 text-slate-400 disabled:opacity-20 disabled:hover:bg-transparent transition"
+                                >
+                                  <ChevronUp className="w-3 h-3" />
+                                </button>
+                              </form>
+                              <form action={moveLesson}>
+                                <input type="hidden" name="courseId" value={course.id} />
+                                <input type="hidden" name="lessonId" value={lesson.id} />
+                                <input type="hidden" name="direction" value="down" />
+                                <button
+                                  type="submit"
+                                  disabled={lesIdx === mod.lessons.length - 1}
+                                  title="Move Lesson Down"
+                                  className="p-0.5 rounded hover:bg-slate-200 text-slate-400 disabled:opacity-20 disabled:hover:bg-transparent transition"
+                                >
+                                  <ChevronDown className="w-3 h-3" />
+                                </button>
+                              </form>
+                            </div>
+
+                            {lesson.videoUrl ? (
+                              <Video className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                            ) : (
+                              <FileText className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                            )}
+
+                            <Link href={`/instructor/courses/${course.id}/lessons/${lesson.id}/edit`}
+                              className="text-sm font-medium text-slate-700 hover:text-[#0056D2] truncate flex-1">
+                              {lesson.title}
+                            </Link>
+
+                            <div className="flex items-center gap-1.5 shrink-0">
+                              {lesson.isFree && (
+                                <span className="bg-blue-50 text-blue-600 border border-blue-100 text-[10px] font-bold px-1.5 py-0.5 rounded">
+                                  Free Preview
+                                </span>
+                              )}
+                              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                                lesson.isPublished
+                                  ? 'bg-green-50 text-green-700 border border-green-200'
+                                  : 'bg-yellow-50 text-yellow-700 border border-yellow-200'
+                              }`}>
+                                {lesson.isPublished ? 'Published' : 'Draft'}
+                              </span>
+                            </div>
+                          </div>
+
+                          <form action="/api/instructor/delete-lesson" method="POST" className="ml-3">
                             <input type="hidden" name="courseId" value={course.id} />
                             <input type="hidden" name="lessonId" value={lesson.id} />
-                            <button type="submit" className="text-slate-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100">
-                              <Trash2 className="w-4 h-4" />
+                            <button type="submit" title="Delete Lesson" className="text-slate-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100 p-1">
+                              <Trash2 className="w-3.5 h-3.5" />
                             </button>
                           </form>
                         </div>
@@ -266,6 +355,7 @@ export default async function CourseEditorPage({
                   </div>
                 ))}
               </div>
+
             )}
           </div>
         </div>
