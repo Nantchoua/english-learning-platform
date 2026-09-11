@@ -127,7 +127,7 @@ export default async function CourseDetailPage({
                     <div className="space-y-1 text-center">
                       <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block">Tuition Cost</span>
                       <div className="flex items-baseline justify-center gap-1.5">
-                        <span className="text-4xl font-black text-slate-900">€{course.price?.toFixed(2)}</span>
+                        <span className="text-4xl font-black text-slate-900">€{(course.price ?? 0).toFixed(2)}</span>
                         <span className="text-xs text-slate-400 font-semibold">one-time</span>
                       </div>
                     </div>

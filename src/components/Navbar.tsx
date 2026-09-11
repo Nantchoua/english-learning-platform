@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { LogOut, LogIn, UserCircle } from 'lucide-react';
+import { LogIn, UserCircle } from 'lucide-react';
 import { headers } from 'next/headers';
+import SignOutButton from '@/components/SignOutButton';
 
 export default async function Navbar() {
   const session = await getServerSession(authOptions);
@@ -59,10 +60,7 @@ export default async function Navbar() {
                 className="text-sm text-slate-600 hover:text-[#0056D2] transition font-medium flex items-center gap-1">
                 <UserCircle className="w-4 h-4" /> Profile
               </Link>
-              <Link href="/api/auth/signout"
-                className="flex items-center gap-1 text-sm text-slate-500 hover:text-red-500 transition">
-                <LogOut className="w-4 h-4" /> Sign out
-              </Link>
+              <SignOutButton />
             </>
           ) : (
             <Link href="/login"

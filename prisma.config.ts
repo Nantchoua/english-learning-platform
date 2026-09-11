@@ -11,7 +11,7 @@ export default defineConfig({
   },
   datasource: {
     url: process.env["DIRECT_URL"],
-    // @ts-ignore
+    // @ts-expect-error Prisma config directUrl typing
     directUrl: process.env["DIRECT_URL"],
   },
 });

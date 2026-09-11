@@ -160,7 +160,7 @@ export default function MarkdownEditor({
       let tableHtml = '';
       const processedLines = [];
 
-      for (let line of lines) {
+      for (const line of lines) {
         if (line.trim().startsWith('|') && line.trim().endsWith('|')) {
           if (!inTable) {
             inTable = true;

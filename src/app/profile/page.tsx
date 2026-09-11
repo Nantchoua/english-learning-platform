@@ -12,7 +12,7 @@ const MESSAGES: Record<string, { type: 'success' | 'error'; text: string }> = {
   // errors
   'error=name-empty':         { type: 'error',   text: 'Name cannot be empty.' },
   'error=password-missing':   { type: 'error',   text: 'Please fill in all password fields.' },
-  'error=password-short':     { type: 'error',   text: 'New password must be at least 6 characters.' },
+  'error=password-short':     { type: 'error',   text: 'New password must be at least 8 characters.' },
   'error=password-mismatch':  { type: 'error',   text: 'New passwords do not match.' },
   'error=password-wrong':     { type: 'error',   text: 'Current password is incorrect.' },
   'error=password-none':      { type: 'error',   text: 'No password set for this account.' },
@@ -143,8 +143,8 @@ export default async function ProfilePage({
                 type="password"
                 name="newPassword"
                 required
-                minLength={6}
-                placeholder="At least 6 characters"
+                minLength={8}
+                placeholder="At least 8 characters"
                 className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#0056D2] focus:border-[#0056D2] outline-none transition"
               />
             </div>
@@ -155,7 +155,7 @@ export default async function ProfilePage({
                 type="password"
                 name="confirmPassword"
                 required
-                minLength={6}
+                minLength={8}
                 placeholder="Repeat new password"
                 className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#0056D2] focus:border-[#0056D2] outline-none transition"
               />

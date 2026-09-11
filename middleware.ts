@@ -9,7 +9,9 @@ export async function middleware(req: NextRequest) {
 
   if (isInstructorPath) {
     if (!token) {
-      return NextResponse.redirect(new URL('/login', req.url));
+      const loginUrl = new URL('/login', req.url);
+      loginUrl.searchParams.set('callbackUrl', pathname);
+      return NextResponse.redirect(loginUrl);
     }
     if (token.role !== 'INSTRUCTOR' && token.role !== 'ADMIN') {
       return NextResponse.redirect(new URL('/', req.url));

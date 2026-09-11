@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     if (!currentPassword || !newPassword || !confirmPassword) {
       return NextResponse.redirect(new URL('/profile?error=password-missing', req.url));
     }
-    if (newPassword.length < 6) {
+    if (newPassword.length < 8) {
       return NextResponse.redirect(new URL('/profile?error=password-short', req.url));
     }
     if (newPassword !== confirmPassword) {

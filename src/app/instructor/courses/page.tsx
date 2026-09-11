@@ -3,11 +3,17 @@ import { db } from '@/lib/prisma';
 import { Plus, Edit } from 'lucide-react';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import { redirect } from 'next/navigation';
 
 export default async function InstructorDashboard() {
   const session = await getServerSession(authOptions);
-  
+  if (!session?.user?.id) redirect('/login');
+
+  const isAdmin = session.user.role === 'ADMIN';
+
   const courses = await db.course.findMany({
+    // ADMIN sees all courses; INSTRUCTOR only sees their own
+    where: isAdmin ? undefined : { instructorId: session.user.id },
     orderBy: { createdAt: 'desc' }
   });
 

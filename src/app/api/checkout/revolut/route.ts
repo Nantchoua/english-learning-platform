@@ -45,20 +45,35 @@ export async function POST(req: NextRequest) {
 
     // 2. Action: Pay Second Installment
     if (action === 'pay-second-installment') {
-      await db.enrollment.update({
-        where: { userId_courseId: { userId, courseId } },
-        data: {
-          status: 'PENDING_INSTALLMENT_2',
-          revolutReference: revolutReference,
-        },
-      });
+      if (!courseId) {
+        return new NextResponse('Course ID is required', { status: 400 });
+      }
 
       const course = await db.course.findUnique({ where: { id: courseId }, select: { title: true } });
+      if (!course) {
+        return new NextResponse('Course not found', { status: 404 });
+      }
+
+      await db.enrollment.upsert({
+        where: { userId_courseId: { userId, courseId } },
+        update: {
+          status: 'PENDING_INSTALLMENT_2',
+          revolutReference: revolutReference.trim(),
+        },
+        create: {
+          userId,
+          courseId,
+          paymentType: 'INSTALLMENT',
+          installmentsPaid: 1,
+          status: 'PENDING_INSTALLMENT_2',
+          revolutReference: revolutReference.trim(),
+        }
+      });
 
       await sendEmailSimulated({
         userId,
         toEmail: 'sarah@example.com',
-        subject: `ACTION REQUIRED: Second Installment Verification for ${course?.title}`,
+        subject: `ACTION REQUIRED: Second Installment Verification for ${course.title}`,
         body: `Hello Nantchoua,\n\nStudent ${user.name} (${user.email}) has submitted their second installment payment proof via Revolut.\n\nReference: "${revolutReference}"\n\nPlease approve their final access in the Admin panel.\n\nBest regards,\nPlatform System`,
         type: 'INSTALLMENT',
       });
@@ -67,32 +82,39 @@ export async function POST(req: NextRequest) {
     }
 
     // 3. Action: Standard Course Enrollment (Full Price or Installment 1)
+    if (!courseId) {
+      return new NextResponse('Course ID is required', { status: 400 });
+    }
+
+    const course = await db.course.findUnique({ where: { id: courseId }, select: { title: true } });
+    if (!course) {
+      return new NextResponse('Course not found', { status: 404 });
+    }
+
     const isInstallment = paymentType === 'INSTALLMENT';
     await db.enrollment.upsert({
       where: { userId_courseId: { userId, courseId } },
       update: {
-        paymentType,
+        paymentType: paymentType || 'FULL',
         installmentsPaid: 1,
         status: 'PENDING',
-        revolutReference: revolutReference,
+        revolutReference: revolutReference.trim(),
       },
       create: {
         userId,
         courseId,
-        paymentType,
+        paymentType: paymentType || 'FULL',
         installmentsPaid: 1,
         status: 'PENDING',
-        revolutReference: revolutReference,
+        revolutReference: revolutReference.trim(),
       }
     });
-
-    const course = await db.course.findUnique({ where: { id: courseId }, select: { title: true } });
 
     await sendEmailSimulated({
       userId,
       toEmail: 'sarah@example.com',
-      subject: `ACTION REQUIRED: Course Enrollment Verification for ${course?.title}`,
-      body: `Hello Nantchoua,\n\nStudent ${user.name} (${user.email}) has requested enrollment in: "${course?.title}" via Revolut.\n\nReference: "${revolutReference}"\n\nPlease verify and approve their access from the Admin panel.\n\nBest regards,\nPlatform System`,
+      subject: `ACTION REQUIRED: Course Enrollment Verification for ${course.title}`,
+      body: `Hello Nantchoua,\n\nStudent ${user.name} (${user.email}) has requested enrollment in: "${course.title}" via Revolut.\n\nReference: "${revolutReference}"\n\nPlease verify and approve their access from the Admin panel.\n\nBest regards,\nPlatform System`,
       type: 'ENROLLMENT',
     });
 

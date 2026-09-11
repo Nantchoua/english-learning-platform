@@ -6,7 +6,7 @@ type SendEmailParams = {
   toEmail: string;
   subject: string;
   body: string;
-  type: 'REGISTRATION' | 'ENROLLMENT' | 'INSTALLMENT';
+  type: 'REGISTRATION' | 'ENROLLMENT' | 'INSTALLMENT' | 'SECURITY_ALERT';
 };
 
 // Lazily create the transporter only if SMTP config is present

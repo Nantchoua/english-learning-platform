@@ -26,6 +26,7 @@ export const metadata: Metadata = {
 };
 
 function isPublicPath(path: string) {
+  if (!path) return true;
   const publicPaths = ['/', '/about', '/login', '/register', '/registration-fee', '/courses'];
   if (publicPaths.includes(path)) return true;
   if (path.startsWith('/courses/')) return true;
@@ -52,8 +53,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       console.error('Failed to fetch user in layout:', e);
     }
 
-    if (user) {
-      if (!isPublic && user.role === 'STUDENT' && !user.registrationFeePaid) {
+    if (user && pathname) {
+      if (!isPublic && pathname !== '/registration-fee' && user.role === 'STUDENT' && !user.registrationFeePaid) {
         redirect('/registration-fee');
       } else if (pathname === '/registration-fee' && (user.role !== 'STUDENT' || user.registrationFeePaid)) {
         redirect('/dashboard');
