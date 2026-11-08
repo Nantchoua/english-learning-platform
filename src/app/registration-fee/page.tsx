@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { db } from '@/lib/prisma';
 import RegistrationFeeForm from './RegistrationFeeForm';
 import Link from 'next/link';
+import SignOutButton from '@/components/SignOutButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -81,10 +82,10 @@ export default async function RegistrationFeePage() {
           initialPending={user.registrationFeePending}
         />
 
-        <div className="mt-8 text-center">
-          <Link href="/api/auth/signout" className="text-xs text-red-500 hover:text-red-700 font-medium">
+        <div className="mt-8 text-center flex justify-center">
+          <SignOutButton className="text-xs text-red-500 hover:text-red-700 font-medium cursor-pointer">
             Sign out of account
-          </Link>
+          </SignOutButton>
         </div>
       </div>
     </div>

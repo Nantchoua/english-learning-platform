@@ -4,12 +4,15 @@ import { authOptions } from '@/lib/auth';
 import { db } from '@/lib/prisma';
 
 // Helper to verify instructor ownership of the course containing this lesson
-async function verifyLessonOwnership(lessonId: string, userId: string) {
+async function verifyLessonOwnership(lessonId: string, userId: string, role?: string) {
   const lesson = await db.lesson.findUnique({
     where: { id: lessonId },
     include: { module: { include: { course: true } } },
   });
-  if (!lesson || lesson.module.course.instructorId !== userId) {
+  if (!lesson) {
+    throw new Error('Lesson not found');
+  }
+  if (role !== 'ADMIN' && lesson.module.course.instructorId !== userId) {
     throw new Error('Unauthorized');
   }
   return lesson;
@@ -29,7 +32,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
     }
 
-    await verifyLessonOwnership(lessonId, session.user.id);
+    await verifyLessonOwnership(lessonId, session.user.id, session.user.role);
 
     // Find or create the Quiz for this lesson
     let quiz = await db.quiz.findUnique({ where: { lessonId } });
@@ -74,7 +77,7 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ error: 'Missing parameters' }, { status: 400 });
     }
 
-    await verifyLessonOwnership(lessonId, session.user.id);
+    await verifyLessonOwnership(lessonId, session.user.id, session.user.role);
 
     await db.quizQuestion.delete({
       where: { id: questionId },

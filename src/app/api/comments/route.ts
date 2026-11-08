@@ -44,15 +44,21 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { lessonId, content, parentId } = body;
 
-    if (!lessonId || !content.trim()) {
+    if (!lessonId || typeof content !== 'string' || !content.trim()) {
       return NextResponse.json({ error: 'Missing content or lessonId' }, { status: 400 });
+    }
+
+    const { sanitizeInput } = await import('@/lib/security');
+    const cleanContent = sanitizeInput(content);
+    if (!cleanContent) {
+      return NextResponse.json({ error: 'Comment content cannot be empty' }, { status: 400 });
     }
 
     const comment = await db.comment.create({
       data: {
         lessonId,
         userId: session.user.id,
-        content,
+        content: cleanContent,
         parentId: parentId || null,
       },
       include: {

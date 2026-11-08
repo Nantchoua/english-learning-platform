@@ -76,7 +76,7 @@ export default async function CheckoutPage({
   let checkoutTitle = 'Payment Details';
   let checkoutDesc = 'Complete your payment using Revolut bank transfer.';
   let orderItemTitle = course.title;
-  let orderItemPrice = course.price;
+  let orderItemPrice: number = course.price ?? 0;
 
   if (isRegistrationPending) {
     checkoutTitle = 'Registration Pending Approval';
@@ -87,7 +87,7 @@ export default async function CheckoutPage({
     checkoutTitle = 'Course Purchase Pending Approval';
     checkoutDesc = `Your Revolut payment reference "${enrollment?.revolutReference}" is pending verification by the instructor.`;
     orderItemTitle = course.title;
-    orderItemPrice = enrollment?.paymentType === 'INSTALLMENT' ? course.price / 2 : course.price;
+    orderItemPrice = enrollment?.paymentType === 'INSTALLMENT' ? (course.price ?? 0) / 2 : (course.price ?? 0);
   } else if (needsRegistrationFee) {
     checkoutTitle = 'Pay Registration Fee';
     checkoutDesc = `You must pay a one-time registration fee of €${registrationFee.toFixed(2)} before enrolling in any courses.`;
@@ -97,7 +97,7 @@ export default async function CheckoutPage({
     checkoutTitle = 'Pay Final Installment';
     checkoutDesc = 'Complete the remaining 50% installment payment to fully unlock this course.';
     orderItemTitle = `${course.title} (Installment 2/2)`;
-    orderItemPrice = course.price / 2;
+    orderItemPrice = (course.price ?? 0) / 2;
   }
 
 
@@ -127,7 +127,7 @@ export default async function CheckoutPage({
                 slug={slug}
                 needsRegistrationFee={needsRegistrationFee}
                 isPayingInstallment2={isPayingInstallment2}
-                coursePrice={course.price}
+                coursePrice={course.price ?? 0}
                 registrationFee={registrationFee}
               />
 

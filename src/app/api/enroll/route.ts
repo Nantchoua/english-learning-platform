@@ -23,6 +23,10 @@ export async function POST(req: NextRequest) {
     select: { title: true, price: true },
   });
 
+  if (!course) {
+    return NextResponse.redirect(new URL('/dashboard', req.url));
+  }
+
   // 1. Action: Pay Registration Fee
   if (action === 'pay-registration-fee') {
     await db.user.update({

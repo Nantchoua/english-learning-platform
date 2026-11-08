@@ -1,4 +1,5 @@
 import Navbar from '@/components/Navbar';
+import Link from 'next/link';
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,8 +10,8 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
         <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-400">
           <div className="flex items-center gap-6">
             <span className="font-semibold text-slate-600">EnglishPro</span>
-            <a href="/" className="hover:text-[#0056D2] transition">Courses</a>
-            <a href="/dashboard" className="hover:text-[#0056D2] transition">My Learning</a>
+            <Link href="/" className="hover:text-[#0056D2] transition">Courses</Link>
+            <Link href="/dashboard" className="hover:text-[#0056D2] transition">My Learning</Link>
           </div>
           <p>© {new Date().getFullYear()} EnglishPro. All rights reserved.</p>
         </div>

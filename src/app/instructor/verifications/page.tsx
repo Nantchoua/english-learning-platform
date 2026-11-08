@@ -1,23 +1,18 @@
 import { db } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { notFound } from 'next/navigation';
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 import Navbar from '@/components/Navbar';
 import VerificationList from '@/components/VerificationList';
 import Link from 'next/link';
 
 export default async function VerificationsDashboardPage() {
   const session = await getServerSession(authOptions);
-  if (!session?.user?.id) notFound();
+  if (!session?.user?.id) redirect('/login');
 
-  // Load user details
-  const dbUser = await db.user.findUnique({
-    where: { id: session.user.id },
-    select: { role: true }
-  });
-
-  if (dbUser?.role !== 'ADMIN' && dbUser?.role !== 'INSTRUCTOR') {
-    notFound();
+  if (session.user.role !== 'ADMIN' && session.user.role !== 'INSTRUCTOR') {
+    redirect('/');
   }
 
   // Fetch or create registration fee setting safely
@@ -37,13 +32,16 @@ export default async function VerificationsDashboardPage() {
 
   async function updateFeeAction(formData: FormData) {
     'use server';
+    const actionSession = await getServerSession(authOptions);
+    if (!actionSession?.user?.id || (actionSession.user.role !== 'ADMIN' && actionSession.user.role !== 'INSTRUCTOR')) {
+      throw new Error('Unauthorized');
+    }
+
     const newFee = formData.get('registration_fee') as string;
     if (newFee) {
       const parsed = parseFloat(newFee);
       if (!isNaN(parsed) && parsed >= 0) {
-        const { revalidatePath } = require('next/cache');
-        const { db: actionDb } = require('@/lib/prisma');
-        await actionDb.setting.upsert({
+        await db.setting.upsert({
           where: { key: 'registration_fee' },
           update: { value: parsed.toFixed(2) },
           create: { key: 'registration_fee', value: parsed.toFixed(2) }

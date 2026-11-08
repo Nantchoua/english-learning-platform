@@ -84,6 +84,18 @@ export default function SpeakingPracticeStudio({
         ]);
       }
     }
+
+    return () => {
+      if (typeof window !== 'undefined' && window.speechSynthesis) {
+        try { window.speechSynthesis.cancel(); } catch {}
+      }
+      if (recognitionRef.current) {
+        try { recognitionRef.current.abort(); } catch {}
+      }
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+        try { mediaRecorderRef.current.stop(); } catch {}
+      }
+    };
   }, [lessonContent]);
 
   // Clean strings for comparison

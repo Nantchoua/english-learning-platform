@@ -1,11 +1,14 @@
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import bcrypt from 'bcryptjs';
 import { db } from './prisma';
 
+// NOTE: PrismaAdapter is intentionally NOT used here.
+// Using CredentialsProvider with strategy:'jwt' means sessions are stored
+// in signed JWTs, not in the database. Adding PrismaAdapter alongside
+// CredentialsProvider+JWT causes P2025 errors on sign-out (it tries to
+// delete DB session rows that don't exist) and can crash the sign-out flow.
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(db),
   session: { strategy: 'jwt' },
   providers: [
     CredentialsProvider({
@@ -14,7 +17,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: 'Email', type: 'email', placeholder: 'instructor@example.com' },
         password: { label: 'Password', type: 'password' }
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const { loginSchema, sanitizeInput, checkAccountLockout, recordFailedLogin, clearFailedLogins } = await import('./security');
 
         if (!credentials?.email || !credentials?.password) {
@@ -37,9 +40,13 @@ export const authOptions: NextAuthOptions = {
           throw new Error('Incorrect email or password');
         }
 
-        const user = await db.user.findUnique({
-          where: { email }
-        });
+        let user;
+        try {
+          user = await db.user.findUnique({ where: { email } });
+        } catch (err) {
+          console.error('[AUTH_DB_ERROR] Failed to query user during login:', err);
+          throw new Error('Incorrect email or password');
+        }
 
         if (!user || !user.password) {
           recordFailedLogin(email);

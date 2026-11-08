@@ -15,10 +15,17 @@ export async function createCourse(formData: FormData) {
   const description = formData.get('description') as string;
   const level = formData.get('level') as "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
   
-  const slug = title
+  let baseSlug = title
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)+/g, '');
+  if (!baseSlug) baseSlug = 'course';
+
+  let slug = baseSlug;
+  const existing = await db.course.findUnique({ where: { slug } });
+  if (existing) {
+    slug = `${baseSlug}-${Date.now().toString().slice(-4)}`;
+  }
 
   const course = await db.course.create({
     data: {

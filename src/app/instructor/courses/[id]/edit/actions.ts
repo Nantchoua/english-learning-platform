@@ -31,7 +31,16 @@ export async function updateCourse(formData: FormData) {
   const level = formData.get('level') as 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
   const priceInput = formData.get('price') as string;
   const price = priceInput ? parseFloat(priceInput) : 0;
-  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+  
+  let baseSlug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+  if (!baseSlug) baseSlug = 'course';
+  let slug = baseSlug;
+  const existing = await db.course.findFirst({
+    where: { slug, NOT: { id: courseId } }
+  });
+  if (existing) {
+    slug = `${baseSlug}-${Date.now().toString().slice(-4)}`;
+  }
 
   await db.course.update({
     where: { id: courseId },

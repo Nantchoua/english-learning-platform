@@ -4,14 +4,19 @@ import { db } from '@/lib/prisma';
 import CourseCatalog from '@/components/CourseCatalog';
 
 export default async function LandingPage() {
-  const courses = await db.course.findMany({
-    where: { isPublished: true },
-    include: {
-      instructor: true,
-      _count: { select: { enrollments: true, modules: true } },
-    },
-    orderBy: { createdAt: 'desc' },
-  });
+  let courses: any[] = [];
+  try {
+    courses = await db.course.findMany({
+      where: { isPublished: true },
+      include: {
+        instructor: true,
+        _count: { select: { enrollments: true, modules: true } },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  } catch (err) {
+    console.error('Failed to load courses on landing page:', err);
+  }
 
   return (
     <main>

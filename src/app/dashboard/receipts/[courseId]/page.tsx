@@ -70,7 +70,7 @@ export default async function ReceiptPage({
             <div className="space-y-1 text-right">
               <h3 className="text-xs font-bold text-slate-450 uppercase tracking-widest">Date Issued</h3>
               <p className="font-semibold text-slate-800">
-                {new Date((enrollment as any).createdAt).toLocaleDateString(undefined, {
+                {new Date(enrollment.createdAt).toLocaleDateString(undefined, {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',

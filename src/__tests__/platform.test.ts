@@ -157,3 +157,53 @@ describe('Lesson Access Gate', () => {
     expect(canAccessLesson('STUDENT', true, 'PARTIALLY_PAID')).toBe(true);
   });
 });
+
+// --- Test 6: Security & Validation Schemas ---
+describe('Security & Zod Schemas', () => {
+  it('should validate valid registration input', async () => {
+    const { registrationSchema } = await import('../lib/security');
+    const result = registrationSchema.safeParse({
+      name: 'John Doe',
+      email: 'john@example.com',
+      password: 'StrongPassword123',
+      role: 'STUDENT',
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it('should reject registration with password shorter than 8 characters', async () => {
+    const { registrationSchema } = await import('../lib/security');
+    const result = registrationSchema.safeParse({
+      name: 'John Doe',
+      email: 'john@example.com',
+      password: '1234567',
+      role: 'STUDENT',
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it('should validate valid login credentials', async () => {
+    const { loginSchema } = await import('../lib/security');
+    const result = loginSchema.safeParse({
+      email: 'user@example.com',
+      password: 'password123',
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it('should reject login credentials with password shorter than 8 characters', async () => {
+    const { loginSchema } = await import('../lib/security');
+    const result = loginSchema.safeParse({
+      email: 'user@example.com',
+      password: 'short',
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it('should sanitize HTML and script tags from input', async () => {
+    const { sanitizeInput } = await import('../lib/security');
+    expect(sanitizeInput('<script>alert("hack")</script>Hello')).toBe('Hello');
+    expect(sanitizeInput('<b>Bold Text</b>')).toBe('Bold Text');
+    expect(sanitizeInput('   normal text   ')).toBe('normal text');
+  });
+});

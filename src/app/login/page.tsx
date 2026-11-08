@@ -22,26 +22,49 @@ function LoginForm() {
     setError('');
     setLoading(true);
 
-    const res = await signIn('credentials', {
-      redirect: false,
-      email,
-      password,
-    });
+    try {
+      const res = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+      });
 
-    setLoading(false);
+      if (res?.error) {
+        setError('Invalid email or password. Please try again.');
+        setLoading(false);
+        return;
+      }
 
-    if (res?.error) {
-      setError('Invalid email or password. Please try again.');
-    } else {
-      // Fetch updated session to read role
-      const sessionRes = await fetch('/api/auth/session');
-      const session = await sessionRes.json();
-      const role = session?.user?.role;
-      if (role === 'INSTRUCTOR' || role === 'ADMIN') {
-        router.push('/instructor/courses');
-      } else {
+      // If a safe internal callbackUrl was provided (e.g., from middleware redirect), use it
+      const callbackUrl = searchParams.get('callbackUrl');
+      if (callbackUrl && callbackUrl.startsWith('/') && !callbackUrl.startsWith('//')) {
+        router.push(callbackUrl);
+        router.refresh();
+        return;
+      }
+
+      // Otherwise determine destination by role
+      try {
+        const sessionRes = await fetch('/api/auth/session');
+        if (sessionRes.ok) {
+          const session = await sessionRes.json();
+          const role = session?.user?.role;
+          if (role === 'INSTRUCTOR' || role === 'ADMIN') {
+            router.push('/instructor/courses');
+          } else {
+            router.push('/dashboard');
+          }
+        } else {
+          router.push('/dashboard');
+        }
+      } catch {
         router.push('/dashboard');
       }
+
+      router.refresh();
+    } catch {
+      setError('An unexpected error occurred. Please try again.');
+      setLoading(false);
     }
   };
 

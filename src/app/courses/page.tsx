@@ -6,14 +6,19 @@ import { BookOpen, Sparkles, Trophy, Flame, Zap, ShieldCheck } from 'lucide-reac
 export const dynamic = 'force-dynamic';
 
 export default async function CoursesCatalogPage() {
-  const courses = await db.course.findMany({
-    where: { isPublished: true },
-    include: {
-      instructor: true,
-      _count: { select: { enrollments: true, modules: true } },
-    },
-    orderBy: { createdAt: 'desc' },
-  });
+  let courses: any[] = [];
+  try {
+    courses = await db.course.findMany({
+      where: { isPublished: true },
+      include: {
+        instructor: true,
+        _count: { select: { enrollments: true, modules: true } },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  } catch (err) {
+    console.error('Failed to load courses from database:', err);
+  }
 
   return (
     <div className="min-h-screen bg-slate-50/70 flex flex-col">

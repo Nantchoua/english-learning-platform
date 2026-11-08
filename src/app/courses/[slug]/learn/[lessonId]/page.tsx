@@ -70,23 +70,26 @@ export default async function LessonViewerPage({
   const currentLesson = allLessons.find((l) => l.id === lessonId);
   if (!currentLesson) notFound();
 
-  // Gate checkouts for students (Admins and Instructors bypass)
+  // Access gate for students (Admins and Instructors bypass)
   if (!isAuthorizedStaff) {
-    const isPaidCourse = course.price && course.price > 0;
+    // Free preview lessons are accessible to logged-in users
+    if (!currentLesson.isFree) {
+      const isPaidCourse = course.price && course.price > 0;
 
-    // 1. Paid course requires registration fee to be paid first
-    if (isPaidCourse && dbUser?.registrationFeePaid !== true) {
-      redirect(`/courses/${slug}/checkout`);
-    }
+      // 1. Paid course requires registration fee to be paid first
+      if (isPaidCourse && dbUser?.registrationFeePaid !== true) {
+        redirect(`/courses/${slug}/checkout`);
+      }
 
-    // 2. Unenrolled lessons block (previews disabled)
-    if (!enrollment) {
-      redirect(`/courses/${slug}/checkout`);
-    }
+      // 2. Unenrolled students are redirected to checkout
+      if (!enrollment) {
+        redirect(`/courses/${slug}/checkout`);
+      }
 
-    // 3. Partially paid installments block
-    if (enrollment && enrollment.status === 'PARTIALLY_PAID') {
-      redirect(`/courses/${slug}/checkout`);
+      // 3. Pending verification cannot access until approved
+      if (enrollment.status === 'PENDING') {
+        redirect(`/courses/${slug}/checkout`);
+      }
     }
   }
 

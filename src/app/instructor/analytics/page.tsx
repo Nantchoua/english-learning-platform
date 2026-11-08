@@ -12,10 +12,11 @@ export default async function InstructorAnalyticsPage() {
   if (session.user.role !== 'INSTRUCTOR' && session.user.role !== 'ADMIN') redirect('/');
 
   const userId = session.user.id;
+  const isAdmin = session.user.role === 'ADMIN';
 
-  // Fetch courses owned by the instructor
+  // Fetch courses owned by the instructor (or all courses for admin)
   const courses = await db.course.findMany({
-    where: { instructorId: userId },
+    where: isAdmin ? undefined : { instructorId: userId },
     include: {
       enrollments: {
         include: {
@@ -42,19 +43,14 @@ export default async function InstructorAnalyticsPage() {
 
   // Calculate statistics
   const totalCourses = courses?.length || 0;
-  let totalEnrollments = 0;
-  let totalLessonsAcrossAll = 0;
-  let totalProgressPercentagesSum = 0;
-  let studentProgressCount = 0;
 
   const courseStats = (courses || []).map((course: any) => {
     const allLessons = course.modules?.flatMap((m: any) => m.lessons || []) || [];
     const lessonCount = allLessons.length;
     const enrollmentsCount = course.enrollments?.length || 0;
-    totalEnrollments += enrollmentsCount;
-    totalLessonsAcrossAll += lessonCount;
 
     let progressSum = 0;
+    let studentsCounted = 0;
     (course.enrollments || []).forEach((enrollment: any) => {
       if (lessonCount > 0 && enrollment.user?.progress) {
         const completedCount = allLessons.filter((lesson: any) =>
@@ -62,8 +58,7 @@ export default async function InstructorAnalyticsPage() {
         ).length;
         const progressPercentage = (completedCount / lessonCount) * 100;
         progressSum += progressPercentage;
-        totalProgressPercentagesSum += progressPercentage;
-        studentProgressCount++;
+        studentsCounted++;
       }
     });
 
@@ -77,8 +72,15 @@ export default async function InstructorAnalyticsPage() {
       enrollmentsCount,
       lessonCount,
       averageProgress,
+      progressSum,
+      studentsCounted,
     };
   });
+
+  const totalEnrollments = courseStats.reduce((acc: number, c: any) => acc + c.enrollmentsCount, 0);
+  const totalLessonsAcrossAll = courseStats.reduce((acc: number, c: any) => acc + c.lessonCount, 0);
+  const totalProgressPercentagesSum = courseStats.reduce((acc: number, c: any) => acc + c.progressSum, 0);
+  const studentProgressCount = courseStats.reduce((acc: number, c: any) => acc + c.studentsCounted, 0);
 
   const averageGlobalProgress = studentProgressCount > 0 ? Math.round(totalProgressPercentagesSum / studentProgressCount) : 0;
 
