@@ -11,6 +11,7 @@ import {
 import QuizViewer from '@/components/QuizViewer';
 import DiscussionForum from '@/components/DiscussionForum';
 import SpeakingPracticeStudio from '@/components/SpeakingPracticeStudio';
+import LessonContentRenderer from '@/components/LessonContentRenderer';
 
 
 export default async function LessonViewerPage({
@@ -252,13 +253,11 @@ export default async function LessonViewerPage({
             {/* Lesson written content */}
             {currentLesson.content && (
 
-              <div className="bg-slate-800 rounded-xl p-6 mb-8 border border-slate-700">
-                <div className="flex items-center gap-2 text-slate-400 text-sm mb-4">
-                  <FileText className="w-4 h-4" /> Lesson Notes
+              <div className="bg-slate-800/90 rounded-2xl p-6 sm:p-8 mb-8 border border-slate-700/80 shadow-lg">
+                <div className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase tracking-wider mb-6 pb-3 border-b border-slate-700/60">
+                  <FileText className="w-4 h-4 text-emerald-400" /> Interactive Curriculum & Lesson Notes
                 </div>
-                <div className="prose prose-invert prose-sm max-w-none text-slate-300 whitespace-pre-wrap font-mono text-sm leading-relaxed">
-                  {currentLesson.content}
-                </div>
+                <LessonContentRenderer content={currentLesson.content} />
               </div>
             )}
 

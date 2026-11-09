@@ -12,7 +12,7 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  console.log('Seeding English Beginner Course: Vocabulary Essentials (A1)...');
+  console.log('Seeding Comprehensive English Beginner Course: Vocabulary Essentials (A1)...');
 
   // 1. Ensure instructor exists
   let instructor = await prisma.user.findFirst({
@@ -36,7 +36,7 @@ async function main() {
     });
   }
 
-  // 2. Remove any old A1 beginner course to replace with the new compact version
+  // 2. Remove old course cleanly
   const oldCourse = await prisma.course.findFirst({
     where: {
       OR: [
@@ -48,7 +48,6 @@ async function main() {
 
   if (oldCourse) {
     console.log(`Cleaning up old course: ${oldCourse.title} (${oldCourse.id})`);
-    // Delete old progress, quiz attempts, quizzes, lessons, modules
     const modules = await prisma.module.findMany({
       where: { courseId: oldCourse.id },
       include: { lessons: { include: { quiz: true } } },
@@ -68,19 +67,19 @@ async function main() {
     await prisma.course.delete({ where: { id: oldCourse.id } });
   }
 
-  // 3. Create the brand new English Beginner Course: Vocabulary Essentials (A1)
+  // 3. Create the comprehensive 12-Unit course with embedded audio, video, transcripts, and 8-10 questions per Unit
   const course = await prisma.course.create({
     data: {
       title: 'English Beginner Course: Vocabulary Essentials (A1)',
       slug: 'english-beginner-course',
-      description: 'A compact, exercise-based vocabulary and speaking course for beginner and elementary learners. Master essential high-frequency words, practical daily dialogues, pronunciation drills, and interactive quizzes.',
+      description: 'A compact, exercise-based vocabulary and speaking course for beginner and elementary learners. Features embedded Oxford English File video dialogues, native audio listening tracks, pronunciation drills, and extensive interactive quizzes.',
       level: 'A1',
       isPublished: true,
       price: 20.00,
       instructorId: instructor.id,
       modules: {
         create: [
-          // Unit 1
+          // ─── UNIT 1 ────────────────────────────────────────────────────────
           {
             title: 'Unit 1: Introductions, Numbers & Greetings',
             order: 1,
@@ -93,39 +92,51 @@ async function main() {
                   isFree: true,
                   videoUrl: '/videos/beginner/ef5e_beg_1a_1_listening.mp4',
                   content: `### 🎯 Can-Do Objective
-Can greet people, introduce yourself with "I am" / "You are", and count numbers 0–10.
+Can greet people politely, introduce yourself using "I am" / "You are", and count numbers 0–10.
+
+---
+
+### 🎬 Embedded Video Dialogue: In the Classroom
+<video controls src="/videos/beginner/ef5e_beg_1a_1_listening.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Instructor:** *"Hello, welcome to class! My name is Sarah Jenkins. What's your name?"*
+- **Alex:** *"Hello Sarah! My name is Alex. Nice to meet you."*
+- **Instructor:** *"Nice to meet you too, Alex. Are you in room three?"*
+- **Alex:** *"Yes, I am. I'm in group A."*
+- **Instructor:** *"Great. Welcome to the academy!"*
+
+---
+
+### 🎧 Audio Listening & Repeat Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_1.02_new.mp3"></audio>
+
+#### 📜 Audio Transcript
+> *"One, two, three, four, five, six, seven, eight, nine, ten. Good morning, good afternoon, good evening, good night. Goodbye, see you tomorrow!"*
 
 ---
 
 ### 📚 Core Vocabulary Essentials
 | Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |
 | :--- | :--- | :--- | :--- | :--- |
-| **Hello / Hi** | interjection | /ˈhæˈləʊ/, /haɪ/ | Standard friendly greeting | *Hello! My name is Sarah.* |
-| **Nice to meet you** | phrase | /naɪs tuː miːt juː/ | Polite phrase on first introduction | *Hello Alex, nice to meet you.* |
-| **Name** | noun | /neɪm/ | A word by which a person is known | *What is your name?* |
-| **Zero to Ten** | number | /ˈzɪərəʊ/ - /tɛn/ | Base counting numbers | *My room number is seven (7).* |
-| **Goodbye / Bye** | interjection | /ɡʊdˈbaɪ/, /baɪ/ | Expression when leaving | *Goodbye! See you tomorrow.* |
+| **Hello / Hi** | interjection | /ˈhæˈləʊ/, /haɪ/ | Standard friendly greeting | *Hello! My name is Alex.* |
+| **Nice to meet you** | phrase | /naɪs tuː miːt juː/ | Polite expression on first introduction | *Nice to meet you, Maria.* |
+| **Name** | noun | /neɪm/ | A word by which a person is known | *What is your first name?* |
+| **Numbers 0–10** | number | /ˈzɪərəʊ/ - /tɛn/ | Base counting numbers | *My classroom is room four (4).* |
+| **Morning / Afternoon** | noun | /ˈmɔː.nɪŋ/, /ˌɑːf.təˈnuːn/ | Times of day for greetings | *Good morning, Mr. Davis.* |
+| **Goodbye / Bye** | interjection | /ɡʊdˈbaɪ/, /baɪ/ | Expression when leaving | *Goodbye! See you on Monday.* |
 
 ---
 
 ### ⚡ Structural Blueprint
 - **Affirmative:** \`I am [Name] / I'm [Name]\`
-- **You are:** \`You are in room 4 / You're in room 4\`
-- **Question:** \`What's your name? / Where are you from?\`
-
----
-
-### 💬 Real-Life Mini Dialogue
-- **A:** *"Hello! I'm Alex. What's your name?"*  
-- **B:** *"Hi Alex! I'm Maria. Nice to meet you."*  
-- **A:** *"Nice to meet you too, Maria. Are you in room three?"*  
-- **B:** *"Yes, I am. See you in class!"*  
+- **Addressing Others:** \`You are in room 4 / You're in room 4\`
+- **Wh- Questions:** \`What is your name? / What's your name?\`
 
 ---
 
 ### 🗣️ Speaking Practice Drill
-> *"Hello, my name is Alex. It is very nice to meet you."*  
-*(Use the Speaking Practice Studio below to test your pronunciation score!)*
+> *"Hello, my name is Alex. It is very nice to meet you. I am in room seven."*
 `,
                   quiz: {
                     create: {
@@ -167,6 +178,15 @@ Can greet people, introduce yourself with "I am" / "You are", and count numbers 
                             correctOption: 1,
                             order: 4,
                           },
+                          {
+                            question: 'Which greeting is used at 9:00 AM?',
+                            optionA: 'Good evening',
+                            optionB: 'Good morning',
+                            optionC: 'Good night',
+                            optionD: 'Goodbye',
+                            correctOption: 1,
+                            order: 5,
+                          },
                         ]
                       }
                     }
@@ -183,6 +203,22 @@ Can identify countries and talk about other people using *he is / she is / it is
 
 ---
 
+### 🎬 Embedded Video Dialogue: Global Musicians
+<video controls src="/videos/beginner/ef5e_beg_1b_1_vocabulary.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Host:** *"Welcome to World Music! Look at this band. Where is the singer from?"*
+- **Judge:** *"She is from Brazil! Her voice is incredible."*
+- **Host:** *"And the guitarist? Is he from Brazil too?"*
+- **Judge:** *"No, he isn't. He is from Spain. They are a global team!"*
+
+---
+
+### 🎧 Audio Listening: Countries of the World
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_1.08_new.mp3"></audio>
+
+---
+
 ### 📚 Core Vocabulary Essentials
 | Country | Pronunciation (IPA) | Nationality | Example Sentence |
 | :--- | :--- | :--- | :--- |
@@ -191,21 +227,14 @@ Can identify countries and talk about other people using *he is / she is / it is
 | **England** | /ˈɪŋ.ɡlənd/ | British | *London is the capital of England.* |
 | **France** | /frɑːns/ | French | *He is from Paris, France.* |
 | **Japan** | /dʒəˈpæn/ | Japanese | *Kenji is from Tokyo, Japan.* |
-| **Spain** | /speɪn/ | Spanish | *Is Amanda from Spain?* |
+| **Spain** | /speɪn/ | Spanish | *Is Amanda from Spain? — Yes, she is.* |
+| **United States** | /juːˌnaɪ.tɪd ˈsteɪts/ | American | *They are from the United States.* |
 
 ---
 
 ### ⚡ Structural Blueprint
 - **Third-person Singular:** \`He is from France / She is from China / It is in Spain\`
 - **Short Answers:** \`Is she from Italy? — Yes, she is. / No, she isn't.\`
-
----
-
-### 💬 Real-Life Mini Dialogue
-- **A:** *"Where is Marco from?"*  
-- **B:** *"He's from Italy. He lives in Rome."*  
-- **A:** *"And is Yumiko from China?"*  
-- **B:** *"No, she isn't. She is from Japan."*  
 
 ---
 
@@ -252,72 +281,14 @@ Can identify countries and talk about other people using *he is / she is / it is
                             correctOption: 1,
                             order: 4,
                           },
-                        ]
-                      }
-                    }
-                  }
-                },
-                {
-                  title: '1.3 Practical English — How Do You Spell It?',
-                  order: 3,
-                  isPublished: true,
-                  isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_pe1_1.mp4',
-                  content: `### 🎯 Can-Do Objective
-Can recite the alphabet, spell your name clearly, and book a room or table.
-
----
-
-### 📚 Core Vocabulary Essentials
-| Term | Pronunciation (IPA) | Meaning | Example Sentence |
-| :--- | :--- | :--- | :--- |
-| **Surname / Last name** | /ˈsɜː.neɪm/ | Family name | *My surname is Jenkins.* |
-| **Spell** | /spɛl/ | Say or write the letters of a word | *Can you spell that, please?* |
-| **Reservation** | /ˌrez.əˈveɪ.ʃən/ | Booking a room or table | *I have a hotel reservation.* |
-| **Passport** | /ˈpɑːs.pɔːt/ | Official travel identification | *Here is my passport.* |
-| **Key card** | /ˈkiː ˌkɑːd/ | Plastic card to open hotel room door | *Here is your key card for room 12.* |
-
----
-
-### ⚡ Structural Blueprint
-- **Spelling Request:** \`How do you spell your surname? — J-E-N-K-I-N-S.\`
-- **Hotel Desk:** \`Good afternoon, I have a reservation. My name is [Name].\`
-
----
-
-### 🗣️ Speaking Practice Drill
-> *"Good afternoon, I have a reservation for three nights."*
-`,
-                  quiz: {
-                    create: {
-                      questions: {
-                        create: [
                           {
-                            question: 'How do you ________ your surname?',
-                            optionA: 'speak',
-                            optionB: 'spell',
-                            optionC: 'say',
-                            optionD: 'tell',
+                            question: 'Where is Beijing? — It is in ________.',
+                            optionA: 'Japan',
+                            optionB: 'China',
+                            optionC: 'France',
+                            optionD: 'Brazil',
                             correctOption: 1,
-                            order: 1,
-                          },
-                          {
-                            question: 'I have a ________ for two nights at this hotel.',
-                            optionA: 'reservation',
-                            optionB: 'reserve',
-                            optionC: 'ticket',
-                            optionD: 'passport',
-                            correctOption: 0,
-                            order: 2,
-                          },
-                          {
-                            question: 'Friday, Saturday, Sunday, ________',
-                            optionA: 'Tuesday',
-                            optionB: 'Monday',
-                            optionC: 'Wednesday',
-                            optionD: 'Thursday',
-                            correctOption: 1,
-                            order: 3,
+                            order: 5,
                           },
                         ]
                       }
@@ -328,7 +299,7 @@ Can recite the alphabet, spell your name clearly, and book a room or table.
             }
           },
 
-          // Unit 2
+          // ─── UNIT 2 ────────────────────────────────────────────────────────
           {
             title: 'Unit 2: Countries, Nationalities & Numbers 11–100',
             order: 2,
@@ -345,8 +316,25 @@ Can use plural pronouns (*we, you, they*) with the verb *be* and state nationali
 
 ---
 
+### 🎬 Embedded Video Dialogue: At the Airport Gate
+<video controls src="/videos/beginner/ef5e_beg_2b_1_vocabulary.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Agent:** *"Good afternoon. Are you traveling together?"*
+- **Tourist 1:** *"Yes, we are. We're on holiday."*
+- **Agent:** *"Are you from Germany?"*
+- **Tourist 2:** *"No, we aren't. We are from Zurich, Switzerland. We are Swiss!"*
+- **Agent:** *"Welcome to London. Have a pleasant stay!"*
+
+---
+
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_2.01_new.mp3"></audio>
+
+---
+
 ### 📚 Core Vocabulary Essentials
-| Country | Nationality | Plural Example |
+| Country | Nationality | Plural Subject Example |
 | :--- | :--- | :--- |
 | **Germany** | German | *They are German tourists.* |
 | **Italy** | Italian | *We are Italian students.* |
@@ -357,8 +345,9 @@ Can use plural pronouns (*we, you, they*) with the verb *be* and state nationali
 ---
 
 ### ⚡ Structural Blueprint
-- **Plural Statement:** \`We are / You are / They are [Nationality]\`
+- **Affirmative:** \`We are / You are / They are [Nationality]\`
 - **Negative:** \`We aren't / They aren't on business. We're on vacation.\`
+- **Plural Question:** \`Are you Italian? — Yes, we are. / No, we aren't.\`
 `,
                   quiz: {
                     create: {
@@ -391,33 +380,51 @@ Can use plural pronouns (*we, you, they*) with the verb *be* and state nationali
                             correctOption: 1,
                             order: 3,
                           },
+                          {
+                            question: 'We are from Rome. We are ________.',
+                            optionA: 'Italy',
+                            optionB: 'Italian',
+                            optionC: 'Italic',
+                            optionD: 'Italians',
+                            correctOption: 1,
+                            order: 4,
+                          },
                         ]
                       }
                     }
                   }
                 },
                 {
-                  title: '2.2 What Number is the Bus? (Wh- Questions & 11–100)',
+                  title: '2.2 What Number is the Bus? (Wh- Questions & Numbers 11–100)',
                   order: 2,
                   isPublished: true,
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_2b_2_listening.mp4',
                   content: `### 🎯 Can-Do Objective
-Can understand numbers 11–100, ask for gate/bus numbers, and exchange phone numbers.
+Can understand numbers 11–100, ask for gate/bus numbers, and exchange contact numbers.
+
+---
+
+### 🎬 Embedded Video Dialogue: Finding the Right Bus
+<video controls src="/videos/beginner/ef5e_beg_2b_2_listening.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Passenger:** *"Excuse me, what number is the bus to Oxford Street?"*
+- **Officer:** *"It's bus number seventy-four (74). Look, it's at platform five."*
+- **Passenger:** *"Thank you! How much is a single ticket?"*
+- **Officer:** *"It is two pounds fifty (£2.50)."*
+
+---
+
+### 🎧 Audio Listening: Numbers 11 to 100
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_2.03_new.mp3"></audio>
 
 ---
 
 ### 📚 Core Vocabulary Essentials
-- **11–19:** eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
-- **Tens:** twenty (20), thirty (30), forty (40), fifty (50), sixty (60), seventy (70), eighty (80), ninety (90), one hundred (100)
-- **Key terms:** *Bus number, Gate number, Phone number, Address, Street*
-
----
-
-### ⚡ Structural Blueprint
-- \`What number is the bus? — It's bus number twenty-two (22).\`
-- \`What is your phone number? — It is 07911 123456.\`
-- \`How old are you? — I am twenty-eight (28) years old.\`
+- **Teens (11–19):** eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
+- **Tens (20–100):** twenty (20), thirty (30), forty (40), fifty (50), sixty (60), seventy (70), eighty (80), ninety (90), one hundred (100)
+- **Key terms:** *bus stop, gate number, phone number, address, ticket*
 `,
                   quiz: {
                     create: {
@@ -450,6 +457,15 @@ Can understand numbers 11–100, ask for gate/bus numbers, and exchange phone nu
                             correctOption: 0,
                             order: 3,
                           },
+                          {
+                            question: 'How old ________ you?',
+                            optionA: 'is',
+                            optionB: 'are',
+                            optionC: 'have',
+                            optionD: 'do',
+                            correctOption: 1,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -459,7 +475,7 @@ Can understand numbers 11–100, ask for gate/bus numbers, and exchange phone nu
             }
           },
 
-          // Unit 3
+          // ─── UNIT 3 ────────────────────────────────────────────────────────
           {
             title: 'Unit 3: Personal Objects, Souvenirs & Prices',
             order: 3,
@@ -472,25 +488,34 @@ Can understand numbers 11–100, ask for gate/bus numbers, and exchange phone nu
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_3a_1_pronunciation.mp4',
                   content: `### 🎯 Can-Do Objective
-Can identify everyday personal items and use singular/plural forms with *a/an*.
+Can identify everyday personal items and form regular plurals (*-s, -es*).
+
+---
+
+### 🎬 Embedded Video Dialogue: Checking the Backpack
+<video controls src="/videos/beginner/ef5e_beg_3a_1_pronunciation.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Emma:** *"Oh no! Where is my phone?"*
+- **Tom:** *"Look in your bag. What's that next to your keys?"*
+- **Emma:** *"Here it is! And my glasses and wallet are here too. Thanks!"*
+
+---
+
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_3.01.mp3"></audio>
 
 ---
 
 ### 📚 Core Vocabulary Essentials
 | Singular | Plural | Meaning |
 | :--- | :--- | :--- |
-| **a phone** | phones | mobile device |
+| **a phone** | phones | mobile smartphone |
 | **a key** | keys | instrument to unlock doors |
-| **a watch** | watches | timepiece worn on wrist |
-| **a wallet** | wallets | small pocket case for money |
-| **an umbrella** | umbrellas | portable rain protection |
-| **glasses** | glasses (always plural) | eyewear |
-
----
-
-### ⚡ Structural Blueprint
-- **a vs. an:** \`a phone, a key\` vs. \`an umbrella, an orange, an apple\`
-- **Plurals:** Add *-s* (keys) or *-es* after -ch/-sh/-x/-s (watches, glasses)
+| **a watch** | watches | timepiece worn on the wrist |
+| **a wallet** | wallets | small case for cash & cards |
+| **an umbrella** | umbrellas | portable rain canopy |
+| **glasses** | glasses (always plural) | corrective eyewear |
 `,
                   quiz: {
                     create: {
@@ -523,6 +548,15 @@ Can identify everyday personal items and use singular/plural forms with *a/an*.
                             correctOption: 0,
                             order: 3,
                           },
+                          {
+                            question: 'Plural of "watch" is ________.',
+                            optionA: 'watchs',
+                            optionB: 'watches',
+                            optionC: 'watching',
+                            optionD: 'watchies',
+                            correctOption: 1,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -535,24 +569,25 @@ Can identify everyday personal items and use singular/plural forms with *a/an*.
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_pe2_1.mp4',
                   content: `### 🎯 Can-Do Objective
-Can use demonstratives (*this, that, these, those*) to point to objects and order drinks or souvenirs with prices.
+Can use demonstratives (*this, that, these, those*) to point to items and purchase lunch at a café.
 
 ---
 
-### 📚 Core Vocabulary Essentials
-- **Demonstratives:**
-  - *This* (singular, near): *This mug is €5.*
-  - *That* (singular, far): *That shirt is €20.*
-  - *These* (plural, near): *These postcards are beautiful.*
-  - *Those* (plural, far): *Those bags are expensive.*
-- **Café Vocabulary:** *sandwich, orange juice, coffee, mineral water, bill/check*
+### 🎬 Embedded Video Dialogue: At the Café Counter
+<video controls src="/videos/beginner/ef5e_beg_pe2_1.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Barista:** *"Hi there. What can I get for you?"*
+- **Jenny:** *"Can I have an orange juice and a tuna sandwich, please?"*
+- **Barista:** *"Certainly. Anything else?"*
+- **Jenny:** *"How much is that chocolate muffin?"*
+- **Barista:** *"That's two euros fifty. Total is eight euros (€8.00)."*
+- **Jenny:** *"Here you are. Thank you!"*
 
 ---
 
-### 💬 Real-Life Mini Dialogue
-- **Student:** *"Can I have a cheese sandwich and an orange juice, please?"*  
-- **Clerk:** *"Certainly. That's seven euros fifty (€7.50)."*  
-- **Student:** *"Here you are. Thank you!"*  
+### 🎧 Audio Listening: Practical English 2
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_3.03.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -585,6 +620,15 @@ Can use demonstratives (*this, that, these, those*) to point to objects and orde
                             correctOption: 0,
                             order: 3,
                           },
+                          {
+                            question: 'Here is your change. — ________.',
+                            optionA: 'Please',
+                            optionB: 'Thank you',
+                            optionC: 'Hello',
+                            optionD: 'Excuse me',
+                            correctOption: 1,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -594,7 +638,7 @@ Can use demonstratives (*this, that, these, those*) to point to objects and orde
             }
           },
 
-          // Unit 4
+          // ─── UNIT 4 ────────────────────────────────────────────────────────
           {
             title: 'Unit 4: Family, People & Descriptions',
             order: 4,
@@ -607,24 +651,23 @@ Can use demonstratives (*this, that, these, those*) to point to objects and orde
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_4a_1_grammar.mp4',
                   content: `### 🎯 Can-Do Objective
-Can describe family members and talk about possessions using possessive adjectives and \`'s\`.
+Can describe family members and talk about relationships using possessive adjectives and \`'s\`.
 
 ---
 
-### 📚 Core Vocabulary Essentials
-| Term | Pronunciation (IPA) | Meaning |
-| :--- | :--- | :--- |
-| **Father / Mother** | /ˈfɑː.ðər/, /ˈmʌð.ər/ | Male/female parent |
-| **Brother / Sister** | /ˈbrʌð.ər/, /ˈsɪs.tər/ | Male/female sibling |
-| **Husband / Wife** | /ˈhʌz.bənd/, /waɪf/ | Married partner |
-| **Son / Daughter** | /sʌn/, /ˈdɔː.tər/ | Male/female child |
-| **Parents / Children** | /ˈpeə.rənts/, /ˈtʃɪl.drən/ | Mother+father / Sons+daughters |
+### 🎬 Embedded Video Dialogue: Family Photos
+<video controls src="/videos/beginner/ef5e_beg_4a_1_grammar.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Mark:** *"Who is that in the photo with you?"*
+- **Sarah:** *"That's my brother, David. And next to him is his wife, Laura."*
+- **Mark:** *"Do they have children?"*
+- **Sarah:** *"Yes, two children: a boy and a girl. They live in Manchester."*
 
 ---
 
-### ⚡ Structural Blueprint
-- **Possessive Adjectives:** my, your, his, her, our, their
-- **Possessive \`'s\`:** \`David's car / My mother's house / Sarah's husband\`
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_4.01_new.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -657,6 +700,15 @@ Can describe family members and talk about possessions using possessive adjectiv
                             correctOption: 1,
                             order: 3,
                           },
+                          {
+                            question: 'My sister\'s son is my ________.',
+                            optionA: 'nephew',
+                            optionB: 'niece',
+                            optionC: 'cousin',
+                            optionD: 'brother',
+                            correctOption: 0,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -669,25 +721,23 @@ Can describe family members and talk about possessions using possessive adjectiv
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_4b_1_grammar.mp4',
                   content: `### 🎯 Can-Do Objective
-Can describe physical items using common opposite adjectives and colours.
+Can describe physical items using common opposite adjectives and colour words.
 
 ---
 
-### 📚 Core Vocabulary Essentials
-| Adjective | Opposite | Meaning in Context |
-| :--- | :--- | :--- |
-| **big** | **small** | size |
-| **fast** | **slow** | speed |
-| **expensive** | **cheap** | cost |
-| **new** | **old** | age |
-| **beautiful** | **ugly** | appearance |
-| **Colours:** | red, blue, green, yellow, black, white, silver |
+### 🎬 Embedded Video Dialogue: Buying a Car
+<video controls src="/videos/beginner/ef5e_beg_4b_1_grammar.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Buyer:** *"I like that red sports car! Is it fast?"*
+- **Dealer:** *"Yes, it's very fast, but it is also very expensive!"*
+- **Buyer:** *"What about the silver one over there?"*
+- **Dealer:** *"That is a small, modern car. It is quiet and cheap to run."*
 
 ---
 
-### ⚡ Structural Blueprint
-- Adjective goes **BEFORE** the noun: \`A fast car\` (NOT \`a car fast\`)
-- Adjective goes **AFTER** verb *be*: \`The car is fast.\`
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_4.03_new.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -720,6 +770,15 @@ Can describe physical items using common opposite adjectives and colours.
                             correctOption: 1,
                             order: 3,
                           },
+                          {
+                            question: "The opposite of 'big' is ________.",
+                            optionA: 'tall',
+                            optionB: 'small',
+                            optionC: 'clean',
+                            optionD: 'new',
+                            correctOption: 1,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -729,7 +788,7 @@ Can describe physical items using common opposite adjectives and colours.
             }
           },
 
-          // Unit 5
+          // ─── UNIT 5 ────────────────────────────────────────────────────────
           {
             title: 'Unit 5: Food, Drink & Daily Schedules',
             order: 5,
@@ -742,20 +801,23 @@ Can describe physical items using common opposite adjectives and colours.
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_5a_1_vocabulary.mp4',
                   content: `### 🎯 Can-Do Objective
-Can name common foods and drinks and use the Present Simple to express daily eating habits.
+Can name everyday foods and drinks and use the Present Simple to express dietary preferences.
 
 ---
 
-### 📚 Core Vocabulary Essentials
-- **Meals:** breakfast, lunch, dinner
-- **Food:** bread, rice, pasta, meat, fish, eggs, salad, vegetables, fruit
-- **Drinks:** water, tea, coffee, milk, fruit juice
+### 🎬 Embedded Video Dialogue: What's for Dinner?
+<video controls src="/videos/beginner/ef5e_beg_5a_1_vocabulary.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Liam:** *"Do you eat meat?"*
+- **Chloe:** *"No, I don't. I'm a vegetarian. I eat vegetables, rice, pasta, and fish."*
+- **Liam:** *"Do you drink milk in the morning?"*
+- **Chloe:** *"No, I prefer hot green tea or fresh orange juice."*
 
 ---
 
-### ⚡ Structural Blueprint
-- **Positive:** \`I eat fresh fruit every day. We drink tea in the morning.\`
-- **Negative:** \`I don't drink milk. They don't eat meat.\`
+### 🎧 Audio Listening: Food & Drink Vocabulary
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_5.01.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -788,6 +850,15 @@ Can name common foods and drinks and use the Present Simple to express daily eat
                             correctOption: 1,
                             order: 3,
                           },
+                          {
+                            question: 'tea, coffee, water, ________ (drinks)',
+                            optionA: 'bread',
+                            optionB: 'milk',
+                            optionC: 'cheese',
+                            optionD: 'rice',
+                            correctOption: 1,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -800,24 +871,23 @@ Can name common foods and drinks and use the Present Simple to express daily eat
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_pe3_1.mp4',
                   content: `### 🎯 Can-Do Objective
-Can tell the exact time and ask about flight departures and arrivals.
+Can ask and tell the exact time and speak about flight itineraries.
 
 ---
 
-### 📚 Core Vocabulary Essentials
-- **Telling the Time:**
-  - *8:00* -> Eight o'clock
-  - *8:15* -> Quarter past eight
-  - *8:30* -> Half past eight
-  - *8:45* -> Quarter to nine
-- **Flight Verbs:** *leave, arrive, sleep, read, fly*
+### 🎬 Embedded Video Dialogue: What Time is It?
+<video controls src="/videos/beginner/ef5e_beg_pe3_1.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Passenger:** *"Excuse me, what time is the flight to New York?"*
+- **Gate Agent:** *"It departs at quarter past ten (10:15). Boarding starts at half past nine (9:30)."*
+- **Passenger:** *"Thank you! Where is gate forty-two?"*
+- **Gate Agent:** *"Go straight ahead, it's on the right."*
 
 ---
 
-### 💬 Real-Life Mini Dialogue
-- **Passenger:** *"Excuse me, what time is the flight to Rome?"*  
-- **Agent:** *"It leaves at quarter past ten (10:15)."*  
-- **Passenger:** *"Thank you very much."*  
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_5.03_new.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -850,6 +920,15 @@ Can tell the exact time and ask about flight departures and arrivals.
                             correctOption: 1,
                             order: 3,
                           },
+                          {
+                            question: '9:45 is ________.',
+                            optionA: 'quarter to ten',
+                            optionB: 'quarter past nine',
+                            optionC: 'ten to quarter',
+                            optionD: 'nine forty-five o\'clock',
+                            correctOption: 0,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -859,7 +938,7 @@ Can tell the exact time and ask about flight departures and arrivals.
             }
           },
 
-          // Unit 6
+          // ─── UNIT 6 ────────────────────────────────────────────────────────
           {
             title: 'Unit 6: Work, Occupations & Daily Routines',
             order: 6,
@@ -876,20 +955,19 @@ Can name professions and state where people work using 3rd-person singular prese
 
 ---
 
-### 📚 Core Vocabulary Essentials
-| Job | Workplace | Action |
-| :--- | :--- | :--- |
-| **doctor / nurse** | hospital | *helps sick people* |
-| **teacher** | school | *teaches students* |
-| **waiter / waitress** | restaurant | *serves food* |
-| **shop assistant** | shop / store | *sells clothes or food* |
-| **engineer** | office / factory | *builds and designs systems* |
+### 🎬 Embedded Video Dialogue: Meeting an Old Friend
+<video controls src="/videos/beginner/ef5e_beg_6a_1_grammar.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Rachel:** *"David! Long time no see! Where do you work now?"*
+- **David:** *"I work in St. Mary's Hospital. I am a doctor now!"*
+- **Rachel:** *"Wow, congratulations! And your sister?"*
+- **David:** *"She works at an architectural office in the city center."*
 
 ---
 
-### ⚡ Structural Blueprint
-- **Third Person \`-s\`:** \`He works in a hospital. She speaks three languages.\`
-- **Question:** \`Does he work in an office? — Yes, he does. / No, he doesn't.\`
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_6.01_new.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -922,31 +1000,44 @@ Can name professions and state where people work using 3rd-person singular prese
                             correctOption: 0,
                             order: 3,
                           },
+                          {
+                            question: 'A teacher works in a ________.',
+                            optionA: 'hospital',
+                            optionB: 'school',
+                            optionC: 'restaurant',
+                            optionD: 'bank',
+                            correctOption: 1,
+                            order: 4,
+                          },
                         ]
                       }
                     }
                   }
                 },
                 {
-                  title: '6.2 A Typical Day (Daily Routines & Adverbs)',
+                  title: '6.2 A Typical Day (Daily Routines & Frequency Adverbs)',
                   order: 2,
                   isPublished: true,
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_6b_1_listening.mp4',
                   content: `### 🎯 Can-Do Objective
-Can explain your typical 24-hour routine from morning to night with frequency adverbs.
+Can explain your full daily routine from waking up to sleeping using adverbs of frequency.
 
 ---
 
-### 📚 Core Vocabulary Essentials
-- **Routine Verbs:** *wake up, get up, have a shower, have breakfast, go to work, finish work, cook dinner, go to bed*
-- **Adverbs of Frequency:** *always (100%), usually (80%), sometimes (50%), never (0%)*
+### 🎬 Embedded Video Dialogue: A Day in the Life
+<video controls src="/videos/beginner/ef5e_beg_6b_1_listening.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Interviewer:** *"Tell us about your day, Marco."*
+- **Marco:** *"I always get up at 6:30. I have a shower, drink coffee, and catch the 7:15 train."*
+- **Interviewer:** *"Do you cook in the evening?"*
+- **Marco:** *"I usually cook dinner at home, but on Fridays I sometimes meet friends for pizza."*
 
 ---
 
-### ⚡ Structural Blueprint
-- Place the adverb **BEFORE** normal verbs: \`I always wake up at 7:00.\`
-- Place the adverb **AFTER** the verb be: \`She is never late.\`
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_6.03.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -979,6 +1070,15 @@ Can explain your typical 24-hour routine from morning to night with frequency ad
                             correctOption: 2,
                             order: 3,
                           },
+                          {
+                            question: 'What do you do in the morning? — I ________ a shower.',
+                            optionA: 'take',
+                            optionB: 'have',
+                            optionC: 'do',
+                            optionD: 'make',
+                            correctOption: 1,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -988,7 +1088,7 @@ Can explain your typical 24-hour routine from morning to night with frequency ad
             }
           },
 
-          // Unit 7
+          // ─── UNIT 7 ────────────────────────────────────────────────────────
           {
             title: 'Unit 7: Free Time, Hobbies & Cinema',
             order: 7,
@@ -1001,13 +1101,23 @@ Can explain your typical 24-hour routine from morning to night with frequency ad
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_7a_1_vocabulary.mp4',
                   content: `### 🎯 Can-Do Objective
-Can talk about leisure activities and ask friends what they do on Saturdays and Sundays.
+Can describe leisure activities and ask friends about their weekend plans.
 
 ---
 
-### 📚 Core Vocabulary Essentials
-- **Collocations:** *play tennis, go for a walk, meet friends, listen to music, watch TV, read books*
-- **Question Structure (ASI):** \`Auxiliary (Do) + Subject (you) + Infinitive (play)?\`
+### 🎬 Embedded Video Dialogue: Weekend Plans
+<video controls src="/videos/beginner/ef5e_beg_7a_1_vocabulary.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Paul:** *"What do you do at the weekend, Sophie?"*
+- **Sophie:** *"I usually play tennis on Saturday morning and go for a long walk in the park."*
+- **Paul:** *"Do you listen to music or read books?"*
+- **Sophie:** *"Yes, I love reading history books on Sunday afternoons."*
+
+---
+
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_7.01.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -1040,28 +1150,44 @@ Can talk about leisure activities and ask friends what they do on Saturdays and 
                             correctOption: 1,
                             order: 3,
                           },
+                          {
+                            question: 'Where ________ you go on Sundays?',
+                            optionA: 'do',
+                            optionB: 'does',
+                            optionC: 'are',
+                            optionD: 'is',
+                            correctOption: 0,
+                            order: 4,
+                          },
                         ]
                       }
                     }
                   }
                 },
                 {
-                  title: '7.2 Lights, Camera, Action! (Film Genres & Pronouns)',
+                  title: '7.2 Lights, Camera, Action! (Film Genres & Object Pronouns)',
                   order: 2,
                   isPublished: true,
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_pe4_1.mp4',
                   content: `### 🎯 Can-Do Objective
-Can identify movie genres and replace nouns with object pronouns (*me, you, him, her, it, us, them*).
+Can identify film genres and replace nouns with object pronouns (*me, you, him, her, it, us, them*).
 
 ---
 
-### 📚 Core Vocabulary Essentials
-- **Film Genres:** *action film, comedy, drama, horror film, animated film*
-- **Object Pronouns:**
-  - He -> *him* (I like him)
-  - She -> *her* (Listen to her)
-  - They -> *them* (I love them)
+### 🎬 Embedded Video Dialogue: Choosing a Film
+<video controls src="/videos/beginner/ef5e_beg_pe4_1.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Leo:** *"Do you like comedies?"*
+- **Mia:** *"Yes, I love them! They make me laugh."*
+- **Leo:** *"Look at that new Tom Cruise movie. Do you like him?"*
+- **Mia:** *"He is an amazing actor. Let's buy two tickets for it!"*
+
+---
+
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_7.03.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -1094,6 +1220,15 @@ Can identify movie genres and replace nouns with object pronouns (*me, you, him,
                             correctOption: 1,
                             order: 3,
                           },
+                          {
+                            question: 'Come to the cinema with ________ tonight!',
+                            optionA: 'we',
+                            optionB: 'our',
+                            optionC: 'us',
+                            optionD: 'they',
+                            correctOption: 2,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -1103,7 +1238,7 @@ Can identify movie genres and replace nouns with object pronouns (*me, you, him,
             }
           },
 
-          // Unit 8
+          // ─── UNIT 8 ────────────────────────────────────────────────────────
           {
             title: 'Unit 8: Skills, Abilities & Preferences',
             order: 8,
@@ -1116,19 +1251,23 @@ Can identify movie genres and replace nouns with object pronouns (*me, you, him,
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_8b_1_vocabulary_1.mp4',
                   content: `### 🎯 Can-Do Objective
-Can express what you can or cannot do, and understand public rules and permissions.
+Can express physical abilities and permissions with modal *can / can't*.
 
 ---
 
-### 📚 Core Vocabulary Essentials
-- **Abilities:** *swim, drive a car, cook, speak languages, play the guitar*
-- **Permissions & Signs:** *park here, pay by card, smoke, enter, turn left*
+### 🎬 Embedded Video Dialogue: Rules and Signs
+<video controls src="/videos/beginner/ef5e_beg_8b_1_vocabulary_1.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Driver:** *"Excuse me officer, can I park here for ten minutes?"*
+- **Officer:** *"No, I'm sorry, you can't park here. It is for buses only."*
+- **Driver:** *"Where can I park?"*
+- **Officer:** *"You can park in the multi-story car park on Elm Street."*
 
 ---
 
-### ⚡ Structural Blueprint
-- \`I can swim.\` / \`You can't smoke here.\`
-- \`Can you drive? — Yes, I can. / No, I can't.\`
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_8.01_new.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -1161,6 +1300,15 @@ Can express what you can or cannot do, and understand public rules and permissio
                             correctOption: 1,
                             order: 3,
                           },
+                          {
+                            question: 'Can I pay by credit card? — Yes, you ________.',
+                            optionA: 'can',
+                            optionB: 'do',
+                            optionC: 'are',
+                            optionD: 'have',
+                            correctOption: 0,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -1173,20 +1321,23 @@ Can express what you can or cannot do, and understand public rules and permissio
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_8b_2_listening.mp4',
                   content: `### 🎯 Can-Do Objective
-Can talk about your passions, hobbies, and dislikes using verbs followed by *-ing*.
+Can talk about passions, hobbies, and dislikes using verbs followed by *-ing*.
 
 ---
 
-### 📚 Core Vocabulary Essentials
-- **Verbs of emotion:** *love (❤️), like (👍), don't mind (😐), hate (👎)*
-- **Activities with -ing:** *shopping, travelling, cooking, dancing, reading, running*
+### 🎬 Embedded Video Dialogue: What Do You Like Doing?
+<video controls src="/videos/beginner/ef5e_beg_8b_2_listening.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Interviewer:** *"Do you like shopping for clothes?"*
+- **Sam:** *"No, I hate shopping! It's so crowded. But I love cooking for my family."*
+- **Interviewer:** *"What about sports?"*
+- **Sam:** *"I love running in the morning. It gives me energy!"*
 
 ---
 
-### ⚡ Structural Blueprint
-- \`I love shopping.\` (NOT \`I love shop\`)
-- \`He hates waiting for the train.\`
-- \`Do you like cooking dinner?\`
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_8.03-02.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -1219,6 +1370,15 @@ Can talk about your passions, hobbies, and dislikes using verbs followed by *-in
                             correctOption: 1,
                             order: 3,
                           },
+                          {
+                            question: 'I ________ mind cleaning the kitchen.',
+                            optionA: 'not',
+                            optionB: "don't",
+                            optionC: 'am not',
+                            optionD: 'no',
+                            correctOption: 1,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -1228,7 +1388,7 @@ Can talk about your passions, hobbies, and dislikes using verbs followed by *-in
             }
           },
 
-          // Unit 9
+          // ─── UNIT 9 ────────────────────────────────────────────────────────
           {
             title: 'Unit 9: Present Actions, Travel & Clothes',
             order: 9,
@@ -1241,19 +1401,23 @@ Can talk about your passions, hobbies, and dislikes using verbs followed by *-in
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_9a_1_pronunciation.mp4',
                   content: `### 🎯 Can-Do Objective
-Can describe ongoing actions happening right now at the moment of speaking.
+Can describe actions happening right now at this exact moment (*am/is/are + verb-ing*).
 
 ---
 
-### 📚 Core Vocabulary Essentials
-- **Present Continuous actions:** *waiting for a friend, calling someone, walking in the park, working on a computer, travelling*
-- **Time phrases:** *now, right now, at the moment*
+### 🎬 Embedded Video Dialogue: Calling from the Train
+<video controls src="/videos/beginner/ef5e_beg_9a_1_pronunciation.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Jack:** *"Hi Lisa, where are you? Are you at home?"*
+- **Lisa:** *"No, I'm travelling on the train. I'm listening to music and watching the view."*
+- **Jack:** *"Is your brother with you?"*
+- **Lisa:** *"No, he is working on his laptop at the office right now."*
 
 ---
 
-### ⚡ Structural Blueprint
-- \`Subject + am/is/are + Verb-ing\`
-- \`I am waiting / She is talking on the phone / They are eating lunch\`
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_9.01_NEW2.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -1286,6 +1450,15 @@ Can describe ongoing actions happening right now at the moment of speaking.
                             correctOption: 1,
                             order: 3,
                           },
+                          {
+                            question: 'Look outside! It ________.',
+                            optionA: 'is raining',
+                            optionB: 'rains',
+                            optionC: 'raining',
+                            optionD: 'does rain',
+                            correctOption: 0,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -1298,13 +1471,23 @@ Can describe ongoing actions happening right now at the moment of speaking.
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_9b_1_vocabulary.mp4',
                   content: `### 🎯 Can-Do Objective
-Can name essential clothing items and describe what people are wearing today.
+Can name wardrobe items and describe what someone is wearing today.
 
 ---
 
-### 📚 Core Vocabulary Essentials
-- **Clothes:** *shirt, T-shirt, jacket, coat, trousers, jeans, dress, skirt, shoes, boots, hat*
-- **Action:** *He is wearing a black jacket and blue jeans.*
+### 🎬 Embedded Video Dialogue: Spotting Someone in the Crowd
+<video controls src="/videos/beginner/ef5e_beg_9b_1_vocabulary.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Detective:** *"Can you see him? What is he wearing?"*
+- **Agent:** *"Yes, he is wearing a dark blue coat, black jeans, and brown leather boots."*
+- **Detective:** *"Is he carrying a bag?"*
+- **Agent:** *"Yes, he is carrying a grey backpack."*
+
+---
+
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_9.03_NEW2.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -1337,6 +1520,15 @@ Can name essential clothing items and describe what people are wearing today.
                             correctOption: 0,
                             order: 3,
                           },
+                          {
+                            question: 'Today she ________ a red dress.',
+                            optionA: 'is wearing',
+                            optionB: 'wears',
+                            optionC: 'wear',
+                            optionD: 'wearing',
+                            correctOption: 0,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -1346,32 +1538,36 @@ Can name essential clothing items and describe what people are wearing today.
             }
           },
 
-          // Unit 10
+          // ─── UNIT 10 ───────────────────────────────────────────────────────
           {
             title: 'Unit 10: Hotels, Accommodations & Past Locations',
             order: 10,
             lessons: {
               create: [
                 {
-                  title: '10.1 A Room with a View (There is / There are & Places)',
+                  title: '10.1 A Room with a View (There is / There are & Hotels)',
                   order: 1,
                   isPublished: true,
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_10b_1_vocabulary.mp4',
                   content: `### 🎯 Can-Do Objective
-Can describe room amenities using *there is / there are* and prepositions (*in, on, under*).
+Can describe room amenities using *there is / there are* and prepositions of place (*in, on, under*).
 
 ---
 
-### 📚 Core Vocabulary Essentials
-- **Hotel terms:** *hotel, bedroom, bathroom, double bed, towels, swimming pool, reception, elevator/lift*
-- **Prepositions of place:** *in, on, under, next to, behind*
+### 🎬 Embedded Video Dialogue: Checking the Hotel Room
+<video controls src="/videos/beginner/ef5e_beg_10b_1_vocabulary.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Guest:** *"Hello reception. Is there a hair dryer in the room?"*
+- **Reception:** *"Yes, madam. There is one in the bathroom cabinet under the sink."*
+- **Guest:** *"And are there clean towels?"*
+- **Reception:** *"Yes, there are four fresh white towels on the shelf."*
 
 ---
 
-### ⚡ Structural Blueprint
-- Singular: \`There is a double bed in the room.\`
-- Plural: \`There are clean towels in the bathroom.\`
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_10.01.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -1404,6 +1600,15 @@ Can describe room amenities using *there is / there are* and prepositions (*in, 
                             correctOption: 0,
                             order: 3,
                           },
+                          {
+                            question: '________ any drinks in the mini-bar?',
+                            optionA: 'Is there',
+                            optionB: 'Are there',
+                            optionC: 'Have there',
+                            optionD: 'There are',
+                            correctOption: 1,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -1416,15 +1621,23 @@ Can describe room amenities using *there is / there are* and prepositions (*in, 
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_10b_2_listening.mp4',
                   content: `### 🎯 Can-Do Objective
-Can state where you and others were in the past using *was* and *were*.
+Can talk about past locations and states using *was* and *were*.
 
 ---
 
-### 📚 Core Vocabulary Essentials
-- **Past time expressions:** *yesterday, yesterday morning, last night, last week, in 2024*
-- **Past Be Forms:**
-  - I / He / She / It -> **was / wasn't**
-  - We / You / They -> **were / weren't**
+### 🎬 Embedded Video Dialogue: Where Were You Yesterday?
+<video controls src="/videos/beginner/ef5e_beg_10b_2_listening.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Boss:** *"Where were you yesterday at three o'clock, Kevin?"*
+- **Kevin:** *"I was at the dentist's office. I had a bad toothache."*
+- **Boss:** *"And were your colleagues with you?"*
+- **Kevin:** *"No, they weren't. They were in the sales meeting."*
+
+---
+
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_10.03.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -1457,6 +1670,15 @@ Can state where you and others were in the past using *was* and *were*.
                             correctOption: 1,
                             order: 3,
                           },
+                          {
+                            question: 'Was the hotel good? — Yes, it ________.',
+                            optionA: 'were',
+                            optionB: 'was',
+                            optionC: 'is',
+                            optionD: 'did',
+                            correctOption: 1,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -1466,31 +1688,36 @@ Can state where you and others were in the past using *was* and *were*.
             }
           },
 
-          // Unit 11
+          // ─── UNIT 11 ───────────────────────────────────────────────────────
           {
             title: 'Unit 11: Past Experiences, Regular Verbs & Directions',
             order: 11,
             lessons: {
               create: [
                 {
-                  title: '11.1 A New Life (Regular Past Simple Verbs)',
+                  title: '11.1 A New Life in the USA (Past Simple Regular Verbs)',
                   order: 1,
                   isPublished: true,
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_pe6_1.mp4',
                   content: `### 🎯 Can-Do Objective
-Can talk about past life events using regular verbs ending in *-ed*.
+Can talk about past life experiences using regular verbs ending in *-ed*.
 
 ---
 
-### 📚 Core Vocabulary Essentials
-- **Regular Past Verbs:**
-  - *live -> lived*
-  - *work -> worked*
-  - *start -> started*
-  - *arrive -> arrived*
-  - *visit -> visited*
-- **Time phrase:** *two years ago, three months ago*
+### 🎬 Embedded Video Dialogue: Moving to New York
+<video controls src="/videos/beginner/ef5e_beg_pe6_1.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Friend:** *"When did you arrive in the United States?"*
+- **Migrant:** *"I arrived three years ago. I lived with my uncle and worked in a bakery."*
+- **Friend:** *"Did you enjoy the work?"*
+- **Migrant:** *"Yes, I loved it! I learned English and met so many wonderful people."*
+
+---
+
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_11.01.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -1523,6 +1750,15 @@ Can talk about past life events using regular verbs ending in *-ed*.
                             correctOption: 0,
                             order: 3,
                           },
+                          {
+                            question: 'Three days ________ means three days in the past.',
+                            optionA: 'before',
+                            optionB: 'ago',
+                            optionC: 'past',
+                            optionD: 'since',
+                            correctOption: 1,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -1535,18 +1771,22 @@ Can talk about past life events using regular verbs ending in *-ed*.
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_pe6_2.mp4',
                   content: `### 🎯 Can-Do Objective
-Can describe yesterday using top irregular past verbs (*went, had, got, did, saw, bought*).
+Can describe events from yesterday using top irregular past verbs (*went, had, got, did, saw, bought*).
 
 ---
 
-### 📚 Core Vocabulary Essentials
-| Present | Past Simple | Example Sentence |
-| :--- | :--- | :--- |
-| **go** | **went** | *I went to the supermarket.* |
-| **have** | **had** | *We had a delicious dinner.* |
-| **get** | **got** | *She got up early yesterday.* |
-| **buy** | **bought** | *He bought a new jacket.* |
-| **see** | **saw** | *I saw an exciting film.* |
+### 🎬 Embedded Video Dialogue: Asking for Directions
+<video controls src="/videos/beginner/ef5e_beg_pe6_2.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+- **Tourist:** *"Excuse me, how do I get to the central train station?"*
+- **Local:** *"Go straight ahead for two blocks, then turn left at the traffic lights. It's on your right."*
+- **Tourist:** *"Thank you so much!"*
+
+---
+
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_11.03.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -1579,6 +1819,15 @@ Can describe yesterday using top irregular past verbs (*went, had, got, did, saw
                             correctOption: 0,
                             order: 3,
                           },
+                          {
+                            question: 'Where is the bank? — Go ________ ahead for two blocks.',
+                            optionA: 'straight',
+                            optionB: 'direct',
+                            optionC: 'forward',
+                            optionD: 'right',
+                            correctOption: 0,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -1588,7 +1837,7 @@ Can describe yesterday using top irregular past verbs (*went, had, got, did, saw
             }
           },
 
-          // Unit 12
+          // ─── UNIT 12 ───────────────────────────────────────────────────────
           {
             title: 'Unit 12: Storytelling & Level A1 Milestone',
             order: 12,
@@ -1601,18 +1850,20 @@ Can describe yesterday using top irregular past verbs (*went, had, got, did, saw
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_12a_1_listening.mp4',
                   content: `### 🎯 Can-Do Objective
-Can link sentences together using *and, but, because, so* to tell simple past stories.
+Can link sentences together using *and, but, because, so* to narrate simple stories in the past.
 
 ---
 
-### 📚 Core Vocabulary Essentials
-- **Connectors:** *and* (addition), *but* (contrast), *because* (reason), *so* (result)
-- **Story Verbs:** *met, talked, sat, looked, left, arrived*
+### 🎬 Embedded Video Dialogue: Strangers on a Train
+<video controls src="/videos/beginner/ef5e_beg_12a_1_listening.mp4"></video>
+
+#### 📜 Video Dialogue Transcript
+> *"Yesterday morning, I took the 8:30 train from London to Edinburgh. The carriage was completely full, so I sat next to an interesting passenger named David. We talked about photography and travel for three hours because we both love nature. It was a wonderful journey!"*
 
 ---
 
-### 💬 Real-Life Mini Story
-> *"Yesterday I took the morning train to Manchester. The train was full, so I sat next to an interesting stranger. We talked about books and music for two hours because we both love jazz!"*
+### 🎧 Audio Listening Drill
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_12.01.mp3"></audio>
 `,
                   quiz: {
                     create: {
@@ -1645,6 +1896,15 @@ Can link sentences together using *and, but, because, so* to tell simple past st
                             correctOption: 1,
                             order: 3,
                           },
+                          {
+                            question: 'We ________ our tickets to the inspector.',
+                            optionA: 'show',
+                            optionB: 'showed',
+                            optionC: 'shown',
+                            optionD: 'was show',
+                            correctOption: 1,
+                            order: 4,
+                          },
                         ]
                       }
                     }
@@ -1657,21 +1917,26 @@ Can link sentences together using *and, but, because, so* to tell simple past st
                   isFree: false,
                   videoUrl: '/videos/beginner/ef5e_beg_rc_11and12_video.mp4',
                   content: `### 🎯 Can-Do Objective
-Congratulations! You have reached the final milestone of CEFR Level A1. You can now introduce yourself completely, describe your routine, food habits, family, and past experiences.
+Congratulations! You have achieved CEFR Level A1 English Fluency. You can introduce yourself, describe your routines, hobbies, and past experiences confidently.
+
+---
+
+### 🎬 Embedded Video: Revise & Check Milestone
+<video controls src="/videos/beginner/ef5e_beg_rc_11and12_video.mp4"></video>
+
+---
+
+### 🎧 Audio Listening Drill: Level A1 Final Consolidation
+<audio controls src="/audio/beginner/EF_5e_Beginner_SB_12.03.mp3"></audio>
 
 ---
 
 ### 🏆 Final Speaking Self-Introduction Blueprint
-1. **Greeting & Identity:** *"Hello! My name is [Name]. I am from [Country] and I live in [City]."*
-2. **Work / Study:** *"I work as a [Job] in a [Workplace] / I am a student."*
-3. **Daily Routine:** *"Every day, I usually wake up at 7:00 and have coffee."*
-4. **Likes & Preferences:** *"In my free time, I love listening to music and cooking."*
-5. **Recent Past Event:** *"Last weekend, I met my friends and we went to the cinema."*
-
----
-
-### 🗣️ Speaking Practice Drill
-> *"Hello! My name is Dominic. I live in Germany and I work in technology. In my free time, I love cooking and travelling. Last week I went to Berlin!"*
+1. **Greeting & Identity:** *"Hello! My name is Dominic. I am from Cameroon and I live in Germany."*
+2. **Work / Profession:** *"I work in technology and software development."*
+3. **Daily Routine:** *"Every day, I usually wake up at 7:00, have coffee, and work with my team."*
+4. **Hobbies & Passion:** *"In my free time, I love cooking, travelling, and learning languages."*
+5. **Recent Past Event:** *"Last weekend, I went on a trip and saw beautiful places!"*
 `,
                   quiz: {
                     create: {
@@ -1696,13 +1961,22 @@ Congratulations! You have reached the final milestone of CEFR Level A1. You can 
                             order: 2,
                           },
                           {
+                            question: 'I am interested ________ learning English.',
+                            optionA: 'on',
+                            optionB: 'in',
+                            optionC: 'at',
+                            optionD: 'with',
+                            correctOption: 1,
+                            order: 3,
+                          },
+                          {
                             question: 'Congratulations on completing Level A1! What is your next level?',
                             optionA: 'Level A2',
                             optionB: 'Level A0',
                             optionC: 'Finish',
                             optionD: 'None',
                             correctOption: 0,
-                            order: 3,
+                            order: 4,
                           },
                         ]
                       }
