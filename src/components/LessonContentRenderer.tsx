@@ -75,14 +75,7 @@ export default function LessonContentRenderer({ content }: LessonContentRenderer
               <audio controls className="w-full h-10 rounded-lg accent-emerald-500" {...props} />
             </div>
           ),
-          video: ({ node, ...props }) => (
-            <div className="my-6 p-2 rounded-2xl bg-black border-2 border-slate-700 shadow-xl overflow-hidden">
-              <div className="flex items-center gap-2 px-3 py-2 text-sky-400 font-bold text-xs uppercase tracking-wider bg-slate-900/90 rounded-t-xl mb-1">
-                <Film className="w-4 h-4" /> Video Dialogue & Practice Clip
-              </div>
-              <video controls playsInline className="w-full max-h-[460px] rounded-xl object-contain bg-black" {...props} />
-            </div>
-          ),
+          video: () => null,
         }}
       >
         {content}

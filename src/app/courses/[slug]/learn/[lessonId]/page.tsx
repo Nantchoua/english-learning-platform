@@ -219,12 +219,7 @@ export default async function LessonViewerPage({
                 playsInline
               />
             </div>
-          ) : (
-            <div className="aspect-video w-full bg-slate-800 flex flex-col items-center justify-center text-slate-500">
-              <PlayCircle className="w-16 h-16 mb-3 opacity-30" />
-              <p className="text-sm">No video for this lesson.</p>
-            </div>
-          )}
+          ) : null}
 
           {/* Lesson content area */}
           <div className="max-w-4xl mx-auto px-6 py-8">
