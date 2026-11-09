@@ -121,6 +121,48 @@ export default function StudentCreationForm({ courses }: { courses: CourseOption
             </div>
           </div>
 
+          <div>
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+              Account Role & Access Privileges
+            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label className="flex items-start gap-3 p-3 rounded-lg border border-slate-200 bg-slate-50/50 hover:bg-slate-50 cursor-pointer has-[:checked]:border-emerald-500 has-[:checked]:bg-emerald-50/40 has-[:checked]:ring-1 has-[:checked]:ring-emerald-500 transition">
+                <input
+                  type="radio"
+                  name="role"
+                  value="STUDENT"
+                  defaultChecked
+                  className="mt-1 text-emerald-600 focus:ring-emerald-500 cursor-pointer"
+                />
+                <div>
+                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                    🎓 Student (Learner)
+                  </div>
+                  <p className="text-[11px] text-slate-500 mt-0.5">
+                    Standard learning account: access to assigned courses, quizzes, and learning path.
+                  </p>
+                </div>
+              </label>
+
+              <label className="flex items-start gap-3 p-3 rounded-lg border border-slate-200 bg-slate-50/50 hover:bg-slate-50 cursor-pointer has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50/40 has-[:checked]:ring-1 has-[:checked]:ring-purple-500 transition">
+                <input
+                  type="radio"
+                  name="role"
+                  value="INSTRUCTOR"
+                  className="mt-1 text-purple-600 focus:ring-purple-500 cursor-pointer"
+                />
+                <div>
+                  <div className="text-xs font-bold text-purple-900 flex items-center gap-1.5">
+                    ✍️ Instructor (Full Write Rights)
+                  </div>
+                  <p className="text-[11px] text-slate-500 mt-0.5">
+                    Teacher privileges: can create new courses, edit lessons, manage modules, and build quizzes.
+                  </p>
+                </div>
+              </label>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <div className="flex items-center justify-between mb-1">

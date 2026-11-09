@@ -15,9 +15,9 @@ export default async function InstructorStudentsPage() {
   const isAdminOrInstructor = session.user.role === 'ADMIN' || session.user.role === 'INSTRUCTOR';
   if (!isAdminOrInstructor) redirect('/dashboard');
 
-  // Fetch all students with their enrollments and progress
-  const students = await db.user.findMany({
-    where: { role: 'STUDENT' },
+  // Fetch all students & instructors with their enrollments and progress
+  const users = await db.user.findMany({
+    where: { NOT: { role: 'ADMIN' } },
     orderBy: { createdAt: 'desc' },
     include: {
       enrollments: {
@@ -39,14 +39,16 @@ export default async function InstructorStudentsPage() {
     orderBy: [{ isPublished: 'desc' }, { title: 'asc' }],
   });
 
-  const totalStudents = students.length;
-  const feesPaidCount = students.filter((s) => s.registrationFeePaid).length;
-  const enrolledCount = students.filter((s) => s.enrollments.length > 0).length;
+  const totalUsers = users.length;
+  const instructorCount = users.filter((u) => u.role === 'INSTRUCTOR').length;
+  const feesPaidCount = users.filter((s) => s.registrationFeePaid).length;
+  const enrolledCount = users.filter((s) => s.enrollments.length > 0).length;
 
-  const formattedStudents = students.map((s) => ({
+  const formattedStudents = users.map((s) => ({
     id: s.id,
     name: s.name,
     email: s.email,
+    role: s.role as 'STUDENT' | 'INSTRUCTOR',
     createdAt: new Date(s.createdAt).toLocaleDateString('en-GB', {
       day: 'numeric',
       month: 'short',
@@ -73,7 +75,7 @@ export default async function InstructorStudentsPage() {
         {/* Top Header & Navigation */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900">Student Management</h1>
+            <h1 className="text-3xl font-bold text-slate-900">User & Student Management</h1>
             <div className="flex gap-4 mt-2">
               <Link
                 href="/instructor/courses"
@@ -82,7 +84,7 @@ export default async function InstructorStudentsPage() {
                 Courses
               </Link>
               <span className="text-sm font-semibold text-emerald-600 border-b-2 border-emerald-600 pb-0.5">
-                Students ({totalStudents})
+                Users ({totalUsers})
               </span>
               <Link
                 href="/instructor/analytics"
@@ -101,14 +103,24 @@ export default async function InstructorStudentsPage() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
             <div className="w-12 h-12 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600">
               <Users className="w-6 h-6" />
             </div>
             <div>
-              <div className="text-2xl font-bold text-slate-900">{totalStudents}</div>
-              <div className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Total Students</div>
+              <div className="text-2xl font-bold text-slate-900">{totalUsers}</div>
+              <div className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Total Accounts</div>
+            </div>
+          </div>
+
+          <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+            <div className="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center text-purple-600">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-slate-900">{instructorCount}</div>
+              <div className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Instructors (Write)</div>
             </div>
           </div>
 
@@ -123,7 +135,7 @@ export default async function InstructorStudentsPage() {
           </div>
 
           <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
-            <div className="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center text-purple-600">
+            <div className="w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center text-amber-600">
               <BookOpen className="w-6 h-6" />
             </div>
             <div>

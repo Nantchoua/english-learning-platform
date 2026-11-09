@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { User, KeyRound, Trash2, CheckCircle2, XCircle, ShieldCheck, BookOpen, AlertTriangle, Plus, X } from 'lucide-react';
-import { deleteStudent, resetStudentPassword, toggleStudentFee, assignCourse, removeEnrollment } from './actions';
+import { User, KeyRound, Trash2, CheckCircle2, XCircle, ShieldCheck, BookOpen, AlertTriangle, Plus, X, Sparkles, GraduationCap } from 'lucide-react';
+import { deleteStudent, resetStudentPassword, toggleStudentFee, assignCourse, removeEnrollment, toggleUserRole } from './actions';
 
 type CourseOption = {
   id: string;
@@ -15,6 +15,7 @@ type StudentItem = {
   id: string;
   name: string | null;
   email: string | null;
+  role: 'STUDENT' | 'INSTRUCTOR';
   createdAt: string;
   registrationFeePaid: boolean;
   enrollments: Array<{
@@ -88,6 +89,27 @@ export default function StudentTable({ students, courses = [] }: { students: Stu
     }
   };
 
+  const handleToggleRole = async (userId: string, currentRole: 'STUDENT' | 'INSTRUCTOR', nameOrEmail: string) => {
+    const targetRole = currentRole === 'INSTRUCTOR' ? 'STUDENT' : 'INSTRUCTOR';
+    const actionDesc = targetRole === 'INSTRUCTOR'
+      ? `grant Instructor write permissions to ${nameOrEmail}? They will be able to create, edit, and publish courses.`
+      : `switch ${nameOrEmail} back to a regular Student account?`;
+
+    if (!confirm(`Are you sure you want to ${actionDesc}`)) return;
+
+    setLoading(true);
+    const formData = new FormData();
+    formData.set('userId', userId);
+    formData.set('targetRole', targetRole);
+    try {
+      await toggleUserRole(formData);
+    } catch (err: any) {
+      alert(err.message || 'Failed to update role');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleDelete = async (studentId: string, email: string) => {
     if (confirm(`Are you sure you want to delete student account "${email}"? This will remove all their enrollments and progress.`)) {
       const formData = new FormData();
@@ -100,9 +122,9 @@ export default function StudentTable({ students, courses = [] }: { students: Stu
     return (
       <div className="bg-white rounded-xl border border-slate-200 p-12 text-center shadow-sm">
         <User className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-        <h3 className="text-base font-bold text-slate-800">No students added yet</h3>
+        <h3 className="text-base font-bold text-slate-800">No accounts added yet</h3>
         <p className="text-xs text-slate-500 max-w-sm mx-auto mt-1">
-          Use the form above to add your first student and assign them course credentials.
+          Use the form above to add your first student or instructor account.
         </p>
       </div>
     );
@@ -112,10 +134,10 @@ export default function StudentTable({ students, courses = [] }: { students: Stu
     <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
       <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
         <h3 className="font-bold text-slate-800 text-sm">
-          Active Student Roster ({students.length})
+          Active Student & Instructor Roster ({students.length})
         </h3>
         <span className="text-xs text-slate-400">
-          Showing enrolled student credentials & registration state
+          Manage roles, instructor write permissions, fee status & course enrollments
         </span>
       </div>
 
@@ -123,7 +145,8 @@ export default function StudentTable({ students, courses = [] }: { students: Stu
         <table className="w-full text-left border-collapse text-sm">
           <thead>
             <tr className="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
-              <th className="py-3 px-4">Student</th>
+              <th className="py-3 px-4">User</th>
+              <th className="py-3 px-4">Role & Writes</th>
               <th className="py-3 px-4">Registration Fee</th>
               <th className="py-3 px-4">Enrolled Courses</th>
               <th className="py-3 px-4">Joined Date</th>
@@ -142,6 +165,31 @@ export default function StudentTable({ students, courses = [] }: { students: Stu
                       <div className="font-bold text-slate-900">{student.name || 'Student'}</div>
                       <div className="text-xs text-slate-500 font-mono">{student.email}</div>
                     </div>
+                  </div>
+                </td>
+
+                <td className="py-3 px-4">
+                  <div className="flex items-center gap-2">
+                    {student.role === 'INSTRUCTOR' ? (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200">
+                        <Sparkles className="w-3 h-3 text-purple-600" />
+                        Instructor (Write)
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                        <GraduationCap className="w-3 h-3 text-slate-500" />
+                        Student
+                      </span>
+                    )}
+                    <button
+                      type="button"
+                      disabled={loading}
+                      onClick={() => handleToggleRole(student.id, student.role, student.name || student.email || 'User')}
+                      className="text-[11px] font-semibold text-emerald-700 hover:text-emerald-800 hover:underline cursor-pointer disabled:opacity-50"
+                      title={student.role === 'INSTRUCTOR' ? 'Revoke instructor writes' : 'Grant instructor write permissions'}
+                    >
+                      {student.role === 'INSTRUCTOR' ? 'Make Student' : 'Make Instructor'}
+                    </button>
                   </div>
                 </td>
 

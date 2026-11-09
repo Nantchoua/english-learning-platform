@@ -11,7 +11,7 @@ async function verifyOwnership(courseId: string) {
   if (!session?.user?.id) throw new Error('Unauthorized');
   
   const role = session.user.role;
-  if (role === 'ADMIN' || role === 'INSTRUCTOR') {
+  if (role === 'ADMIN') {
     return session.user.id;
   }
 

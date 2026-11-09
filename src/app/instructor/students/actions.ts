@@ -25,6 +25,9 @@ export async function createStudent(formData: FormData) {
   const courseId = formData.get('courseId') as string;
   const registrationFeePaid = formData.get('registrationFeePaid') === 'on' || formData.get('registrationFeePaid') === 'true';
 
+  const roleInput = (formData.get('role') as string || '').toUpperCase();
+  const role = roleInput === 'INSTRUCTOR' ? 'INSTRUCTOR' : 'STUDENT';
+
   if (!name || !email || !password) {
     throw new Error('Name, email, and password are required');
   }
@@ -45,7 +48,7 @@ export async function createStudent(formData: FormData) {
       name,
       email,
       password: hashedPassword,
-      role: 'STUDENT',
+      role,
       registrationFeePaid,
     },
   });
@@ -64,7 +67,34 @@ export async function createStudent(formData: FormData) {
   }
 
   revalidatePath('/instructor/students');
-  return { success: true, email: newStudent.email };
+  return { success: true, email: newStudent.email, role: newStudent.role };
+}
+
+export async function toggleUserRole(formData: FormData) {
+  await verifyAdminOrInstructor();
+  const userId = formData.get('userId') as string;
+  const targetRole = formData.get('targetRole') as 'STUDENT' | 'INSTRUCTOR';
+
+  if (!userId || !targetRole || (targetRole !== 'STUDENT' && targetRole !== 'INSTRUCTOR')) {
+    throw new Error('Invalid role request');
+  }
+
+  const targetUser = await db.user.findUnique({ where: { id: userId } });
+  if (!targetUser) {
+    throw new Error('User not found');
+  }
+
+  if (targetUser.role === 'ADMIN') {
+    throw new Error('Cannot change permissions for administrator accounts');
+  }
+
+  await db.user.update({
+    where: { id: userId },
+    data: { role: targetRole },
+  });
+
+  revalidatePath('/instructor/students');
+  revalidatePath('/dashboard');
 }
 
 export async function deleteStudent(formData: FormData) {
