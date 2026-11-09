@@ -23,9 +23,15 @@ export default async function InstructorDashboard() {
         <div>
           <h1 className="text-3xl font-bold text-slate-900">My Courses</h1>
           <div className="flex gap-4 mt-2">
-            <span className="text-sm font-semibold text-[#0056D2]">Courses</span>
-            <Link href="/instructor/analytics" className="text-sm text-slate-500 hover:text-[#0056D2] font-medium transition">
+            <span className="text-sm font-semibold text-emerald-600 border-b-2 border-emerald-600 pb-0.5">Courses</span>
+            <Link href="/instructor/students" className="text-sm text-slate-500 hover:text-emerald-600 font-medium transition">
+              Students
+            </Link>
+            <Link href="/instructor/analytics" className="text-sm text-slate-500 hover:text-emerald-600 font-medium transition">
               Analytics
+            </Link>
+            <Link href="/instructor/verifications" className="text-sm text-slate-500 hover:text-emerald-600 font-medium transition">
+              Approvals
             </Link>
           </div>
         </div>

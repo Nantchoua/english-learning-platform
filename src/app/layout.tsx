@@ -20,9 +20,16 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Speaking Express English Academy",
   description: "Unlock English conversation and speaking fluency, one word at a time.",
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Speaking Express',
+  },
   icons: {
-    icon: '/logo.svg', // Sets tab icon to SpeakingExpress logo
-  }
+    icon: '/logo.svg',
+    apple: '/icons/apple-touch-icon.png',
+  },
 };
 
 function isPublicPath(path: string) {

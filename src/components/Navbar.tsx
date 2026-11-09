@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { LogIn, UserCircle } from 'lucide-react';
 import { headers } from 'next/headers';
 import SignOutButton from '@/components/SignOutButton';
+import InstallPwaButton from '@/components/InstallPwaButton';
 
 export default async function Navbar() {
   const session = await getServerSession(authOptions);
@@ -46,6 +47,10 @@ export default async function Navbar() {
                       ⚙️ Instructor View
                     </Link>
                   )}
+                  <Link href="/instructor/students"
+                    className="text-sm text-slate-650 hover:text-emerald-600 transition font-semibold flex items-center gap-1">
+                    Students
+                  </Link>
                   <Link href="/instructor/verifications"
                     className="text-sm text-slate-650 hover:text-emerald-600 transition font-semibold flex items-center gap-1">
                     Approvals
@@ -60,13 +65,17 @@ export default async function Navbar() {
                 className="text-sm text-slate-600 hover:text-[#0056D2] transition font-medium flex items-center gap-1">
                 <UserCircle className="w-4 h-4" /> Profile
               </Link>
+              <InstallPwaButton />
               <SignOutButton />
             </>
           ) : (
-            <Link href="/login"
-              className="flex items-center gap-1 bg-[#0056D2] hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition">
-              <LogIn className="w-4 h-4" /> Sign in
-            </Link>
+            <div className="flex items-center gap-3">
+              <InstallPwaButton />
+              <Link href="/login"
+                className="flex items-center gap-1 bg-[#0056D2] hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition">
+                <LogIn className="w-4 h-4" /> Sign in
+              </Link>
+            </div>
           )}
         </div>
       </div>

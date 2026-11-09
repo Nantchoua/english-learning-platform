@@ -124,10 +124,16 @@ export default async function InstructorAnalyticsPage() {
         <div>
           <h1 className="text-3xl font-bold text-slate-900">Analytics</h1>
           <div className="flex gap-4 mt-2">
-            <Link href="/instructor/courses" className="text-sm text-slate-500 hover:text-[#0056D2] font-medium transition">
+            <Link href="/instructor/courses" className="text-sm text-slate-500 hover:text-emerald-600 font-medium transition">
               Courses
             </Link>
-            <span className="text-sm font-semibold text-[#0056D2]">Analytics</span>
+            <Link href="/instructor/students" className="text-sm text-slate-500 hover:text-emerald-600 font-medium transition">
+              Students
+            </Link>
+            <span className="text-sm font-semibold text-emerald-600 border-b-2 border-emerald-600 pb-0.5">Analytics</span>
+            <Link href="/instructor/verifications" className="text-sm text-slate-500 hover:text-emerald-600 font-medium transition">
+              Approvals
+            </Link>
           </div>
         </div>
       </div>

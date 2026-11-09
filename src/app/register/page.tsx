@@ -1,22 +1,8 @@
 import Link from 'next/link';
-import { BookOpen } from 'lucide-react';
+import { Lock, LogIn, ArrowLeft } from 'lucide-react';
+import InstallPwaButton from '@/components/InstallPwaButton';
 
-export default async function RegisterPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ error?: string }>;
-}) {
-  const { error } = await searchParams;
-
-  const errorMessage =
-    error === 'exists'
-      ? 'An account with this email already exists.'
-      : error === 'missing'
-      ? 'Please fill in all fields.'
-      : error === 'generic'
-      ? 'Registration failed. Please check your details and try again (password must be at least 8 characters).'
-      : null;
-
+export default function RegisterPage() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center px-4 py-12">
       {/* Logo */}
@@ -24,71 +10,47 @@ export default async function RegisterPage({
         <img src="/logo.svg" alt="Speaking Express" className="h-10 w-auto" />
       </Link>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm w-full max-w-md p-8">
-        <h1 className="text-2xl font-bold text-slate-900 mb-1">Create your account</h1>
-        <p className="text-slate-500 text-sm mb-6">
-          Already have an account?{' '}
-          <Link href="/login" className="text-emerald-650 hover:underline font-semibold">
-            Sign in
-          </Link>
-        </p>
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm w-full max-w-md p-8 text-center space-y-6">
+        <div className="w-16 h-16 bg-amber-50 border border-amber-200 rounded-full flex items-center justify-center mx-auto text-amber-600 shadow-xs">
+          <Lock className="w-8 h-8" />
+        </div>
 
-        {errorMessage && (
-          <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3 mb-5">
-            {errorMessage}
-          </div>
-        )}
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900 mb-2">Registration by Invitation Only</h1>
+          <p className="text-slate-600 text-sm leading-relaxed">
+            Public sign-ups are currently closed. All student accounts are created directly by the academy instructor or administrator.
+          </p>
+        </div>
 
-        <form action="/api/register" method="POST" className="space-y-4">
-          {/* Role is hardcoded to STUDENT — instructors are added internally */}
-          <input type="hidden" name="role" value="STUDENT" />
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs text-slate-500 text-left space-y-2">
+          <p className="font-semibold text-slate-700">Already have an account assigned?</p>
+          <p>
+            Please sign in using the student email and password provided to you by your instructor.
+          </p>
+        </div>
 
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
-            <input
-              type="text"
-              name="name"
-              required
-              autoFocus
-              placeholder="Jane Doe"
-              className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder="jane@example.com"
-              className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
-            <input
-              type="password"
-              name="password"
-              required
-              minLength={8}
-              placeholder="At least 8 characters"
-              className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-lg transition cursor-pointer shadow-sm"
+        <div className="space-y-3">
+          <Link
+            href="/login"
+            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition text-sm flex items-center justify-center gap-2 shadow-sm"
           >
-            Create Account
-          </button>
-        </form>
+            <LogIn className="w-4 h-4" /> Go to Sign In
+          </Link>
 
-        <p className="text-xs text-slate-400 text-center mt-6">
-          By signing up, you agree to our Terms of Service and Privacy Policy.
-        </p>
+          <Link
+            href="/"
+            className="w-full inline-flex items-center justify-center gap-1.5 text-xs text-slate-500 hover:text-slate-700 py-1"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" /> Back to Home
+          </Link>
+        </div>
+
+        <div className="pt-4 border-t border-slate-100 flex flex-col items-center gap-2">
+          <InstallPwaButton className="w-full justify-center py-2 text-xs" />
+          <p className="text-[11px] text-slate-400">
+            Download Speaking Express as an app on your mobile device or desktop
+          </p>
+        </div>
       </div>
     </div>
   );

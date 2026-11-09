@@ -4,8 +4,9 @@ import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { BookOpen } from 'lucide-react';
+import { BookOpen, Lock } from 'lucide-react';
 import { Suspense } from 'react';
+import InstallPwaButton from '@/components/InstallPwaButton';
 
 function LoginForm() {
   const router = useRouter();
@@ -77,12 +78,10 @@ function LoginForm() {
 
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm w-full max-w-md p-8">
         <h1 className="text-2xl font-bold text-slate-900 mb-1">Welcome back</h1>
-        <p className="text-slate-500 text-sm mb-6">
-          Don&apos;t have an account?{' '}
-          <Link href="/register" className="text-emerald-650 hover:underline font-semibold">
-            Sign up free
-          </Link>
-        </p>
+        <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-6 font-medium">
+          <Lock className="w-3.5 h-3.5 text-amber-600" />
+          <span>Private Academy Portal · Sign in with your assigned student credentials</span>
+        </div>
 
         {registered && (
           <div className="bg-green-50 border border-green-200 text-green-700 text-sm rounded-lg px-4 py-3 mb-5">
@@ -130,6 +129,13 @@ function LoginForm() {
             {loading ? 'Signing in...' : 'Sign in'}
           </button>
         </form>
+
+        <div className="mt-6 pt-5 border-t border-slate-100 flex flex-col items-center gap-2">
+          <InstallPwaButton className="w-full justify-center py-2 text-xs" />
+          <p className="text-[11px] text-slate-400 text-center">
+            Install Speaking Express as an app on your mobile home screen or computer
+          </p>
+        </div>
       </div>
     </div>
   );

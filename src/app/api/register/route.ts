@@ -2,9 +2,17 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { registrationSchema, sanitizeInput } from '@/lib/security';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await getServerSession(authOptions);
+    const isAdminOrInstructor = session?.user?.role === 'ADMIN' || session?.user?.role === 'INSTRUCTOR';
+    if (!isAdminOrInstructor) {
+      return new NextResponse('Public registration is closed. Only administrators can add new students.', { status: 403 });
+    }
+
     const formData = await req.formData();
     
     // Sanitize and validate inputs

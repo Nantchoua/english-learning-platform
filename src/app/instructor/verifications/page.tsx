@@ -84,7 +84,19 @@ export default async function VerificationsDashboardPage() {
         <div className="mb-8 flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-bold text-slate-900">Payment Verifications</h1>
-            <p className="text-slate-500 mt-1">
+            <div className="flex gap-4 mt-2">
+              <Link href="/instructor/courses" className="text-sm text-slate-500 hover:text-emerald-600 font-medium transition">
+                Courses
+              </Link>
+              <Link href="/instructor/students" className="text-sm text-slate-500 hover:text-emerald-600 font-medium transition">
+                Students
+              </Link>
+              <Link href="/instructor/analytics" className="text-sm text-slate-500 hover:text-emerald-600 font-medium transition">
+                Analytics
+              </Link>
+              <span className="text-sm font-semibold text-emerald-600 border-b-2 border-emerald-600 pb-0.5">Approvals</span>
+            </div>
+            <p className="text-slate-500 mt-2 text-sm">
               Review submitted Revolut transactions and unlock courses for students.
             </p>
           </div>
