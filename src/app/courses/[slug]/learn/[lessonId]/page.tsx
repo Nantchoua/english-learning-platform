@@ -48,7 +48,12 @@ export default async function LessonViewerPage({
     },
   });
 
-  if (!course) notFound();
+  if (!course) {
+    if (slug === 'connect-with-english-a1-a2') {
+      redirect(`/courses/english-beginner-course/learn/${lessonId}`);
+    }
+    notFound();
+  }
 
 
   // Fetch user data to verify registration fee status
@@ -202,6 +207,15 @@ export default async function LessonViewerPage({
                 allowFullScreen
                 allow="autoplay"
                 title={currentLesson.title}
+              />
+            </div>
+          ) : currentLesson.videoUrl ? (
+            <div className="aspect-video w-full bg-black flex items-center justify-center">
+              <video
+                src={currentLesson.videoUrl}
+                controls
+                className="w-full h-full"
+                playsInline
               />
             </div>
           ) : (

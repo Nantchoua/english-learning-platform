@@ -27,7 +27,12 @@ export default async function LearnIndexPage({
     },
   });
 
-  if (!course) notFound();
+  if (!course) {
+    if (slug === 'connect-with-english-a1-a2') {
+      redirect('/courses/english-beginner-course/learn');
+    }
+    notFound();
+  }
 
   const firstLesson = course.modules.flatMap((m) => m.lessons)[0];
 

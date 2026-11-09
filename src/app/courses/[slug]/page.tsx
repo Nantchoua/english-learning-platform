@@ -1,7 +1,7 @@
 import { db } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import LearningPath from '@/components/duolingo/LearningPath';
@@ -38,7 +38,12 @@ export default async function CourseDetailPage({
     },
   });
 
-  if (!course) notFound();
+  if (!course) {
+    if (slug === 'connect-with-english-a1-a2') {
+      redirect('/courses/english-beginner-course');
+    }
+    notFound();
+  }
 
   const userId = (session?.user as any)?.id as string | undefined;
   const totalLessons = course.modules.reduce((acc, m: any) => acc + m.lessons.length, 0);
