@@ -31,6 +31,7 @@ export default async function CheckoutPage({
       title: true,
       price: true,
       level: true,
+      accessPassword: true,
     },
   });
 
@@ -129,6 +130,7 @@ export default async function CheckoutPage({
                 isPayingInstallment2={isPayingInstallment2}
                 coursePrice={course.price ?? 0}
                 registrationFee={registrationFee}
+                requiresCoursePassword={!!(course.accessPassword && course.accessPassword.trim().length > 0)}
               />
 
             )}

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ShieldCheck, Info, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Info, CheckCircle2, Lock, Eye, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 type CheckoutFormProps = {
@@ -11,6 +11,7 @@ type CheckoutFormProps = {
   isPayingInstallment2: boolean;
   coursePrice: number;
   registrationFee?: number;
+  requiresCoursePassword?: boolean;
 };
 
 export default function CheckoutForm({
@@ -20,12 +21,15 @@ export default function CheckoutForm({
   isPayingInstallment2,
   coursePrice,
   registrationFee = 20.00,
+  requiresCoursePassword = false,
 }: CheckoutFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [paymentType, setPaymentType] = useState<'FULL' | 'INSTALLMENT'>('FULL');
   const [revolutReference, setRevolutReference] = useState('');
+  const [coursePassword, setCoursePassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const installmentAmount = (coursePrice / 2).toFixed(2);
 
@@ -49,6 +53,14 @@ export default function CheckoutForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (requiresCoursePassword && !needsRegistrationFee && !isPayingInstallment2) {
+      if (!coursePassword.trim()) {
+        alert('Please enter the Course Access Password provided by your instructor.');
+        return;
+      }
+    }
+
     if (!revolutReference.trim()) {
       alert('Please enter your Revolut username or payment reference.');
       return;
@@ -74,6 +86,7 @@ export default function CheckoutForm({
           action,
           paymentType,
           revolutReference: revolutReference.trim(),
+          coursePassword: coursePassword.trim(),
         }),
       });
 
@@ -182,6 +195,35 @@ export default function CheckoutForm({
           </p>
         </div>
       </div>
+
+      {/* Course Access Password (Required when password protection is active) */}
+      {requiresCoursePassword && !needsRegistrationFee && !isPayingInstallment2 && (
+        <div className="space-y-2 bg-amber-50/80 border border-amber-200 rounded-lg p-4">
+          <div className="flex items-center gap-2 text-amber-900 font-bold text-xs uppercase tracking-wider">
+            <Lock className="w-4 h-4 text-amber-600" /> Course Access Password Required
+          </div>
+          <p className="text-xs text-amber-800">
+            This course is password-protected. Please enter the access code provided by your instructor to complete enrollment.
+          </p>
+          <div className="relative mt-2">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              required
+              placeholder="Enter Course Password"
+              value={coursePassword}
+              onChange={(e) => setCoursePassword(e.target.value)}
+              className="w-full border border-amber-300 rounded-lg px-3 py-2.5 pr-10 text-sm focus:ring-1 focus:ring-amber-500 focus:border-amber-500 bg-white text-slate-900 font-mono"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 cursor-pointer"
+            >
+              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* 3. Reference Proof input */}
       <div className="space-y-2">

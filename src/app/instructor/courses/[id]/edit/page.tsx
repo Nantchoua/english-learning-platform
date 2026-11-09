@@ -148,6 +148,21 @@ export default async function CourseEditorPage({
                   className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-[#0056D2] focus:border-[#0056D2] text-slate-900"
                 />
               </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">
+                  Course Access Password (Optional)
+                </label>
+                <input
+                  type="text"
+                  name="accessPassword"
+                  defaultValue={course.accessPassword ?? ''}
+                  placeholder="e.g. English2026! (leave blank if public)"
+                  className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-[#0056D2] focus:border-[#0056D2] text-slate-900 font-mono"
+                />
+                <p className="text-xs text-slate-500 mt-1">
+                  🔒 When set, students must enter this password to purchase or enroll in this course.
+                </p>
+              </div>
               <button type="submit"
                 className="w-full bg-[#0056D2] hover:bg-blue-700 text-white py-2 rounded-md text-sm font-medium transition">
                 Save Changes

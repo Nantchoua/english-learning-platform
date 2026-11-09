@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
   // Fetch course details for receipt emails
   const course = await db.course.findUnique({
     where: { id: courseId },
-    select: { title: true, price: true },
+    select: { title: true, price: true, slug: true, accessPassword: true },
   });
 
   if (!course) {
@@ -74,6 +74,13 @@ export async function POST(req: NextRequest) {
   }
 
   // 3. Action: Standard Course Enrollment (Free, Full Price, or Installment 1)
+  if (course.accessPassword && course.accessPassword.trim().length > 0) {
+    const coursePassword = formData.get('coursePassword') as string;
+    if (!coursePassword || coursePassword.trim() !== course.accessPassword.trim()) {
+      return NextResponse.redirect(new URL(`/courses/${course.slug || ''}?error=invalid_password`, req.url));
+    }
+  }
+
   const existing = await db.enrollment.findUnique({
     where: { userId_courseId: { userId, courseId } },
   });

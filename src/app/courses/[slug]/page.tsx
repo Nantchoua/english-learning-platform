@@ -191,7 +191,14 @@ export default async function CourseDetailPage({
               ) : (
                 <div className="space-y-4 text-center">
                   <div>
-                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Tuition Cost</span>
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Tuition Cost</span>
+                      {course.accessPassword && (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full border border-amber-200">
+                          <Lock className="w-2.5 h-2.5" /> Password Protected
+                        </span>
+                      )}
+                    </div>
                     <div className="text-3xl font-black text-slate-900 mt-1">€{course.price?.toFixed(2) ?? '0.00'}</div>
                   </div>
                   {session ? (
@@ -203,9 +210,20 @@ export default async function CourseDetailPage({
                         Enroll & Unlock Path
                       </Link>
                     ) : (
-                      <form action="/api/enroll" method="POST">
+                      <form action="/api/enroll" method="POST" className="space-y-3">
                         <input type="hidden" name="courseId" value={course.id} />
                         <input type="hidden" name="slug" value={slug} />
+                        {course.accessPassword && (
+                          <div>
+                            <input
+                              type="password"
+                              name="coursePassword"
+                              required
+                              placeholder="Enter Course Password"
+                              className="w-full text-center border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-1 focus:ring-green-500 font-mono"
+                            />
+                          </div>
+                        )}
                         <button
                           type="submit"
                           className="w-full bg-[#58CC02] hover:bg-[#46A302] border-b-4 border-[#46A302] active:border-b-0 active:translate-y-1 text-white font-black py-3.5 rounded-2xl shadow-md transition text-base cursor-pointer"

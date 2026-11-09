@@ -42,9 +42,12 @@ export async function updateCourse(formData: FormData) {
     slug = `${baseSlug}-${Date.now().toString().slice(-4)}`;
   }
 
+  const accessPasswordInput = formData.get('accessPassword') as string;
+  const accessPassword = accessPasswordInput && accessPasswordInput.trim().length > 0 ? accessPasswordInput.trim() : null;
+
   await db.course.update({
     where: { id: courseId },
-    data: { title, slug, description, level, price },
+    data: { title, slug, description, level, price, accessPassword },
   });
 
   revalidatePath(`/instructor/courses/${courseId}/edit`);

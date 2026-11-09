@@ -207,3 +207,40 @@ describe('Security & Zod Schemas', () => {
     expect(sanitizeInput('   normal text   ')).toBe('normal text');
   });
 });
+
+// --- Test 6: Course Access Password Verification ---
+describe('Course Access Password Verification', () => {
+  const verifyCoursePassword = (courseAccessPassword: string | null | undefined, providedPassword: string | undefined): boolean => {
+    if (!courseAccessPassword || courseAccessPassword.trim().length === 0) {
+      return true; // No password protection on course
+    }
+    if (!providedPassword) {
+      return false; // Password required but none provided
+    }
+    return courseAccessPassword.trim() === providedPassword.trim();
+  };
+
+  it('should allow purchase when correct course password is provided', () => {
+    const coursePassword = 'EnglishBeginner2026!';
+    expect(verifyCoursePassword(coursePassword, 'EnglishBeginner2026!')).toBe(true);
+    expect(verifyCoursePassword(coursePassword, '  EnglishBeginner2026!  ')).toBe(true);
+  });
+
+  it('should reject purchase when wrong course password is provided', () => {
+    const coursePassword = 'EnglishBeginner2026!';
+    expect(verifyCoursePassword(coursePassword, 'WrongPassword123')).toBe(false);
+    expect(verifyCoursePassword(coursePassword, 'englishbeginner2026!')).toBe(false);
+  });
+
+  it('should reject purchase when password is empty or missing on protected course', () => {
+    const coursePassword = 'EnglishBeginner2026!';
+    expect(verifyCoursePassword(coursePassword, '')).toBe(false);
+    expect(verifyCoursePassword(coursePassword, undefined)).toBe(false);
+  });
+
+  it('should allow purchase without password when course is not password protected', () => {
+    expect(verifyCoursePassword(null, undefined)).toBe(true);
+    expect(verifyCoursePassword('', undefined)).toBe(true);
+    expect(verifyCoursePassword(undefined, undefined)).toBe(true);
+  });
+});

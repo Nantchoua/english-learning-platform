@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { courseId, action, paymentType, revolutReference } = await req.json();
+    const { courseId, action, paymentType, revolutReference, coursePassword } = await req.json();
     const userId = session.user.id;
 
     if (!revolutReference || !revolutReference.trim()) {
@@ -86,9 +86,22 @@ export async function POST(req: NextRequest) {
       return new NextResponse('Course ID is required', { status: 400 });
     }
 
-    const course = await db.course.findUnique({ where: { id: courseId }, select: { title: true } });
+    const course = await db.course.findUnique({
+      where: { id: courseId },
+      select: { title: true, accessPassword: true },
+    });
     if (!course) {
       return new NextResponse('Course not found', { status: 404 });
+    }
+
+    // Verify course access password if set by instructor
+    if (course.accessPassword && course.accessPassword.trim().length > 0) {
+      if (!coursePassword || coursePassword.trim() !== course.accessPassword.trim()) {
+        return new NextResponse(
+          'Incorrect course access password. Please enter the valid code provided by your instructor.',
+          { status: 403 }
+        );
+      }
     }
 
     const isInstallment = paymentType === 'INSTALLMENT';

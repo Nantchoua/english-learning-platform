@@ -89,6 +89,7 @@ model Course {
   level       Level        @default(A1)
   isPublished Boolean      @default(false)
   price       Float?       @default(0)
+  accessPassword String?   // Optional password required to purchase or enroll in this course
   
   instructorId String
   instructor   User         @relation("CourseOwner", fields: [instructorId], references: [id])

@@ -76,6 +76,7 @@ async function main() {
       level: 'A1',
       isPublished: true,
       price: 20.00,
+      accessPassword: 'EnglishBeginner2026!',
       instructorId: instructor.id,
       modules: {
         create: [
