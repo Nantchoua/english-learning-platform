@@ -32,6 +32,25 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    const storageBase =
+      process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL ||
+      'https://azvolnguhxuoddjisxar.supabase.co/storage/v1/object/public/English';
+    return {
+      beforeFiles: [],
+      afterFiles: [],
+      fallback: [
+        {
+          source: '/audio/:path*',
+          destination: `${storageBase}/audio/:path*`,
+        },
+        {
+          source: '/videos/:path*',
+          destination: `${storageBase}/videos/:path*`,
+        },
+      ],
+    };
+  },
 };
 
 export default nextConfig;

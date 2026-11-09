@@ -68,12 +68,12 @@ export default function LessonContentRenderer({ content }: LessonContentRenderer
             <hr className="my-6 border-slate-700/60" />
           ),
           audio: ({ node, ...props }) => (
-            <div className="my-4 p-4 rounded-2xl bg-slate-800/90 border border-slate-700 shadow-md">
-              <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2">
+            <span className="block my-4 p-4 rounded-2xl bg-slate-800/90 border border-slate-700 shadow-md">
+              <span className="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2">
                 <Volume2 className="w-4 h-4" /> Listen & Repeat Audio Track
-              </div>
+              </span>
               <audio controls className="w-full h-10 rounded-lg accent-emerald-500" {...props} />
-            </div>
+            </span>
           ),
           video: () => null,
         }}
