@@ -110,3 +110,47 @@ export async function toggleStudentFee(formData: FormData) {
 
   revalidatePath('/instructor/students');
 }
+
+export async function assignCourse(formData: FormData) {
+  await verifyAdminOrInstructor();
+  const studentId = formData.get('studentId') as string;
+  const courseId = formData.get('courseId') as string;
+
+  if (!studentId || !courseId) {
+    throw new Error('Student and course are required');
+  }
+
+  const [student, course] = await Promise.all([
+    db.user.findUnique({ where: { id: studentId } }),
+    db.course.findUnique({ where: { id: courseId } }),
+  ]);
+  if (!student) throw new Error('Student not found');
+  if (!course) throw new Error('Course not found');
+
+  // Create the enrollment, or re-activate it with full access if one already exists (e.g. PENDING)
+  await db.enrollment.upsert({
+    where: { userId_courseId: { userId: studentId, courseId } },
+    update: { status: 'ACTIVE', paymentType: 'FULL', installmentsPaid: 2 },
+    create: {
+      userId: studentId,
+      courseId,
+      paymentType: 'FULL',
+      installmentsPaid: 2,
+      status: 'ACTIVE',
+    },
+  });
+
+  revalidatePath('/instructor/students');
+  revalidatePath('/dashboard');
+}
+
+export async function removeEnrollment(formData: FormData) {
+  await verifyAdminOrInstructor();
+  const enrollmentId = formData.get('enrollmentId') as string;
+  if (!enrollmentId) throw new Error('Enrollment is required');
+
+  await db.enrollment.delete({ where: { id: enrollmentId } });
+
+  revalidatePath('/instructor/students');
+  revalidatePath('/dashboard');
+}

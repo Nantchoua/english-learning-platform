@@ -33,11 +33,10 @@ export default async function InstructorStudentsPage() {
     },
   });
 
-  // Fetch courses for auto-enrollment dropdown
+  // Fetch all courses (published + drafts) for course assignment
   const courses = await db.course.findMany({
-    where: { isPublished: true },
-    select: { id: true, title: true, slug: true, level: true },
-    orderBy: { title: 'asc' },
+    select: { id: true, title: true, slug: true, level: true, isPublished: true },
+    orderBy: [{ isPublished: 'desc' }, { title: 'asc' }],
   });
 
   const totalStudents = students.length;
@@ -56,6 +55,7 @@ export default async function InstructorStudentsPage() {
     registrationFeePaid: s.registrationFeePaid,
     enrollments: s.enrollments.map((e) => ({
       id: e.id,
+      courseId: e.courseId,
       course: {
         title: e.course.title,
         slug: e.course.slug,
@@ -137,7 +137,7 @@ export default async function InstructorStudentsPage() {
         <StudentCreationForm courses={courses} />
 
         {/* 2. Student Roster Table */}
-        <StudentTable students={formattedStudents} />
+        <StudentTable students={formattedStudents} courses={courses} />
       </main>
     </div>
   );

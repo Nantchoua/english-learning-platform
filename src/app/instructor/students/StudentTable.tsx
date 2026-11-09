@@ -1,8 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { User, KeyRound, Trash2, CheckCircle2, XCircle, ShieldCheck, BookOpen, AlertTriangle } from 'lucide-react';
-import { deleteStudent, resetStudentPassword, toggleStudentFee } from './actions';
+import { User, KeyRound, Trash2, CheckCircle2, XCircle, ShieldCheck, BookOpen, AlertTriangle, Plus, X } from 'lucide-react';
+import { deleteStudent, resetStudentPassword, toggleStudentFee, assignCourse, removeEnrollment } from './actions';
+
+type CourseOption = {
+  id: string;
+  title: string;
+  level: string;
+  isPublished?: boolean;
+};
 
 type StudentItem = {
   id: string;
@@ -12,6 +19,7 @@ type StudentItem = {
   registrationFeePaid: boolean;
   enrollments: Array<{
     id: string;
+    courseId: string;
     course: {
       title: string;
       slug: string;
@@ -21,10 +29,43 @@ type StudentItem = {
   progressCount: number;
 };
 
-export default function StudentTable({ students }: { students: StudentItem[] }) {
+export default function StudentTable({ students, courses = [] }: { students: StudentItem[]; courses?: CourseOption[] }) {
   const [resettingId, setResettingId] = useState<string | null>(null);
   const [newPassword, setNewPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [assigningId, setAssigningId] = useState<string | null>(null);
+  const [selectedCourseId, setSelectedCourseId] = useState('');
+
+  const handleAssignSubmit = async (studentId: string) => {
+    if (!selectedCourseId) {
+      alert('Please select a course');
+      return;
+    }
+    setLoading(true);
+    const formData = new FormData();
+    formData.set('studentId', studentId);
+    formData.set('courseId', selectedCourseId);
+    try {
+      await assignCourse(formData);
+      setAssigningId(null);
+      setSelectedCourseId('');
+    } catch (err: any) {
+      alert(err.message || 'Failed to assign course');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRemoveEnrollment = async (enrollmentId: string, courseTitle: string, email: string) => {
+    if (!confirm(`Remove "${courseTitle}" from ${email}? Their access to this course will be revoked.`)) return;
+    const formData = new FormData();
+    formData.set('enrollmentId', enrollmentId);
+    try {
+      await removeEnrollment(formData);
+    } catch (err: any) {
+      alert(err.message || 'Failed to remove course');
+    }
+  };
 
   const handleResetSubmit = async (studentId: string) => {
     if (!newPassword || newPassword.length < 8) {
@@ -132,21 +173,84 @@ export default function StudentTable({ students }: { students: StudentItem[] }) 
                   </form>
                 </td>
 
-                <td className="py-3 px-4">
+                <td className="py-3 px-4 align-top">
                   {student.enrollments.length === 0 ? (
                     <span className="text-xs text-slate-400 italic">No courses</span>
                   ) : (
                     <div className="space-y-1">
                       {student.enrollments.map((e) => (
-                        <div key={e.id} className="flex items-center gap-1.5 text-xs text-slate-700">
+                        <div key={e.id} className="group flex items-center gap-1.5 text-xs text-slate-700">
                           <BookOpen className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                           <span className="font-medium truncate max-w-[200px]" title={e.course.title}>
                             {e.course.title}
                           </span>
+                          {e.status !== 'ACTIVE' && (
+                            <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 rounded px-1">
+                              {e.status}
+                            </span>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveEnrollment(e.id, e.course.title, student.email || '')}
+                            title="Remove this course"
+                            className="p-0.5 rounded text-slate-400 hover:text-red-600 hover:bg-red-50 transition cursor-pointer"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
                         </div>
                       ))}
                     </div>
                   )}
+
+                  {(() => {
+                    const available = courses.filter(
+                      (c) => !student.enrollments.some((e) => e.courseId === c.id && e.status === 'ACTIVE')
+                    );
+                    if (assigningId === student.id) {
+                      return (
+                        <div className="mt-2 flex items-center gap-1.5">
+                          <select
+                            value={selectedCourseId}
+                            onChange={(ev) => setSelectedCourseId(ev.target.value)}
+                            className="border border-slate-300 rounded px-2 py-1 text-xs bg-white max-w-[200px]"
+                          >
+                            <option value="">Select a course…</option>
+                            {available.map((c) => (
+                              <option key={c.id} value={c.id}>
+                                [{c.level}] {c.title}{c.isPublished === false ? ' (Draft)' : ''}
+                              </option>
+                            ))}
+                          </select>
+                          <button
+                            type="button"
+                            disabled={loading}
+                            onClick={() => handleAssignSubmit(student.id)}
+                            className="bg-emerald-600 text-white text-xs px-2 py-1 rounded font-bold hover:bg-emerald-700 transition cursor-pointer disabled:opacity-50"
+                          >
+                            Assign
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => { setAssigningId(null); setSelectedCourseId(''); }}
+                            className="text-slate-400 hover:text-slate-700 p-1 cursor-pointer"
+                            title="Cancel"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      );
+                    }
+                    if (available.length === 0) return null;
+                    return (
+                      <button
+                        type="button"
+                        onClick={() => { setAssigningId(student.id); setSelectedCourseId(''); }}
+                        className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 hover:text-emerald-800 hover:underline cursor-pointer"
+                      >
+                        <Plus className="w-3.5 h-3.5" /> Assign course
+                      </button>
+                    );
+                  })()}
                 </td>
 
                 <td className="py-3 px-4 text-xs text-slate-500 whitespace-nowrap">
