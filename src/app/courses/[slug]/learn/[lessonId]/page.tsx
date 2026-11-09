@@ -12,6 +12,7 @@ import QuizViewer from '@/components/QuizViewer';
 import DiscussionForum from '@/components/DiscussionForum';
 import SpeakingPracticeStudio from '@/components/SpeakingPracticeStudio';
 import LessonContentRenderer from '@/components/LessonContentRenderer';
+import CourseVideoPlayer from '@/components/CourseVideoPlayer';
 
 
 export default async function LessonViewerPage({
@@ -211,14 +212,10 @@ export default async function LessonViewerPage({
               />
             </div>
           ) : currentLesson.videoUrl ? (
-            <div className="aspect-video w-full bg-black flex items-center justify-center">
-              <video
-                src={currentLesson.videoUrl}
-                controls
-                className="w-full h-full"
-                playsInline
-              />
-            </div>
+            <CourseVideoPlayer
+              videoUrl={currentLesson.videoUrl}
+              lessonTitle={currentLesson.title}
+            />
           ) : null}
 
           {/* Lesson content area */}

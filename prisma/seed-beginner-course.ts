@@ -12,7 +12,7 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  console.log('Seeding Comprehensive English Beginner Course: Vocabulary Essentials (A1)...');
+  console.log('Seeding English Beginner Course with authentic Oxford audio/video transcripts...');
 
   let instructor = await prisma.user.findFirst({
     where: {
@@ -35,7 +35,7 @@ async function main() {
     });
   }
 
-  // Clean up existing course cleanly
+  // Clean up old course cleanly
   const oldCourse = await prisma.course.findFirst({
     where: {
       OR: [
@@ -66,7 +66,7 @@ async function main() {
     await prisma.course.delete({ where: { id: oldCourse.id } });
   }
 
-  console.log('Creating course modules and lessons with authentic video, audio, and Oxford tests...');
+  console.log('Creating course modules, lessons with authentic video, audio, and Oxford tests...');
 
   const course = await prisma.course.create({
     data: {
@@ -89,44 +89,44 @@ async function main() {
                   order: 1,
                   isPublished: true,
                   isFree: true,
-                  videoUrl: '/videos/beginner/ef5e_beg_1a_1_listening.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **verb be (singular): I and you** and essential vocabulary for **numbers 0-10, days of the week, greetings**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_1.02_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Sarah:** *\"Hello, welcome to class! My name is Sarah Jenkins. What's your name?\"*\n- **Alex:** *\"Hello Sarah! My name is Alex Santos. Nice to meet you.\"*\n- **Sarah:** *\"Nice to meet you too, Alex. Are you in Room 3?\"*\n- **Alex:** *\"Yes, I am. I'm in Group A.\"*\n- **Sarah:** *\"Great! Welcome to the English Academy.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Hello / Hi** | interjection | `/h\u0259\u02c8l\u0259\u028a/` | Standard friendly greeting used at any time | *\"Hello, nice to meet you!\"* |\n| **Name** | noun | `/ne\u026am/` | A word by which a person is known | *\"What is your name?\"* |\n| **Nice to meet you** | phrase | `/na\u026as tu\u02d0 mi\u02d0t ju\u02d0/` | Polite phrase used when introduced to someone | *\"Hi Alex, nice to meet you too.\"* |\n| **Goodbye / Bye** | interjection | `/\u0261\u028ad\u02c8ba\u026a/` | Said when parting or leaving | *\"Goodbye, see you on Monday!\"* |\n| **Zero to Ten** | numbers | `/\u02c8z\u026a\u0259r\u0259\u028a/ - /t\u025bn/` | Cardinal digits 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 | *\"My phone number ends in four, seven, zero.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: verb be (singular): I and you\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "[{\"title\": \"Scene 1: In the Coffee Shop (Helen & Barista)\", \"url\": \"/videos/beginner/ef5e_beg_1a_1_listening.mp4\"}, {\"title\": \"Scene 2: Meeting Tom (Hello & Introductions)\", \"url\": \"/videos/beginner/ef5e_beg_1a_2_listening.mp4\"}]",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **verb be (singular): I and you** and essential vocabulary for **numbers 0-10, days of the week, greetings**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_1.05_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Maria:** *\"A cappuccino, please.\"*\n- **Andrew:** *\"A tea for me.\"*\n- **Sally:** *\"And a tea for me, too.\"*\n- **Assistant:** *\"What's your name?\"*\n- **Maria:** *\"Maria.\"*\n- **Andrew:** *\"I'm Andrew.\"*\n- **Sally:** *\"I'm Sally.\"*\n- **Assistant:** *\"Two teas and one cappuccino.\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Helen:** *\"Cappuccino, please.\"*\n- **Barista 1:** *\"What's your name?\"*\n- **Helen:** *\"Helen.\"*\n- **Barista 1:** *\"Ellen?\"*\n- **Helen:** *\"No, Helen.\"*\n- **Barista 1:** *\"Helen. OK.\"*\n- **Barista 2:** *\"Are you Diana?\"*\n- **Helen:** *\"No, I'm not. I'm Helen.\"*\n- **Barista 1:** *\"Sorry. Helen. Your cappuccino.\"*\n- **Helen:** *\"Thanks.\"*\n- **Tom:** *\"Hello. Are you Helen?\"*\n- **Helen:** *\"Yes, I am. And you're Tom.\"*\n- **Tom:** *\"Yes! Nice to meet you.\"*\n- **Helen:** *\"Nice to meet you.\"*\n- **Tom:** *\"Just a minute.\"*\n- **Tom:** *\"Hi. A tea, please.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Hello / Hi** | interjection | `/h\u0259\u02c8l\u0259\u028a/` | Standard friendly greeting used at any time | *\"Hello, nice to meet you!\"* |\n| **Cappuccino / Tea** | noun | `/\u02cck\u00e6p\u028a\u02c8t\u0283i\u02d0n\u0259\u028a/` | Hot beverages ordered in a caf\u00e9 | *\"A cappuccino, please.\"* |\n| **What's your name?** | question | `/w\u0252ts j\u0254\u02d0 ne\u026am/` | Asking someone's identity | *\"What's your name? - I'm Helen.\"* |\n| **Nice to meet you** | phrase | `/na\u026as tu\u02d0 mi\u02d0t ju\u02d0/` | Polite phrase used when introduced to someone | *\"Hi Tom, nice to meet you too.\"* |\n| **Numbers 0-10** | numbers | `/\u02c8z\u026a\u0259r\u0259\u028a/ - /t\u025bn/` | Cardinal digits: zero, one, two, three... | *\"Two teas and one cappuccino.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: verb be (singular): I and you\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "Hello, ________ Mark.",
-                            optionA: "I",
-                            optionB: "I'm",
-                            optionC: "Am",
+                            question: "Helen: A cappuccino, ________.",
+                            optionA: "please",
+                            optionB: "thank you",
+                            optionC: "excuse me",
                             optionD: "None of the above",
-                            correctOption: 1,
+                            correctOption: 0,
                             order: 1,
                           },
                           {
-                            question: "A: Nice to meet you. B: ________.",
-                            optionA: "Goodbye",
-                            optionB: "Nice to meet you, too",
-                            optionC: "I am fine",
+                            question: "Barista: What's your name? Helen: ________ Helen.",
+                            optionA: "I'm",
+                            optionB: "Am",
+                            optionC: "You're",
                             optionD: "None of the above",
-                            correctOption: 1,
+                            correctOption: 0,
                             order: 2,
                           },
                           {
-                            question: "Are you in Room 4? - Yes, ________.",
-                            optionA: "I'm",
-                            optionB: "I am",
-                            optionC: "you are",
+                            question: "Tom: Are you Helen? Helen: Yes, I ________.",
+                            optionA: "am",
+                            optionB: "'m",
+                            optionC: "is",
                             optionD: "None of the above",
-                            correctOption: 1,
+                            correctOption: 0,
                             order: 3,
                           },
                           {
-                            question: "What number comes after six? - ________.",
-                            optionA: "seven",
-                            optionB: "five",
-                            optionC: "eight",
+                            question: "Two teas and ________ cappuccino.",
+                            optionA: "one",
+                            optionB: "a two",
+                            optionC: "an",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 4,
@@ -141,44 +141,44 @@ async function main() {
                   order: 2,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_1b_1_vocabulary.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **verb be (singular): he, she, it** and essential vocabulary for **countries (Spain, Japan, Brazil, UK, Mexico, Italy)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_1.16_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Reporter:** *\"Excuse me, where is this band from?\"*\n- **Tourist:** *\"They are from Spain. The singer is from Madrid.\"*\n- **Reporter:** *\"Is she famous in Europe?\"*\n- **Tourist:** *\"Yes, she is! Her music is popular all over the world.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Country** | noun | `/\u02c8k\u028cntri/` | A nation with its own government | *\"Which country are you from?\"* |\n| **Spain / Spanish** | noun / adj | `/spe\u026an/ - /\u02c8sp\u00e6n\u026a\u0283/` | Country in southwestern Europe / language or nationality | *\"Carlos is from Spain.\"* |\n| **Japan / Japanese** | noun / adj | `/d\u0292\u0259\u02c8p\u00e6n/ - /\u02ccd\u0292\u00e6p\u0259\u02c8ni\u02d0z/` | Island nation in East Asia | *\"Yuki is from Tokyo, Japan.\"* |\n| **Brazil / Brazilian** | noun / adj | `/br\u0259\u02c8z\u026al/ - /br\u0259\u02c8z\u026alj\u0259n/` | Largest country in South America | *\"Samba music is from Brazil.\"* |\n| **Where** | adverb | `/we\u0259(r)/` | Question word for asking about place or origin | *\"Where is she from?\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: verb be (singular): he, she, it\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "/videos/beginner/ef5e_beg_1b_1_vocabulary.mp4",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **verb be (singular): he, she, it** and essential vocabulary for **countries (Spain, Japan, Brazil, UK, Mexico, Italy, China, USA)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_1.16_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **A:** *\"Where are you from?\"*\n- **B:** *\"I'm from Toledo.\"*\n- **A:** *\"Where's Toledo?\"*\n- **B:** *\"It's in Spain.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Where are you from?** | question | `/we\u0259r \u0251\u02d0 ju\u02d0 fr\u0252m/` | Asking a person's country or city of origin | *\"Where are you from? - I'm from Toledo.\"* |\n| **Toledo / Spain** | proper noun | `/t\u0259\u02c8li\u02d0d\u0259\u028a/ - /spe\u026an/` | Historical city in central Spain | *\"Where's Toledo? - It's in Spain.\"* |\n| **China / Chinese** | noun / adj | `/\u02c8t\u0283a\u026an\u0259/ - /\u02cct\u0283a\u026a\u02c8ni\u02d0z/` | Nation in East Asia / nationality | *\"She is from Beijing, China.\"* |\n| **Brazil / Brazilian** | noun / adj | `/br\u0259\u02c8z\u026al/ - /br\u0259\u02c8z\u026alj\u0259n/` | Country in South America | *\"Samba is from Brazil.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: verb be (singular): he, she, it\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "Where ________ Carlos from?",
-                            optionA: "is",
-                            optionB: "are",
+                            question: "Where ________ you from? - I'm from Toledo.",
+                            optionA: "are",
+                            optionB: "is",
                             optionC: "am",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 1,
                           },
                           {
-                            question: "Maria is from Mexico. ________ Mexican.",
-                            optionA: "She",
-                            optionB: "She's",
-                            optionC: "He's",
+                            question: "Where's Toledo? - It's ________ Spain.",
+                            optionA: "in",
+                            optionB: "at",
+                            optionC: "on",
                             optionD: "None of the above",
-                            correctOption: 1,
+                            correctOption: 0,
                             order: 2,
                           },
                           {
-                            question: "Is Rio in Argentina? - No, it ________.",
-                            optionA: "isn't",
-                            optionB: "is",
-                            optionC: "not",
+                            question: "Maria is from Mexico. ________ Mexican.",
+                            optionA: "She's",
+                            optionB: "He's",
+                            optionC: "It's",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 3,
                           },
                           {
-                            question: "Tokyo is in ________.",
-                            optionA: "Japan",
-                            optionB: "Japanese",
-                            optionC: "Spain",
+                            question: "Tokyo ________ in Japan.",
+                            optionA: "is",
+                            optionB: "are",
+                            optionC: "am",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 4,
@@ -193,44 +193,44 @@ async function main() {
                   order: 3,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_pe1_1.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **The English alphabet, checking into a hotel** and essential vocabulary for **classroom language, spelling names, hotel reception**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_1.31_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Receptionist:** *\"Good afternoon. Welcome to the Grand Hotel.\"*\n- **Rob:** *\"Hello. I have a reservation. My name is Rob Walker.\"*\n- **Receptionist:** *\"How do you spell your surname, please?\"*\n- **Rob:** *\"W-A-L-K-E-R.\"*\n- **Receptionist:** *\"Thank you, Mr. Walker. You are in Room 302.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Spell** | verb | `/sp\u025bl/` | Write or name the letters that form a word | *\"How do you spell your first name?\"* |\n| **Surname / Last name** | noun | `/\u02c8s\u025c\u02d0ne\u026am/` | Family name inherited from parents | *\"My surname is Walker.\"* |\n| **Reservation** | noun | `/\u02ccr\u025bz\u0259\u02c8ve\u026a\u0283\u0259n/` | An arrangement to have a room or table kept for you | *\"I have a reservation for two nights.\"* |\n| **Room** | noun | `/ru\u02d0m/` | A partitioned space inside a building or hotel | *\"Your key is for room 204.\"* |\n| **Please** | adverb | `/pli\u02d0z/` | Polite word used when requesting something | *\"Spell that again, please.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: The English alphabet, checking into a hotel\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "[{\"title\": \"Scene 1: Rob in London & Poland\", \"url\": \"/videos/beginner/ef5e_beg_pe1_1.mp4\"}, {\"title\": \"Scene 2: Checking into the Hotel\", \"url\": \"/videos/beginner/ef5e_beg_pe1_2.mp4\"}, {\"title\": \"Scene 3: How Do You Spell It?\", \"url\": \"/videos/beginner/ef5e_beg_pe1_3.mp4\"}, {\"title\": \"Scene 4: In the Classroom\", \"url\": \"/videos/beginner/ef5e_beg_pe1_4.mp4\"}, {\"title\": \"Scene 5: Booking a Table\", \"url\": \"/videos/beginner/ef5e_beg_pe1_5.mp4\"}, {\"title\": \"Scene 6: Useful Social English Phrases\", \"url\": \"/videos/beginner/ef5e_beg_pe1_6.mp4\"}]",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **The English alphabet; classroom language; hotel check-in** and essential vocabulary for **surname, reservation, room key, spelling names**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_1.34_NEW.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Narrator:** *\"1\"*\n- **F:** *\"a coat\"*\n- **Narrator:** *\"2\"*\n- **M:** *\"the door\"*\n- **Narrator:** *\"3\"*\n- **F:** *\"a window\"*\n- **Narrator:** *\"4\"*\n- **F:** *\"the board\"*\n- **Narrator:** *\"5\"*\n- **M:** *\"a chair\"*\n- **Narrator:** *\"6\"*\n- **M:** *\"a table\"*\n- **Narrator:** *\"7\"*\n- **F:** *\"a laptop\"*\n- **Narrator:** *\"8\"*\n- **M:** *\"a dictionary\"*\n- **Narrator:** *\"9\"*\n- **F:** *\"a bag\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Rob:** *\"Hello.\"*\n- **Receptionist:** *\"Good afternoon.\"*\n- **Rob:** *\"My name's Rob Walker. I have a reservation.\"*\n- **Receptionist:** *\"Sorry, what's your surname?\"*\n- **Rob:** *\"Walker.\"*\n- **Receptionist:** *\"How do you spell it?\"*\n- **Rob:** *\"W-A-L-K-E-R.\"*\n- **Receptionist:** *\"Sorry?\"*\n- **Rob:** *\"W-A-L-K-E-R.\"*\n- **Receptionist:** *\"Thank you. OK, Mr Walker. You're in room 321.\"*\n- **Rob:** *\"Thanks.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Surname / Last name** | noun | `/\u02c8s\u025c\u02d0ne\u026am/` | Family name | *\"Sorry, what's your surname? - Walker.\"* |\n| **Reservation** | noun | `/\u02ccr\u025bz\u0259\u02c8ve\u026a\u0283\u0259n/` | Booking arrangement | *\"I have a reservation for two nights.\"* |\n| **How do you spell it?** | phrase | `/ha\u028a du\u02d0 ju\u02d0 sp\u025bl \u026at/` | Asking someone to name the letters | *\"W-A-L-K-E-R.\"* |\n| **Journalist** | noun | `/\u02c8d\u0292\u025c\u02d0n\u0259l\u026ast/` | A person who writes for newspapers or magazines | *\"Rob is a journalist from London.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: The English alphabet; classroom language; hotel check-in\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "How do you ________ your last name?",
-                            optionA: "spell",
-                            optionB: "spells",
-                            optionC: "write down",
+                            question: "Rob: Hello. Receptionist: ________.",
+                            optionA: "Good afternoon",
+                            optionB: "Goodbye",
+                            optionC: "Excuse me",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 1,
                           },
                           {
-                            question: "Good morning. I have a ________ for a single room.",
+                            question: "My name's Rob Walker. I have a ________.",
                             optionA: "reservation",
                             optionB: "book",
-                            optionC: "table",
+                            optionC: "card",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 2,
                           },
                           {
-                            question: "What letter comes between J and L? - ________.",
-                            optionA: "K",
-                            optionB: "M",
-                            optionC: "H",
+                            question: "Receptionist: Sorry, what's your ________? Rob: Walker.",
+                            optionA: "surname",
+                            optionB: "room",
+                            optionC: "telephone",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 3,
                           },
                           {
-                            question: "Excuse me, can you ________ that, please?",
-                            optionA: "repeat",
-                            optionB: "listen",
-                            optionC: "write",
+                            question: "How do you ________ your surname? - W-A-L-K-E-R.",
+                            optionA: "spell",
+                            optionB: "write",
+                            optionC: "say",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 4,
@@ -360,7 +360,7 @@ async function main() {
                   isPublished: true,
                   isFree: false,
                   videoUrl: null,
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **verb be (plural): we, you, they** and essential vocabulary for **nationalities, on holiday, on business**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_2.01_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **David:** *\"Hello! Are you on holiday here in London?\"*\n- **Elena:** *\"No, we aren't. We're here on business.\"*\n- **David:** *\"Where are you and your colleagues from?\"*\n- **Elena:** *\"We're from Rome. We're Italian.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Holiday** | noun | `/\u02c8h\u0252l\u026ade\u026a/` | Vacation or leisure trip away from work | *\"Are you on holiday in Spain?\"* |\n| **Business** | noun | `/\u02c8b\u026azn\u0259s/` | Work, commercial, or professional activity | *\"No, they are here on business.\"* |\n| **Colleague** | noun | `/\u02c8k\u0252li\u02d0\u0261/` | A person with whom one works | *\"These are my colleagues from Berlin.\"* |\n| **We / They** | pronoun | `/wi\u02d0/ - /\u00f0e\u026a/` | Plural subjective pronouns | *\"They are from Canada; we are from the UK.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: verb be (plural): we, you, they\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **verb be (plural): we, you, they** and essential vocabulary for **countries and nationalities (Brazil - Brazilian, China - Chinese, Spain - Spanish)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_2.01_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **M:** *\"Brazil\"*\n> *\"Brazilian\"*\n- **F:** *\"China\"*\n> *\"Chinese\"*\n> *\"Egypt\"*\n> *\"Egyptian\"*\n- **M:** *\"England\"*\n> *\"English\"*\n> *\"France\"*\n> *\"French\"*\n- **F:** *\"Germany\"*\n> *\"German\"*\n> *\"Italy\"*\n> *\"Italian\"*\n- **M:** *\"Japan\"*\n> *\"Japanese\"*\n> *\"Mexico\"*\n> *\"Mexican\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Holiday** | noun | `/\u02c8h\u0252l\u026ade\u026a/` | Vacation or leisure trip away from work | *\"Are you on holiday in London?\"* |\n| **Business** | noun | `/\u02c8b\u026azn\u0259s/` | Work, commercial activity | *\"No, we are here on business.\"* |\n| **Nationalities** | noun | `/\u02ccn\u00e6\u0283\u0259\u02c8n\u00e6l\u026atiz/` | Brazilian, Chinese, English, Mexican, Spanish | *\"They are from Spain; they're Spanish.\"* |\n| **We / They** | pronouns | `/wi\u02d0/ - /\u00f0e\u026a/` | Plural subjective pronouns | *\"We're from Rome.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: verb be (plural): we, you, they\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
@@ -411,17 +411,17 @@ async function main() {
                   order: 2,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_2b_1_vocabulary.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Wh- and How questions with be (Who, What, Where, When, How)** and essential vocabulary for **numbers 11-100, phone numbers, bus lines**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_2.14_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Passenger:** *\"Excuse me, what number is the bus to Oxford Street?\"*\n- **Clerk:** *\"It's bus number twenty-four. It leaves from gate eleven.\"*\n- **Passenger:** *\"How much is the ticket?\"*\n- **Clerk:** *\"It's three pounds fifty.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Bus** | noun | `/b\u028cs/` | A large motor vehicle carrying passengers by road | *\"What number is the bus?\"* |\n| **Phone number** | noun | `/f\u0259\u028an \u02c8n\u028cmb\u0259/` | A sequence of numbers used to dial a telephone | *\"My phone number is 0794 332 108.\"* |\n| **Eleven to Twenty** | numbers | `/\u026a\u02c8l\u025bv.\u0259n/ - /\u02c8tw\u025bn.ti/` | 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 | *\"She is fifteen years old.\"* |\n| **Thirty to One Hundred** | numbers | `/\u02c8\u03b8\u025c\u02d0.ti/ - /w\u028cn \u02c8h\u028cn.dr\u0259d/` | 30, 40, 50, 60, 70, 80, 90, 100 | *\"The hotel is at 85 King's Road.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Wh- and How questions with be (Who, What, Where, When, How)\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "[{\"title\": \"Part 1: Numbers 11\\u2013100\", \"url\": \"/videos/beginner/ef5e_beg_2b_1_vocabulary.mp4\"}, {\"title\": \"Part 2: Meet the Students (Lin & Pia)\", \"url\": \"/videos/beginner/ef5e_beg_2b_2_listening.mp4\"}, {\"title\": \"Part 3: Meet the Students (Interviews)\", \"url\": \"/videos/beginner/ef5e_beg_2b_3_listening.mp4\"}]",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Wh- and How questions with be (Who, What, Where, When, How)** and essential vocabulary for **numbers 11-100, phone numbers, bus lines**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_2.14_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Lin:** *\"Hi, Pia.\"*\n> *\"How are you?\"*\n- **Pia:** *\"Hi, Lin.\"*\n> *\"I'm fine, and you?\"*\n- **Lin:** *\"I'm fine too.\"*\n> *\"This is Alex.\"*\n> *\"He's in my class.\"*\n> *\"Alex, this is Pia.\"*\n- **Pia:** *\"Hi, Alex!\"*\n- **Alex:** *\"Hi. What class are you in?\"*\n- **Lin:** *\"That's my bus!\"*\n> *\"Bye. See you tomorrow!\"*\n- **Alex:** *\"Bye.\"*\n> *\"Where are you from Pia?\"*\n- **Pia:** *\"I'm from Italy.\"*\n> *\"This is my bus stop.\"*\n> *\"Bye, Alex. Nice to meet you.\"*\n- **Alex:** *\"Nice to meet you, too, Pia.\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Alicia:** *\"Hello, I'm Alicia. Today I'm in Brighton. Brighton is in the south of England.\"*\n> *\"It's on the coast. It's a fantastic town, and it's famous for the Royal Pavilion, the pier, and the beach.\"*\n> *\"But I'm not on holiday. I'm here to visit an English language school.\"*\n> *\"This is the school. It's a big school with about three hundred and fifty students.\"*\n> *\"Rike and Woo are students at the school. Hyeongwoo is twenty-three years old.\"*\n> *\"He's from Korea. He's a beginner student. His class is small, with only five students.\"*\n> *\"His teacher is Stephen. He's English. He's very friendly, and he's a very good teacher.\"*\n> *\"Rike is nineteen years old. She's from Germany.\"*\n> *\"She's an intermediate student, and her class is big, with eleven students. Her teacher is Laura.\"*\n> *\"She's English. She's really nice, and she's a very good teacher, too.\"*\n> *\"When Rike and Woo aren't in class, they're in the computer room\u2026or here, in the canteen.\"*\n> *\"In the evening they're at home. Rike and Woo live in a student house. It's near the school.\"*\n> *\"It's a big house with five bedrooms, a kitchen, and a garden.\"*\n> *\"Brighton is great for students like Rike and Hyeongwoo.\"*\n> *\"The people are friendly, and the town is exciting and fun!\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **How are you?** | phrase | `/ha\u028a \u0251\u02d0 ju\u02d0/` | Polite greeting inquiring about well-being | *\"Hi Pia, how are you? - I'm fine, thanks.\"* |\n| **What number is the bus?** | question | `/w\u0252t \u02c8n\u028cmb\u0259r \u026az \u00f0\u0259 b\u028cs/` | Asking for the bus route number | *\"It's bus number twenty-four.\"* |\n| **Eleven to Twenty** | numbers | `/\u026a\u02c8l\u025bvn/ - /\u02c8tw\u025bnti/` | 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 | *\"She is fifteen years old.\"* |\n| **Phone number** | noun | `/f\u0259\u028an \u02c8n\u028cmb\u0259/` | Sequence of digits | *\"What's your phone number?\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Wh- and How questions with be (Who, What, Where, When, How)\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "________ is your phone number?",
-                            optionA: "What",
-                            optionB: "Who",
-                            optionC: "Where",
+                            question: "Lin: Hi Pia. How are you? Pia: I'm ________, and you?",
+                            optionA: "fine",
+                            optionB: "good morning",
+                            optionC: "nice",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 1,
@@ -463,8 +463,8 @@ async function main() {
                   order: 3,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_rc_1and2_video.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Review of verb be (singular and plural), Wh- questions** and essential vocabulary for **Review of personal details, nationalities, numbers 0-100**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_2.25_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Interviewer:** *\"Hello. What's your name?\"*\n- **Passerby 1:** *\"My name is Richard. I'm from London.\"*\n- **Interviewer:** *\"Are you a student?\"*\n- **Passerby 1:** *\"No, I'm an architect.\"*\n- **Interviewer:** *\"Where are your friends from?\"*\n- **Passerby 1:** *\"They are from Australia.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Understand** | verb | `/\u02cc\u028cnd\u0259\u02c8st\u00e6nd/` | Perceive the intended meaning of words | *\"Can you understand native speakers?\"* |\n| **Interview** | noun | `/\u02c8\u026ant\u0259vju\u02d0/` | A meeting where questions are asked | *\"Listen to this street interview.\"* |\n| **City** | noun | `/\u02c8s\u026ati/` | A large town | *\"London is a very big city.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Review of verb be (singular and plural), Wh- questions\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "/videos/beginner/ef5e_beg_rc_1and2_video.mp4",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Review of verb be (singular & plural), Wh- questions** and essential vocabulary for **Personal details, nationalities, phone numbers**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_2.25_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Narrator:** *\"1\"*\n- **A:** *\"Great. OK, see you on Tuesday.\"*\n- **B:** *\"Yes. Oh, what's your phone number?\"*\n- **A:** *\"It's, er, 020 7946 0415.\"*\n- **Narrator:** *\"2\"*\n- **A:** *\"Thank you.\"*\n> *\"What's your address, please?\"*\n- **B:** *\"It's 57 King Street. Very near here.\"*\n- **Narrator:** *\"3\"*\n- **A:** *\"Come in, sit down.\"*\n> *\"You're Martin Blunt, right?\"*\n- **B:** *\"Yes.\"*\n- **A:** *\"And how old are you, Mr Blunt?\"*\n- **B:** *\"I'm 39\u2026\"*\n- **Narrator:** *\"4\"*\n- **A:** *\"Thank you very much.\"*\n> *\"Er, one more thing. What's your email?\"*\n- **B:** *\"It's james.85@ukmail.com.\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Interviewer:** *\"What's your name?\"*\n- **Jayna:** *\"Jayna.\"*\n- **Interviewer:** *\"How do you spell it?\"*\n- **Jayna:** *\"J-A-Y-N-A.\"*\n- **Interviewer:** *\"Where are you from?\"*\n- **Vera:** *\"I'm from Russia.\"*\n- **Interviewer:** *\"Where in Russia?\"*\n- **Vera:** *\"Er, Moscow \u2013 capital.\"*\n- **Interviewer:** *\"How old are you?\"*\n- **Richard:** *\"I'm sixty-six.\"*\n- **Interviewer:** *\"What's your phone number?\"*\n- **Mairi:** *\"It's 07564378.\"*\n- **Interviewer:** *\"What's your email address?\"*\n- **Iain:** *\"It's Iain.smith@yahoo.com.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **See you on Tuesday** | phrase | `/si\u02d0 ju\u02d0 \u0252n \u02c8tju\u02d0zde\u026a/` | Parting phrase specifying next meeting | *\"Great! OK, see you on Tuesday.\"* |\n| **Phone number** | noun | `/f\u0259\u028an \u02c8n\u028cmb\u0259/` | Telephone digits | *\"It's 020 7946 0415.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Review of verb be (singular & plural), Wh- questions\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
@@ -479,10 +479,10 @@ async function main() {
                             order: 1,
                           },
                           {
-                            question: "________ are they? - They are my friends, Leo and Ana.",
-                            optionA: "Who",
-                            optionB: "What",
-                            optionC: "Where",
+                            question: "Great. OK, see you on ________.",
+                            optionA: "Tuesday",
+                            optionB: "tuesday",
+                            optionC: "two",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 2,
@@ -629,14 +629,14 @@ async function main() {
                   order: 1,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_3a_1_pronunciation.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **singular and plural nouns; articles a / an; /s/ and /z/ endings** and essential vocabulary for **small things (keys, wallet, umbrella, laptop, glasses, charger)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_3.01.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Mark:** *\"Oh no! Where's my phone?\"*\n- **Lisa:** *\"Is it in your backpack?\"*\n- **Mark:** *\"No, it isn't. Here are my keys and my wallet, but no phone!\"*\n- **Lisa:** *\"Look on the table. It's next to your glasses.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Key / Keys** | noun | `/ki\u02d0/ - /ki\u02d0z/` | A small metal instrument used to open a lock | *\"Where are my house keys?\"* |\n| **Wallet** | noun | `/\u02c8w\u0252l\u026at/` | A pocket-sized flat folding case for money and cards | *\"My credit card is in my wallet.\"* |\n| **Umbrella** | noun | `/\u028cm\u02c8br\u025bl\u0259/` | A folding canopy used for protection against rain | *\"Take an umbrella, it is raining.\"* |\n| **Watch** | noun | `/w\u0252t\u0283/` | A small timepiece worn on the wrist | *\"This is an expensive watch.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: singular and plural nouns; articles a / an; /s/ and /z/ endings\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "/videos/beginner/ef5e_beg_3a_1_pronunciation.mp4",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **singular and plural nouns; articles a / an; /s/ and /z/ endings** and essential vocabulary for **small things (phone, watch, keys, umbrella, wallet, bag, glasses)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_3.01.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Narrator:** *\"1\"*\n- **M:** *\"a phone\"*\n- **Narrator:** *\"2\"*\n- **F:** *\"a watch\"*\n- **Narrator:** *\"3\"*\n- **M:** *\"a tablet\"*\n- **Narrator:** *\"4\"*\n- **F:** *\"a bag\"*\n- **Narrator:** *\"5\"*\n- **M:** *\"a wallet\"*\n- **Narrator:** *\"6\"*\n- **F:** *\"a purse\"*\n- **Narrator:** *\"7\"*\n- **M:** *\"a pencil\"*\n- **Narrator:** *\"8\"*\n- **F:** *\"a notebook\"*\n- **Narrator:** *\"9\"*\n- **M:** *\"glasses\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **A phone / A watch** | noun | `/f\u0259\u028an/ - /w\u0252t\u0283/` | Everyday personal electronics and timepieces | *\"Where is my phone?\"* |\n| **An umbrella** | noun | `/\u028cm\u02c8br\u025bl\u0259/` | Canopy protecting against rain (uses 'an') | *\"Take an umbrella.\"* |\n| **Glasses** | noun (plural) | `/\u02c8\u0261l\u0251\u02d0s\u026az/` | Lenses used to correct vision (always plural) | *\"Here are your reading glasses.\"* |\n| **Keys** | noun (plural) | `/ki\u02d0z/` | Metal tools to open locks | *\"Where are my house keys?\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: singular and plural nouns; articles a / an; /s/ and /z/ endings\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "It's ________ identity card.",
+                            question: "It's ________ umbrella.",
                             optionA: "an",
                             optionB: "a",
                             optionC: "the",
@@ -654,7 +654,7 @@ async function main() {
                             order: 2,
                           },
                           {
-                            question: "She has ________ umbrella in her bag.",
+                            question: "She has ________ identity card in her wallet.",
                             optionA: "an",
                             optionB: "a",
                             optionC: "two",
@@ -682,28 +682,19 @@ async function main() {
                   isPublished: true,
                   isFree: false,
                   videoUrl: null,
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **this / that / these / those; sentence rhythm** and essential vocabulary for **souvenirs (postcard, mug, T-shirt, magnet, cap)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_3.09.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Shopkeeper:** *\"Can I help you?\"*\n- **Customer:** *\"Yes, how much is this London mug?\"*\n- **Shopkeeper:** *\"This mug is six pounds, and that T-shirt is fifteen pounds.\"*\n- **Customer:** *\"And how much are these postcards?\"*\n- **Shopkeeper:** *\"They are two pounds each.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **This / That** | demonstrative | `/\u00f0\u026as/ - /\u00f0\u00e6t/` | Referring to a singular object near / far | *\"This is my bag, and that is yours.\"* |\n| **These / Those** | demonstrative | `/\u00f0i\u02d0z/ - /\u00f0\u0259\u028az/` | Referring to plural objects near / far | *\"These postcards are beautiful.\"* |\n| **Mug** | noun | `/m\u028c\u0261/` | A large cup typically used for hot drinks | *\"A souvenir coffee mug.\"* |\n| **Price** | noun | `/pra\u026as/` | The amount of money expected in payment | *\"What is the price of that cap?\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: this / that / these / those; sentence rhythm\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **this / that / these / those; sentence rhythm** and essential vocabulary for **souvenirs (T-shirts, mugs, postcards, caps, magnets)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_3.09.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Woman:** *\"Excuse me.\"*\n> *\"What are those?\"*\n- **Man:** *\"They're T-shirts.\"*\n- **Woman:** *\"How much are they?\"*\n- **Man:** *\"They're \u00a315.\"*\n- **Woman:** *\"And how much are these key rings?\"*\n- **Man:** *\"They're \u00a36.\"*\n- **Woman:** *\"And this mug?\"*\n- **Man:** *\"\u00a314.\"*\n- **Woman:** *\"Is that a Manchester United shirt?\"*\n- **Man:** *\"No, it's Arsenal.\"*\n- **Woman:** *\"How much is it?\"*\n- **Man:** *\"\u00a325.\"*\n- **Woman:** *\"Oh\u2026no.\"*\n> *\"Thank you. Bye.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **What are those?** | question | `/w\u0252t \u0251\u02d0 \u00f0\u0259\u028az/` | Asking about plural objects far away | *\"Excuse me, what are those? - They're T-shirts.\"* |\n| **How much are they?** | question | `/ha\u028a m\u028ct\u0283 \u0251\u02d0 \u00f0e\u026a/` | Inquiring about price of plural items | *\"How much are they? - They're fifteen pounds.\"* |\n| **This / That** | demonstratives | `/\u00f0\u026as/ - /\u00f0\u00e6t/` | Singular near vs far | *\"This is a mug, that is a hat.\"* |\n| **These / Those** | demonstratives | `/\u00f0i\u02d0z/ - /\u00f0\u0259\u028az/` | Plural near vs far | *\"These postcards are cheap.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: this / that / these / those; sentence rhythm\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "How much is ________ T-shirt over there?",
-                            optionA: "that",
-                            optionB: "this",
-                            optionC: "these",
+                            question: "Customer: Excuse me. What are ________? Shopkeeper: They're T-shirts.",
+                            optionA: "those",
+                            optionB: "that",
+                            optionC: "this",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 1,
-                          },
-                          {
-                            question: "________ are my photos from New York.",
-                            optionA: "These",
-                            optionB: "This",
-                            optionC: "That",
-                            optionD: "None of the above",
-                            correctOption: 0,
-                            order: 2,
                           },
                           {
                             question: "How much ________ those sunglasses?",
@@ -712,12 +703,21 @@ async function main() {
                             optionC: "am",
                             optionD: "None of the above",
                             correctOption: 0,
+                            order: 2,
+                          },
+                          {
+                            question: "________ is my new London mug on the table.",
+                            optionA: "This",
+                            optionB: "These",
+                            optionC: "Those",
+                            optionD: "None of the above",
+                            correctOption: 0,
                             order: 3,
                           },
                           {
-                            question: "Is ________ your wallet here on the table?",
-                            optionA: "this",
-                            optionB: "that",
+                            question: "How much is ________ cap over there?",
+                            optionA: "that",
+                            optionB: "these",
                             optionC: "those",
                             optionD: "None of the above",
                             correctOption: 0,
@@ -733,44 +733,44 @@ async function main() {
                   order: 3,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_pe2_1.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Understanding prices, ordering food and drinks in a caf\u00e9** and essential vocabulary for **coffee, tea, orange juice, mineral water, sandwich, pounds and pence**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_3.17_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Barista:** *\"Hi, can I get you anything?\"*\n- **Jenny:** *\"Yes, a cheese sandwich and an orange juice, please.\"*\n- **Barista:** *\"Anything else?\"*\n- **Jenny:** *\"No thanks. How much is that?\"*\n- **Barista:** *\"That's seven pounds forty, please.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Orange juice** | noun | `/\u02c8\u0252r\u026and\u0292 d\u0292u\u02d0s/` | Drink made from squeezed oranges | *\"An orange juice, please.\"* |\n| **Sandwich** | noun | `/\u02c8s\u00e6nw\u026at\u0283/` | Food consisting of filling between bread | *\"A chicken salad sandwich.\"* |\n| **How much is that?** | phrase | `/ha\u028a m\u028ct\u0283 \u026az \u00f0\u00e6t/` | Asking for the total bill or cost | *\"How much is that in euros?\"* |\n| **Pound / Penny** | noun | `/pa\u028and/ - /\u02c8p\u025bni/` | British currency units (\u00a3 and p) | *\"Ten pounds and fifty pence.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Understanding prices, ordering food and drinks in a caf\u00e9\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "[{\"title\": \"Scene 1: In the Caf\\u00e9 with Rob & Jenny\", \"url\": \"/videos/beginner/ef5e_beg_pe2_1.mp4\"}, {\"title\": \"Scene 2: Ordering Food & Drinks\", \"url\": \"/videos/beginner/ef5e_beg_pe2_2.mp4\"}, {\"title\": \"Scene 3: Understanding Prices\", \"url\": \"/videos/beginner/ef5e_beg_pe2_3.mp4\"}, {\"title\": \"Scene 4: Social English: Can I Have...?\", \"url\": \"/videos/beginner/ef5e_beg_pe2_4.mp4\"}]",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Understanding prices, ordering food and drinks in a caf\u00e9** and essential vocabulary for **coffee, tea, orange juice, sandwich, mineral water, newspaper**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_3.17_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n> *[Authentic listening and pronunciation drill from Oxford English File]*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Barman:** *\"Who's next?\"*\n- **Rob:** *\"Can I have a cheese sandwich, please?\"*\n- **Barman:** *\"Anything else?\"*\n- **Rob:** *\"And a Coke, please.\"*\n- **Barman:** *\"Ice and lemon?\"*\n- **Rob:** *\"No, thanks.\"*\n- **Barman:** *\"There you go.\"*\n- **Rob:** *\"Thanks. How much is it?\"*\n- **Barman:** *\"Six pounds seventy-five.\"*\n- **Rob:** *\"Here you are.\"*\n- **Barman:** *\"Thanks.\"*\n> *\"Here's your change.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **The New York Times, please** | phrase | `Newspaper title` | The New York Times, please. - Here you are. | *\"-\"* |\n| **How much is it?** | question | `/ha\u028a m\u028ct\u0283 \u026az \u026at/` | Inquiring about single item cost | *\"How much is it? - It's two dollars fifty.\"* |\n| **Orange juice** | noun | `/\u02c8\u0252r\u026and\u0292 d\u0292u\u02d0s/` | Drink made from oranges | *\"An orange juice, please.\"* |\n| **Here you are** | phrase | `/h\u026a\u0259 ju\u02d0 \u0251\u02d0/` | Handing something to someone | *\"Here you are. - Thank you.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Understanding prices, ordering food and drinks in a caf\u00e9\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "A: Can I help you? B: An espresso, ________.",
-                            optionA: "please",
-                            optionB: "thank you",
-                            optionC: "excuse me",
+                            question: "Customer: The New York Times, please. Clerk: ________ you are.",
+                            optionA: "Here",
+                            optionB: "There",
+                            optionC: "Where",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 1,
                           },
                           {
-                            question: "How much ________ the sandwiches?",
-                            optionA: "are",
-                            optionB: "is",
-                            optionC: "cost",
+                            question: "How much ________ that sandwich? - It's five pounds.",
+                            optionA: "is",
+                            optionB: "are",
+                            optionC: "do",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 2,
                           },
                           {
-                            question: "That's five ________ and twenty pence.",
-                            optionA: "pounds",
-                            optionB: "pound",
-                            optionC: "moneys",
+                            question: "An orange juice, ________. - Regular or large?",
+                            optionA: "please",
+                            optionB: "thank you",
+                            optionC: "excuse",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 3,
                           },
                           {
-                            question: "Here's your change. - ________.",
-                            optionA: "Thank you",
+                            question: "Clerk: That's four pounds fifty. Customer: ________ you.",
+                            optionA: "Thank",
                             optionB: "Please",
-                            optionC: "You're welcome",
+                            optionC: "Welcome",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 4,
@@ -899,8 +899,8 @@ async function main() {
                   order: 1,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_4a_1_grammar.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **possessive adjectives (my, your, his, her, our, their); possessive 's** and essential vocabulary for **family (mother, father, brother, sister, husband, wife, daughter, son)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_4.01_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Sarah:** *\"Who is this in the photo?\"*\n- **Paul:** *\"That's my sister, Amy. And that's her husband, David.\"*\n- **Sarah:** *\"Do they have children?\"*\n- **Paul:** *\"Yes, they have a daughter. Her name is Emily.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Mother / Father** | noun | `/\u02c8m\u028c\u00f0\u0259/ - /\u02c8f\u0251\u02d0\u00f0\u0259/` | Female and male parents | *\"My mother is a doctor.\"* |\n| **Brother / Sister** | noun | `/\u02c8br\u028c\u00f0\u0259/ - /\u02c8s\u026ast\u0259/` | Male and female siblings | *\"His brother lives in Sydney.\"* |\n| **Husband / Wife** | noun | `/\u02c8h\u028czb\u0259nd/ - /wa\u026af/` | A married man or woman | *\"Her husband is French.\"* |\n| **Possessive 's** | grammar | `/s/ or /z/` | Indicates ownership or family relation | *\"This is Sarah's car.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: possessive adjectives (my, your, his, her, our, their); possessive 's\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "/videos/beginner/ef5e_beg_4a_1_grammar.mp4",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **possessive adjectives (my, your, his, her, our, their); possessive 's** and essential vocabulary for **family (woman, man, boy, girl, mother, father, brother, sister, husband, wife)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_4.01_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Narrator:** *\"1\"*\n- **F:** *\"a woman\"*\n- **Narrator:** *\"2\"*\n- **M:** *\"a boy\"*\n- **Narrator:** *\"3\"*\n- **F:** *\"a girl\"*\n- **Narrator:** *\"4\"*\n- **M:** *\"a man\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Narrator:** *\"Who are the people?\"*\n- **F:** *\"This is Maria.\"*\n> *\"This is her family.\"*\n> *\"Who's Angela?\"*\n> *\"Who's Carlos?\"*\n> *\"Who's Sara?\"*\n> *\"Who's Andres?\"*\n> *\"Who's Luis?\"*\n- **M:** *\"This is Scott.\"*\n> *\"This is his family.\"*\n> *\"Who's Eddie?\"*\n> *\"Who's Linda?\"*\n> *\"Who's Sandra?\"*\n> *\"Who's Evie?\"*\n> *\"Who's Alan?\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Woman / Man** | noun | `/\u02c8w\u028am\u0259n/ - /m\u00e6n/` | Adult female and male humans | *\"A young woman and an older man.\"* |\n| **Boy / Girl** | noun | `/b\u0254\u026a/ - /\u0261\u025c\u02d0l/` | Male and female children | *\"A boy and his sister.\"* |\n| **Mother / Father** | noun | `/\u02c8m\u028c\u00f0\u0259/ - /\u02c8f\u0251\u02d0\u00f0\u0259/` | Parents | *\"Amy's mother is a doctor.\"* |\n| **Possessive 's** | grammar | `/s/ or /z/` | Showing family relationship or ownership | *\"This is Paul's sister.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: possessive adjectives (my, your, his, her, our, their); possessive 's\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
@@ -951,12 +951,30 @@ async function main() {
                   order: 2,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_4b_1_grammar.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **adjectives: position before nouns, no plural form** and essential vocabulary for **colours and common adjectives (big, small, fast, slow, expensive, cheap, old, new)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_4.12_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Car Dealer:** *\"Which car do you prefer, the blue one or the red one?\"*\n- **Customer:** *\"The red car is very fast, but it's too expensive!\"*\n- **Car Dealer:** *\"The blue car is smaller, economical, and very comfortable.\"*\n- **Customer:** *\"Perfect. That is the right car for me.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Expensive / Cheap** | adj | `/\u026ak\u02c8sp\u025bns\u026av/ - /t\u0283i\u02d0p/` | Costing a lot of money vs low in cost | *\"That sports car is very expensive.\"* |\n| **Fast / Slow** | adj | `/f\u0251\u02d0st/ - /sl\u0259\u028a/` | Moving at high speed vs low speed | *\"It is a fast train.\"* |\n| **Old / New** | adj | `/\u0259\u028ald/ - /nju\u02d0/` | Having lived/existed long vs newly made | *\"They live in a beautiful old house.\"* |\n| **Colours** | noun/adj | `/\u02c8k\u028cl\u0259z/` | Red, blue, green, black, white, silver, yellow | *\"She drives a red car.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: adjectives: position before nouns, no plural form\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "[{\"title\": \"Part 1: Grammar (Adjectives & Colours)\", \"url\": \"/videos/beginner/ef5e_beg_4b_1_grammar.mp4\"}, {\"title\": \"Part 2: Beaulieu Motor Museum\", \"url\": \"/videos/beginner/ef5e_beg_4b_2_listening.mp4\"}]",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **adjectives: position before nouns, no plural form** and essential vocabulary for **car brands and nationalities (Jaguar - English, Mercedes - German, Ferrari - Italian)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_4.12_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Narrator:** *\"1\"*\n- **M:** *\"Jaguar. It's English.\"*\n- **Narrator:** *\"2\"*\n- **M:** *\"Mercedes. It's German.\"*\n- **Narrator:** *\"3\"*\n- **M:** *\"Ferrari. It's Italian.\"*\n- **Narrator:** *\"4\"*\n- **M:** *\"Tesla. It's American.\"*\n- **Narrator:** *\"5\"*\n- **M:** *\"Peugeot. It's French.\"*\n- **Narrator:** *\"6\"*\n- **M:** *\"Honda. It's Japanese.\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Louise:** *\"Hi! I'm Louise, and today I'm in Beaulieu.\"*\n> *\"Beaulieu is a small village.\"*\n> *\"It's in England, but Beaulieu is a French word.\"*\n- **In English, we say /Bju:** *\"li/, but in French it's Beau lieu \u2013 beautiful place.\"*\n> *\"And it really is beautiful!\"*\n> *\"Beaulieu is in the New Forest.\"*\n> *\"It's famous for its big house, old church, and fantastic motor museum.\"*\n> *\"The National Motor Museum in Beaulieu is sixty-two years old.\"*\n> *\"It's a very interesting place, with lots and lots of cars.\"*\n> *\"Let's go and see!\"*\n> *\"These are some of the cars. These are old, vintage cars.\"*\n> *\"These are fast, modern cars.\"*\n> *\"This is my favourite car. It's British and its name is Bluebird.\"*\n> *\"It's fifty-five years old and it's very, very fast!\"*\n> *\"These cars are from lots of different countries.\"*\n> *\"This is a Mercedes sixty hp. It's a German car.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Jaguar. It's English** | example | `Car origin` | Jaguar. It's an English car. | *\"-\"* |\n| **Mercedes. It's German** | example | `Car origin` | Mercedes. It's a German car. | *\"-\"* |\n| **Fast / Slow** | adjectives | `/f\u0251\u02d0st/ - /sl\u0259\u028a/` | Speed descriptions | *\"A very fast sports car.\"* |\n| **Expensive / Cheap** | adjectives | `/\u026ak\u02c8sp\u025bns\u026av/ - /t\u0283i\u02d0p/` | Cost descriptions | *\"An expensive red Ferrari.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: adjectives: position before nouns, no plural form\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
+                          {
+                            question: "Jaguar is an ________ car.",
+                            optionA: "English",
+                            optionB: "England",
+                            optionC: "Englishs",
+                            optionD: "None of the above",
+                            correctOption: 0,
+                            order: 1,
+                          },
+                          {
+                            question: "Mercedes is a ________ car.",
+                            optionA: "German",
+                            optionB: "Germany",
+                            optionC: "Germans",
+                            optionD: "None of the above",
+                            correctOption: 0,
+                            order: 2,
+                          },
                           {
                             question: "They have two ________ cars.",
                             optionA: "fast",
@@ -964,31 +982,13 @@ async function main() {
                             optionC: "fastes",
                             optionD: "None of the above",
                             correctOption: 0,
-                            order: 1,
+                            order: 3,
                           },
                           {
                             question: "It's a ________ car.",
                             optionA: "red Italian",
                             optionB: "Italian red",
                             optionC: "reds Italian",
-                            optionD: "None of the above",
-                            correctOption: 0,
-                            order: 2,
-                          },
-                          {
-                            question: "This watch isn't expensive; it's very ________.",
-                            optionA: "cheap",
-                            optionB: "big",
-                            optionC: "fast",
-                            optionD: "None of the above",
-                            correctOption: 0,
-                            order: 3,
-                          },
-                          {
-                            question: "Her house is ________.",
-                            optionA: "very big",
-                            optionB: "very bigs",
-                            optionC: "a big",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 4,
@@ -1003,26 +1003,26 @@ async function main() {
                   order: 3,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_rc_3and4_video.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Review of singular/plural, demonstratives, family, and adjectives** and essential vocabulary for **Personal items, family descriptions, everyday conversations**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_4.21_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Interviewer:** *\"Tell me about your family.\"*\n- **Speaker:** *\"I have a big family. I have three brothers and one sister.\"*\n- **Interviewer:** *\"What kind of car do you have?\"*\n- **Speaker:** *\"I have an old blue estate car. It's slow but reliable.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Understand** | verb | `/\u02cc\u028cnd\u0259\u02c8st\u00e6nd/` | Grasp the meaning of street responses | *\"Listen to native speakers describing possessions.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Review of singular/plural, demonstratives, family, and adjectives\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "/videos/beginner/ef5e_beg_rc_3and4_video.mp4",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Review of singular/plural, demonstratives, family, adjectives** and essential vocabulary for **Ugly house, easy exercise, family details**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_4.21_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Narrator:** *\"1\"*\n- **F:** *\"an ugly house\"*\n- **Narrator:** *\"2\"*\n- **M:** *\"an easy exercise\"*\n- **Narrator:** *\"3\"*\n- **F:** *\"my old ID card\"*\n- **Narrator:** *\"4\"*\n- **M:** *\"good evening\"*\n- **Narrator:** *\"5\"*\n- **F:** *\"an American friend\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Interviewer:** *\"What's in your bag?\"*\n- **Richard:** *\"Er, my coat, and water, and wallet.\"*\n- **Interviewer:** *\"What's in your bag?\"*\n- **Rachel:** *\"In my bag I keep my purse, my phone, and an umbrella.\"*\n- **Interviewer:** *\"Are you from a big or small family?\"*\n- **Kieran:** *\"I'm from a small family.\"*\n> *\"I have my mum, my dad, and one little sister.\"*\n- **Interviewer:** *\"How much is a cup of coffee in your local coffee shop?\"*\n- **Debra:** *\"It's four dollars.\"*\n- **Interviewer:** *\"Do you think it's cheap or expensive?\"*\n- **Debra:** *\"I think it's expensive.\"*\n- **Interviewer:** *\"Can you describe your car?\"*\n- **Susan:** *\"I have a Fiat five hundred automatic, so a small car.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **An ugly house** | noun phrase | `Descriptive adjective + noun` | An ugly house vs a beautiful home. | *\"-\"* |\n| **An easy exercise** | noun phrase | `Descriptive adjective + noun` | An easy exercise to practice adjectives. | *\"-\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Review of singular/plural, demonstratives, family, adjectives\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "Is that ________ phone on the sofa?",
-                            optionA: "your",
-                            optionB: "you",
-                            optionC: "yours",
+                            question: "It's ________ ugly house.",
+                            optionA: "an",
+                            optionB: "a",
+                            optionC: "the",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 1,
                           },
                           {
-                            question: "They are ________ students.",
-                            optionA: "good",
-                            optionB: "goods",
-                            optionC: "a good",
+                            question: "It's an ________ exercise.",
+                            optionA: "easy",
+                            optionB: "easies",
+                            optionC: "easily",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 2,
@@ -1037,10 +1037,10 @@ async function main() {
                             order: 3,
                           },
                           {
-                            question: "How many sisters do you have? - I have ________ sister.",
-                            optionA: "one",
-                            optionB: "a two",
-                            optionC: "an",
+                            question: "They are ________ students.",
+                            optionA: "good",
+                            optionB: "goods",
+                            optionC: "a good",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 4,
@@ -1169,8 +1169,8 @@ async function main() {
                   order: 1,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_5a_1_vocabulary.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **present simple (+) and (-): I, you, we, they** and essential vocabulary for **food and drink (breakfast, lunch, dinner, fruit, vegetables, meat, bread, coffee)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_5.01.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Chef:** *\"What do you eat for breakfast in your country?\"*\n- **Guest:** *\"I usually have coffee, toast, and fruit. I don't eat meat in the morning.\"*\n- **Chef:** *\"Do you like fresh orange juice?\"*\n- **Guest:** *\"Yes, I love it! It's delicious.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Breakfast** | noun | `/\u02c8br\u025bkf\u0259st/` | The first meal of the day | *\"I have breakfast at seven o'clock.\"* |\n| **Lunch** | noun | `/l\u028cnt\u0283/` | A meal eaten in the middle of the day | *\"We eat lunch in the cafeteria.\"* |\n| **Dinner** | noun | `/\u02c8d\u026an\u0259/` | The main meal of the day, usually in the evening | *\"Dinner is ready at eight.\"* |\n| **Vegetables** | noun | `/\u02c8v\u025bd\u0292t\u0259blz/` | Plants used as food, such as carrots, peas, potatoes | *\"Eat plenty of green vegetables.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: present simple (+) and (-): I, you, we, they\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "/videos/beginner/ef5e_beg_5a_1_vocabulary.mp4",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **present simple (+) and (-): I, you, we, they** and essential vocabulary for **food and drink (tea, cheese, bread, fruit, fish, meat, pasta, coffee)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_5.01.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Narrator:** *\"1, E\"*\n- **M:** *\"tea\"*\n- **Narrator:** *\"2, C\"*\n- **F:** *\"cheese\"*\n- **Narrator:** *\"3, B\"*\n- **M:** *\"orange juice\"*\n- **Narrator:** *\"4, A\"*\n- **F:** *\"sandwich\"*\n- **Narrator:** *\"5, D\"*\n- **M:** *\"eggs\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Tea / Coffee** | noun | `/ti\u02d0/ - /\u02c8k\u0252fi/` | Common hot breakfast drinks | *\"I drink hot tea in the morning.\"* |\n| **Cheese / Bread** | noun | `/t\u0283i\u02d0z/ - /br\u025bd/` | Staple breakfast foods | *\"Toast with cheese and butter.\"* |\n| **Breakfast / Lunch** | noun | `/\u02c8br\u025bkf\u0259st/ - /l\u028cnt\u0283/` | Morning and midday meals | *\"We have lunch at one o'clock.\"* |\n| **Don't eat / Don't drink** | verb phrase | `Present simple negative` | I don't eat meat; I am vegetarian. | *\"-\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: present simple (+) and (-): I, you, we, they\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
@@ -1222,13 +1222,13 @@ async function main() {
                   isPublished: true,
                   isFree: false,
                   videoUrl: null,
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **present simple (?): I, you, we, they; short answers** and essential vocabulary for **common verb phrases (read, watch, listen, sleep, live, work)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_5.12_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Passenger A:** *\"Excuse me, do you speak English?\"*\n- **Passenger B:** *\"Yes, I do. Are you on your way to Sydney?\"*\n- **Passenger A:** *\"Yes, it's a very long flight! Do you fly often?\"*\n- **Passenger B:** *\"No, I don't. I usually read books or sleep.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Flight** | noun | `/fla\u026at/` | A journey made by flying in an aircraft | *\"It's a ten-hour flight.\"* |\n| **Read** | verb | `/ri\u02d0d/` | Look at and comprehend written text | *\"I read novels on the plane.\"* |\n| **Watch** | verb | `/w\u0252t\u0283/` | Look at something attentively | *\"We watch movies together.\"* |\n| **Do you...?** | question | `/du\u02d0 ju\u02d0/` | Auxiliary verb for present simple questions | *\"Do you live in Madrid?\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: present simple (?): I, you, we, they; short answers\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **present simple (?): I, you, we, they; short answers** and essential vocabulary for **common verb phrases (live in a flat, have breakfast, read a book, watch TV, drink coffee)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_5.12_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Narrator:** *\"1\"*\n- **M:** *\"live in a flat\"*\n- **Narrator:** *\"2\"*\n- **F:** *\"have breakfast\"*\n- **Narrator:** *\"3\"*\n- **M:** *\"watch TV\"*\n- **Narrator:** *\"4\"*\n- **F:** *\"listen to the radio\"*\n- **Narrator:** *\"5\"*\n- **M:** *\"read the newspaper\"*\n- **Narrator:** *\"6\"*\n- **F:** *\"eat fast food\"*\n- **Narrator:** *\"7\"*\n- **M:** *\"drink tea\"*\n- **Narrator:** *\"8\"*\n- **F:** *\"speak English\"*\n- **Narrator:** *\"9\"*\n- **M:** *\"want a coffee\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Live in a flat** | verb phrase | `/l\u026av \u026an \u0259 fl\u00e6t/` | Reside in an apartment | *\"Do you live in a flat? - Yes, I do.\"* |\n| **Have breakfast** | verb phrase | `/h\u00e6v \u02c8br\u025bkf\u0259st/` | Eat morning meal | *\"What time do you have breakfast?\"* |\n| **Do you speak English?** | question | `/du\u02d0 ju\u02d0 spi\u02d0k \u02c8\u026a\u014b\u0261l\u026a\u0283/` | Present simple inquiry | *\"Yes, I do / No, I don't.\"* |\n| **Flight** | noun | `/fla\u026at/` | Journey by airplane | *\"A very long flight to Sydney.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: present simple (?): I, you, we, they; short answers\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "________ you speak German? - Yes, I do.",
+                            question: "________ you speak English? - Yes, I do.",
                             optionA: "Do",
                             optionB: "Are",
                             optionC: "Does",
@@ -1237,7 +1237,7 @@ async function main() {
                             order: 1,
                           },
                           {
-                            question: "Do they work in an office? - No, they ________.",
+                            question: "Do they live in a flat? - No, they ________.",
                             optionA: "don't",
                             optionB: "doesn't",
                             optionC: "aren't",
@@ -1246,7 +1246,7 @@ async function main() {
                             order: 2,
                           },
                           {
-                            question: "Where ________ you live?",
+                            question: "Where ________ you work?",
                             optionA: "do",
                             optionB: "are",
                             optionC: "does",
@@ -1255,10 +1255,10 @@ async function main() {
                             order: 3,
                           },
                           {
-                            question: "What time do we ________ in London?",
-                            optionA: "arrive",
-                            optionB: "arrives",
-                            optionC: "arriving",
+                            question: "What time do you ________ breakfast?",
+                            optionA: "have",
+                            optionB: "has",
+                            optionC: "having",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 4,
@@ -1273,44 +1273,44 @@ async function main() {
                   order: 3,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_pe3_1.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Telling the time (o'clock, half past, quarter to/past)** and essential vocabulary for **the time, saying how you feel (tired, hungry, thirsty, late)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_5.22_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Rob:** *\"Hi Jenny! I'm really sorry I'm late.\"*\n- **Jenny:** *\"That's okay Rob. What time is it?\"*\n- **Rob:** *\"It's quarter past eight. Traffic was terrible.\"*\n- **Jenny:** *\"No problem. Are you hungry? Let's get something to eat.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **O'clock** | adverb | `/\u0259\u02c8kl\u0252k/` | Used to specify the exact hour | *\"It is nine o'clock.\"* |\n| **Half past** | phrase | `/h\u0251\u02d0f p\u0251\u02d0st/` | Thirty minutes past the hour | *\"It's half past seven (7:30).\"* |\n| **Quarter past / to** | phrase | `/\u02c8kw\u0254\u02d0t\u0259/` | 15 minutes after or before the hour | *\"Quarter to six (5:45).\"* |\n| **Hungry / Thirsty** | adjective | `/\u02c8h\u028c\u014b\u0261ri/ - /\u02c8\u03b8\u025c\u02d0sti/` | Needing food / needing a drink | *\"I'm hungry, let's order lunch.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Telling the time (o'clock, half past, quarter to/past)\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "[{\"title\": \"Scene 1: Meeting in London\", \"url\": \"/videos/beginner/ef5e_beg_pe3_1.mp4\"}, {\"title\": \"Scene 2: Telling the Time\", \"url\": \"/videos/beginner/ef5e_beg_pe3_2.mp4\"}, {\"title\": \"Scene 3: Making Plans\", \"url\": \"/videos/beginner/ef5e_beg_pe3_3.mp4\"}, {\"title\": \"Scene 4: Saying How You Feel (Tired, Hungry, Thirsty)\", \"url\": \"/videos/beginner/ef5e_beg_pe3_4_useful_phrases.mp4\"}]",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Telling the time (o'clock, half past, quarter to/past); silent consonants** and essential vocabulary for **eight, half, hour, know; hungry, thirsty, tired**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_5.22_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **F:** *\"eight\"*\n- **M:** *\"half\"*\n- **F:** *\"hour\"*\n- **M:** *\"know\"*\n- **F:** *\"listen\"*\n- **M:** *\"tired\"*\n- **F:** *\"two\"*\n- **M:** *\"Wednesday\"*\n- **F:** *\"what\"*\n- **M:** *\"write\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Rob:** *\"I'm tired. What time is it?\"*\n- **Alan:** *\"It's eleven o'clock.\"*\n- **Rob:** *\"I need to go. I have a meeting in Oxford tomorrow morning.\"*\n- **Alan:** *\"One more drink?\"*\n- **Rob:** *\"Oh, OK!\"*\n- **Rob:** *\"Excuse me. What time is it?\"*\n- **Woman:** *\"It's a quarter to eight. What time's your train?\"*\n- **Rob:** *\"At seven forty-seven.\"*\n- **Woman:** *\"You need to hurry! You only have two minutes.\"*\n- **Rob:** *\"Thanks.\"*\n- **Rob:** *\"Hello. I'm Rob Walker. I'm sorry I'm late.\"*\n- **Man:** *\"You're an hour late. It's half past ten.\"*\n- **Rob:** *\"I know. I'm really sorry.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Silent consonants** | pronunciation | `Words with unpronounced letters` | half (/h\u0251\u02d0f/ silent l), hour (/a\u028a\u0259/ silent h). | *\"-\"* |\n| **What time is it?** | question | `/w\u0252t ta\u026am \u026az \u026at/` | Asking the current hour | *\"What time is it? - It's half past eight.\"* |\n| **I'm sorry I'm late** | phrase | `/a\u026am \u02c8s\u0252ri a\u026am le\u026at/` | Apologizing for tardiness | *\"I'm really sorry I'm late. - That's OK.\"* |\n| **Hungry / Tired** | adjectives | `/\u02c8h\u028c\u014b\u0261ri/ - /\u02c8ta\u026a\u0259d/` | Physical sensations | *\"Are you hungry? Let's eat.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Telling the time (o'clock, half past, quarter to/past); silent consonants\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "What ________ is it? - It's half past four.",
-                            optionA: "time",
-                            optionB: "clock",
-                            optionC: "hour",
+                            question: "In the word 'half', the letter ________ is silent.",
+                            optionA: "l",
+                            optionB: "h",
+                            optionC: "a",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 1,
                           },
                           {
-                            question: "It's 7:15. In English: It's quarter ________ seven.",
-                            optionA: "past",
-                            optionB: "to",
-                            optionC: "after",
+                            question: "In the word 'hour', the letter ________ is silent.",
+                            optionA: "h",
+                            optionB: "o",
+                            optionC: "u",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 2,
                           },
                           {
-                            question: "I didn't eat lunch. I am very ________.",
-                            optionA: "hungry",
-                            optionB: "thirsty",
-                            optionC: "tired",
+                            question: "What ________ is it? - It's quarter past seven.",
+                            optionA: "time",
+                            optionB: "clock",
+                            optionC: "hour",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 3,
                           },
                           {
-                            question: "I'm really sorry I'm ________. - That's fine.",
-                            optionA: "late",
-                            optionB: "later",
-                            optionC: "lating",
+                            question: "I didn't eat dinner. I am very ________.",
+                            optionA: "hungry",
+                            optionB: "thirsty",
+                            optionC: "tired",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 4,
@@ -1439,44 +1439,44 @@ async function main() {
                   order: 1,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_6a_1_grammar.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **present simple: he, she, it (+, -, ?); third person -es** and essential vocabulary for **jobs and places of work (doctor, teacher, lawyer, nurse, shop assistant, office, hospital)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_6.01_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Helen:** *\"Do you remember Jack from university?\"*\n- **George:** *\"Yes! What does he do now?\"*\n- **Helen:** *\"He works as a doctor in a big London hospital. He loves his job.\"*\n- **George:** *\"Does his wife work there too?\"*\n- **Helen:** *\"No, she doesn't. She teaches music at a school.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Doctor / Nurse** | noun | `/\u02c8d\u0252kt\u0259/ - /n\u025c\u02d0s/` | Healthcare professionals treating patients | *\"She works as a doctor in hospital.\"* |\n| **Teacher** | noun | `/\u02c8ti\u02d0t\u0283\u0259/` | A person who educates students | *\"He teaches French at university.\"* |\n| **Hospital / Office** | noun | `/\u02c8h\u0252sp\u026atl/ - /\u02c8\u0252f\u026as/` | Places where healthcare or desk work takes place | *\"My brother works in an office.\"* |\n| **Third person -s/-es** | grammar | `/s/, /z/, /\u026az/` | Verbs take -s in 3rd person singular | *\"He works, she watches, it rains.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: present simple: he, she, it (+, -, ?); third person -es\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "/videos/beginner/ef5e_beg_6a_1_grammar.mp4",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **present simple: he, she, it (+, -, ?); third person -es** and essential vocabulary for **jobs and places of work (taxi driver, doctor, nurse, teacher, office, hospital)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_6.01_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Narrator:** *\"1\"*\n- **A:** *\"Where to?\"*\n- **B:** *\"Piccadilly Circus, please.\"*\n- **Narrator:** *\"2\"*\n- **Teacher:** *\"Can you be quiet, please?\"*\n> *\"Open your books at page fifty-nine. Quadratic equations.\"*\n- **Narrator:** *\"3\"*\n- **A:** *\"Here's your key, Mr Abrams.\"*\n> *\"It's room 205 on the second floor.\"*\n- **B:** *\"Thanks.\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Julia:** *\"So who's that with you?\"*\n- **Sarah:** *\"It's Anna, you know, the intelligent girl.\"*\n- **Julia:** *\"Anna, wow! She's very different.\"*\n> *\"Her hair's blonde.\"*\n- **Sarah:** *\"Yes, and she doesn't wear glasses now.\"*\n- **Julia:** *\"What does she do?\"*\n- **Sarah:** *\"She's a journalist.\"*\n> *\"She works for a newspaper \u2013 The Times, I think.\"*\n- **Julia:** *\"Is she good?\"*\n- **Sarah:** *\"I don't know. I don't read The Times.\"*\n- **Julia:** *\"And who's that?\"*\n> *\"The man with grey hair.\"*\n- **Sarah:** *\"It's Matt! Remember?\"*\n- **Julia:** *\"Matt! No!\"*\n> *\"What does he do?\"*\n- **Sarah:** *\"He's a teacher. He teaches French.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Where to?** | phrase | `/we\u0259 tu\u02d0/` | Taxi driver greeting asking for destination | *\"Where to? - Piccadilly Circus, please.\"* |\n| **Piccadilly Circus** | proper noun | `Famous junction in London` | Take me to Piccadilly Circus. | *\"-\"* |\n| **A doctor / A nurse** | noun | `/\u02c8d\u0252kt\u0259/ - /n\u025c\u02d0s/` | Healthcare jobs | *\"He works as a doctor in a hospital.\"* |\n| **Third person -s** | grammar | `/s/, /z/, /\u026az/` | Present simple 3rd person suffix | *\"He works, she teaches, it rains.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: present simple: he, she, it (+, -, ?); third person -es\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "He ________ in a bank.",
-                            optionA: "works",
-                            optionB: "work",
-                            optionC: "working",
+                            question: "Taxi driver: Where to? Passenger: Piccadilly Circus, ________.",
+                            optionA: "please",
+                            optionB: "thank you",
+                            optionC: "welcome",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 1,
                           },
                           {
-                            question: "She ________ like tea; she prefers coffee.",
-                            optionA: "doesn't",
-                            optionB: "don't",
-                            optionC: "isn't",
+                            question: "He ________ in a bank in central London.",
+                            optionA: "works",
+                            optionB: "work",
+                            optionC: "working",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 2,
                           },
                           {
-                            question: "What ________ your sister do? - She is a dentist.",
-                            optionA: "does",
-                            optionB: "do",
-                            optionC: "is",
+                            question: "She ________ like coffee; she drinks tea.",
+                            optionA: "doesn't",
+                            optionB: "don't",
+                            optionC: "isn't",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 3,
                           },
                           {
-                            question: "A doctor works in a ________.",
-                            optionA: "hospital",
-                            optionB: "school",
-                            optionC: "shop",
+                            question: "Where ________ he work? - In a hospital.",
+                            optionA: "does",
+                            optionB: "do",
+                            optionC: "is",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 4,
@@ -1491,44 +1491,44 @@ async function main() {
                   order: 2,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_6b_1_listening.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **adverbs of frequency: always, usually, often, sometimes, never** and essential vocabulary for **a typical day (wake up, get up, take a shower, leave home, go to bed)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_6.09.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Interviewer:** *\"Tell us about a typical day in New York.\"*\n- **Guide:** *\"I always wake up early at 6:00. I have breakfast and go to Central Park.\"*\n- **Interviewer:** *\"Do you usually finish late?\"*\n- **Guide:** *\"Yes, I often finish tours at 7:00 PM, but I never work on Sundays.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Always** | adverb | `/\u02c8\u0254\u02d0lwe\u026az/` | 100% of the time | *\"I always brush my teeth before bed.\"* |\n| **Usually** | adverb | `/\u02c8ju\u02d0\u0292u\u0259li/` | About 80% of the time; normally | *\"We usually eat dinner at home.\"* |\n| **Sometimes** | adverb | `/\u02c8s\u028cmta\u026amz/` | About 50% of the time; occasionally | *\"I sometimes drink herbal tea.\"* |\n| **Never** | adverb | `/\u02c8n\u025bv\u0259/` | 0% of the time; at no time | *\"He never goes to bed after midnight.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: adverbs of frequency: always, usually, often, sometimes, never\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "[{\"title\": \"Part 1: Day in the Life of a New York Tour Guide\", \"url\": \"/videos/beginner/ef5e_beg_6b_1_listening.mp4\"}, {\"title\": \"Part 2: Tour Guide Interview (Part 2)\", \"url\": \"/videos/beginner/ef5e_beg_6b_2_listening.mp4\"}]",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **adverbs of frequency: always, usually, often, sometimes, never** and essential vocabulary for **What does he do? He's a nurse. Where does he work? In a hospital.**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_6.09.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **A:** *\"What does he do?\"*\n- **B:** *\"He's a nurse.\"*\n- **A:** *\"Where does he work?\"*\n- **B:** *\"He works in a hospital.\"*\n- **A:** *\"Does he speak English at work?\"*\n- **B:** *\"No, he doesn't.\"*\n- **A:** *\"Does he like his job?\"*\n- **B:** *\"Yes, he does.\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Louisa:** *\"Hi! I'm Louisa.\"*\n> *\"I'm in New York.\"*\n> *\"I'm from England, but I'm here to learn about the life of a tour guide.\"*\n> *\"Peter Greenwald is a New York tour guide.\"*\n> *\"He lives in a small apartment in Brooklyn.\"*\n> *\"He usually gets up at eight o'clock.\"*\n> *\"Peter has a big breakfast.\"*\n> *\"He usually has fruit and cereal,\"*\n> *\"and sometimes he has an omelette.\"*\n> *\"He leaves the house at nine o'clock.\"*\n> *\"Peter works for a company called Real New York Tours.\"*\n> *\"His tours always begin in Times Square.\"*\n> *\"Every morning, he goes there by subway.\"*\n> *\"Peter usually arrives at about nine forty-five.\"*\n> *\"He meets his group and tells them about the tour.\"*\n> *\"At ten o'clock, the tour begins.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **What does he do?** | question | `/w\u0252t d\u028cz hi\u02d0 du\u02d0/` | Asking someone's profession | *\"What does he do? - He's a nurse.\"* |\n| **Where does he work?** | question | `/we\u0259 d\u028cz hi\u02d0 w\u025c\u02d0k/` | Inquiring about workplace | *\"Where does he work? - He works in a hospital.\"* |\n| **Always / Usually** | adverbs | `/\u02c8\u0254\u02d0lwe\u026az/ - /\u02c8ju\u02d0\u0292u\u0259li/` | Frequency indicators | *\"I always get up at six.\"* |\n| **Never** | adverb | `/\u02c8n\u025bv\u0259/` | At no time (0%) | *\"He never goes to bed late.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: adverbs of frequency: always, usually, often, sometimes, never\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "She ________ arrives on time.",
-                            optionA: "always",
-                            optionB: "always is",
-                            optionC: "is always to",
+                            question: "A: What does he do? B: He's a ________.",
+                            optionA: "nurse",
+                            optionB: "hospital",
+                            optionC: "work",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 1,
                           },
                           {
-                            question: "I ________ eat breakfast before going to school.",
-                            optionA: "usually",
-                            optionB: "am usually",
-                            optionC: "usually to",
+                            question: "A: Where does he work? B: He works in a ________.",
+                            optionA: "hospital",
+                            optionB: "nurse",
+                            optionC: "car",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 2,
                           },
                           {
-                            question: "He ________ late for his meetings.",
-                            optionA: "is never",
-                            optionB: "never is",
-                            optionC: "never",
+                            question: "She ________ arrives on time for work.",
+                            optionA: "always",
+                            optionB: "always is",
+                            optionC: "is always to",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 3,
                           },
                           {
-                            question: "What time do you ________ in the morning?",
-                            optionA: "wake up",
-                            optionB: "wakes up",
-                            optionC: "waking up",
+                            question: "He ________ late for morning meetings.",
+                            optionA: "is never",
+                            optionB: "never is",
+                            optionC: "never",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 4,
@@ -1543,12 +1543,30 @@ async function main() {
                   order: 3,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_rc_5and6_video.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Review of present simple all persons (+, -, ?), daily habits, telling time** and essential vocabulary for **Jobs, routines, food & drink review**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_6.17_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Interviewer:** *\"What do you do?\"*\n- **Person 1:** *\"I'm a software developer. I work from home.\"*\n- **Interviewer:** *\"What time do you start in the morning?\"*\n- **Person 1:** *\"I usually start at 8:30 AM.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Routine** | noun | `/ru\u02d0\u02c8ti\u02d0n/` | A sequence of actions regularly followed | *\"Explain your weekly routine.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Review of present simple all persons (+, -, ?), daily habits, telling time\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "/videos/beginner/ef5e_beg_rc_5and6_video.mp4",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Review of present simple all persons, adverbs of frequency, telling time** and essential vocabulary for **Lunch at half past one, dinner at eight o'clock**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_6.17_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **M:** *\"What time do you usually have lunch?\"*\n- **F:** *\"At half past one.\"*\n- **M:** *\"What time do you usually have dinner?\"*\n- **F:** *\"At about eight o'clock.\"*\n- **M:** *\"What time do you usually go to bed?\"*\n- **F:** *\"At half past eleven.\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **I:** *\"What do you usually have for breakfast?\"*\n- **J:** *\"Um, just toast and a cup of tea, maybe.\"*\n- **I:** *\"Do you live in a house or a flat?\"*\n- **H:** *\"It's a house.\"*\n- **I:** *\"Where is it?\"*\n- **H:** *\"It's in Stockport, outside Manchester.\"*\n- **I:** *\"Do you have children?\"*\n- **L:** *\"I have children, yes I do. I have one son.\"*\n> *\"He is sixteen.\"*\n- **I:** *\"What do you do?\"*\n- **S:** *\"I'm retired.\"*\n- **I:** *\"Do you like being retired?\"*\n- **S:** *\"I do \u2026 very much.\"*\n- **I:** *\"What time do you get up during the week?\"*\n- **K:** *\"Um, quite early. Usually before 8 a.m.\"*\n- **I:** *\"And at weekends?\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **What time do you usually have lunch?** | question | `Routine question` | What time do you usually have lunch? - At half past one. | *\"-\"* |\n| **What time do you usually have dinner?** | question | `Routine question` | At about eight o'clock. | *\"-\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Review of present simple all persons, adverbs of frequency, telling time\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
+                          {
+                            question: "What time do you usually ________ lunch? - At half past one.",
+                            optionA: "have",
+                            optionB: "has",
+                            optionC: "having",
+                            optionD: "None of the above",
+                            correctOption: 0,
+                            order: 1,
+                          },
+                          {
+                            question: "What time do you usually have ________? - At about eight o'clock.",
+                            optionA: "dinner",
+                            optionB: "breakfast",
+                            optionC: "lunch",
+                            optionD: "None of the above",
+                            correctOption: 0,
+                            order: 2,
+                          },
                           {
                             question: "Does he ________ in London? - Yes, he does.",
                             optionA: "live",
@@ -1556,31 +1574,13 @@ async function main() {
                             optionC: "living",
                             optionD: "None of the above",
                             correctOption: 0,
-                            order: 1,
+                            order: 3,
                           },
                           {
                             question: "She ________ TV in the evening.",
                             optionA: "watches",
                             optionB: "watch",
                             optionC: "watchs",
-                            optionD: "None of the above",
-                            correctOption: 0,
-                            order: 2,
-                          },
-                          {
-                            question: "We never ________ tennis on weekdays.",
-                            optionA: "play",
-                            optionB: "plays",
-                            optionC: "playing",
-                            optionD: "None of the above",
-                            correctOption: 0,
-                            order: 3,
-                          },
-                          {
-                            question: "What time ________ your train leave?",
-                            optionA: "does",
-                            optionB: "do",
-                            optionC: "is",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 4,
@@ -1709,20 +1709,29 @@ async function main() {
                   order: 1,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_7a_1_vocabulary.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **word order in questions: be and present simple (ASI / QUASI)** and essential vocabulary for **common verb phrases: free time (play guitar, go out with friends, listen to music)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_7.01.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Sophie:** *\"What do you do at the weekend, James?\"*\n- **James:** *\"I usually play football with friends on Saturday morning.\"*\n- **Sophie:** *\"Do you go out on Saturday night?\"*\n- **James:** *\"Yes, we often go to a restaurant or the cinema.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Weekend** | noun | `/\u02ccwi\u02d0k\u02c8\u025bnd/` | Saturday and Sunday | *\"Have a wonderful weekend!\"* |\n| **Go out** | verb phrase | `/\u0261\u0259\u028a a\u028at/` | Leave home to go to a social event | *\"Do you go out often?\"* |\n| **Cinema** | noun | `/\u02c8s\u026an\u026am\u0259/` | A theatre where films are shown | *\"Let's go to the cinema tonight.\"* |\n| **QUASI** | grammar rule | `Q - Aux - S - Inf` | Question word + Auxiliary + Subject + Infinitive | *\"Where do you work?\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: word order in questions: be and present simple (ASI / QUASI)\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "/videos/beginner/ef5e_beg_7a_1_vocabulary.mp4",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **word order in questions: be and present simple (ASI / QUASI)** and essential vocabulary for **weekend activities (do the same thing, hard week at work, fun and exciting)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_7.01.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Speaker:** *\"Three out of four British people do the same thing every weekend!\"*\n> *\"After a hard week at work, the weekend is a time to do something fun and exciting.\"*\n> *\"But a new study says that 75% of British people do the same activities every Saturday and Sunday.\"*\n> *\"What do they do?\"*\n> *\"66% watch TV, 46% go shopping, and 48% do housework.\"*\n> *\"And 10% spend the weekend at home \u2013 they never leave the house!\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **At the weekend** | phrase | `/\u00e6t \u00f0\u0259 \u02ccwi\u02d0k\u02c8\u025bnd/` | Saturday and Sunday | *\"Three out of four British people do the same thing every weekend!\"* |\n| **After a hard week** | phrase | `Work recap` | After a hard week at work, the weekend is a time to do something fun. | *\"-\"* |\n| **Activities** | noun | `/\u00e6k\u02c8t\u026av\u026atiz/` | Things done for enjoyment | *\"75% do the same activities.\"* |\n| **QUASI** | grammar formula | `Question - Aux - Subject - Infinitive` | What do you do? | *\"-\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: word order in questions: be and present simple (ASI / QUASI)\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "________ do you do on Saturday nights?",
-                            optionA: "What",
-                            optionB: "Who",
-                            optionC: "Where",
+                            question: "Three out of four British people do the ________ thing every weekend.",
+                            optionA: "same",
+                            optionB: "different",
+                            optionC: "boring",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 1,
+                          },
+                          {
+                            question: "After a hard week at ________, the weekend is time for fun.",
+                            optionA: "work",
+                            optionB: "school",
+                            optionC: "shop",
+                            optionD: "None of the above",
+                            correctOption: 0,
+                            order: 2,
                           },
                           {
                             question: "Where ________ your parents live?",
@@ -1731,19 +1740,10 @@ async function main() {
                             optionC: "are",
                             optionD: "None of the above",
                             correctOption: 0,
-                            order: 2,
-                          },
-                          {
-                            question: "Do you ________ to music when you study?",
-                            optionA: "listen",
-                            optionB: "listens",
-                            optionC: "listening",
-                            optionD: "None of the above",
-                            correctOption: 0,
                             order: 3,
                           },
                           {
-                            question: "What time ________ the film start?",
+                            question: "What time ________ the movie start?",
                             optionA: "does",
                             optionB: "do",
                             optionC: "is",
@@ -1762,13 +1762,13 @@ async function main() {
                   isPublished: true,
                   isFree: false,
                   videoUrl: null,
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **imperatives; object pronouns: me, you, him, her, it, us, them** and essential vocabulary for **kinds of film (action, comedy, drama, sci-fi, horror, animated)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_7.12_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Director:** *\"Quiet please! Don't look at the camera. Look at him!\"*\n- **Actor:** *\"Can you hear me clearly?\"*\n- **Director:** *\"Yes, perfect! Action! Speak loudly and clearly.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Imperative** | grammar | `Base verb form` | Used for direct commands and instructions | *\"Listen to me! Don't shout.\"* |\n| **Object pronouns** | grammar | `me, him, her, us, them` | Receive the action of the verb | *\"Call him tomorrow; I love her.\"* |\n| **Comedy** | noun | `/\u02c8k\u0252m\u026adi/` | A film or play intended to make people laugh | *\"I love watching British comedies.\"* |\n| **Action film** | noun | `/\u02c8\u00e6k\u0283\u0259n f\u026alm/` | A film with exciting stunts and fights | *\"James Bond films are action films.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: imperatives; object pronouns: me, you, him, her, it, us, them\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **imperatives; object pronouns: me, you, him, her, it, us, them** and essential vocabulary for **classroom imperatives and object pronouns (I'm your teacher. Listen to me! You're beautiful. I love you.)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_7.12_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n> *\"I'm your teacher.\"*\n> *\"Listen to me!\"*\n> *\"You're beautiful.\"*\n> *\"I love you.\"*\n> *\"He goes to my gym.\"*\n> *\"I see him every week.\"*\n> *\"She never listens.\"*\n> *\"Don't talk to her.\"*\n> *\"It's a nice coat!\"*\n> *\"I want it for Christmas.\"*\n> *\"We aren't friends.\"*\n> *\"They don't speak to us.\"*\n> *\"They're good books.\"*\n> *\"I want to read them.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Listen to me!** | imperative + pronoun | `Command with object pronoun` | I'm your teacher. Listen to me! | *\"-\"* |\n| **I love you** | phrase | `Subject + verb + object` | You're beautiful. I love you. | *\"-\"* |\n| **Object pronouns** | grammar | `me, him, her, us, them` | Pronouns receiving actions | *\"Call him; speak to her.\"* |\n| **Imperative** | grammar | `Base verb form` | Direct instruction or command | *\"Don't talk during the movie!\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: imperatives; object pronouns: me, you, him, her, it, us, them\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "Please listen to ________ carefully.",
+                            question: "I'm your teacher. Listen to ________!",
                             optionA: "me",
                             optionB: "I",
                             optionC: "my",
@@ -1777,19 +1777,19 @@ async function main() {
                             order: 1,
                           },
                           {
-                            question: "________ talk during the movie!",
-                            optionA: "Don't",
-                            optionB: "No",
-                            optionC: "Not",
+                            question: "You're beautiful. I love ________.",
+                            optionA: "you",
+                            optionB: "your",
+                            optionC: "yours",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 2,
                           },
                           {
-                            question: "I see Maria every day, but I never speak to ________.",
-                            optionA: "her",
-                            optionB: "she",
-                            optionC: "hers",
+                            question: "________ talk during the movie!",
+                            optionA: "Don't",
+                            optionB: "No",
+                            optionC: "Not",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 3,
@@ -1813,12 +1813,21 @@ async function main() {
                   order: 3,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_pe4_1.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Saying the date, ordinal numbers (1st - 31st), talking on the phone** and essential vocabulary for **months of the year (January - December), telephone expressions**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_7.21_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Jenny:** *\"Hello, Jenny Zielinski speaking.\"*\n- **Rob:** *\"Hi Jenny, it's Rob. What's the date today?\"*\n- **Jenny:** *\"It's the second of November. Why?\"*\n- **Rob:** *\"Because it's my birthday tomorrow, on the third of November!\"*\n- **Jenny:** *\"Happy early birthday, Rob!\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Date** | noun | `/de\u026at/` | Day of the month or year | *\"What's the date today?\"* |\n| **Ordinal numbers** | numbers | `first, second, third, fourth...` | Express order or date | *\"The 1st of May.\"* |\n| **Months** | noun | `January to December` | Twelve calendar divisions | *\"My birthday is in August.\"* |\n| **On the phone** | phrase | `Hello, this is... / speaking` | Standard English telephone phrases | *\"This is Rob speaking.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Saying the date, ordinal numbers (1st - 31st), talking on the phone\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "[{\"title\": \"Scene 1: Jenny's Birthday\", \"url\": \"/videos/beginner/ef5e_beg_pe4_1.mp4\"}, {\"title\": \"Scene 2: On the Phone with Rob\", \"url\": \"/videos/beginner/ef5e_beg_pe4_2.mp4\"}, {\"title\": \"Scene 3: Months and Dates\", \"url\": \"/videos/beginner/ef5e_beg_pe4_3.mp4\"}, {\"title\": \"Scene 4: Useful Social Phrases\", \"url\": \"/videos/beginner/ef5e_beg_pe4_4.mp4\"}]",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Saying the date, ordinal numbers (1st - 31st), talking on the phone** and essential vocabulary for **first, second, third, fourth; months of the year**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_7.21_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **F:** *\"first\"*\n- **M:** *\"second\"*\n- **F:** *\"third\"*\n- **M:** *\"fourth\"*\n- **F:** *\"fifth\"*\n- **M:** *\"sixth\"*\n- **F:** *\"seventh\"*\n- **M:** *\"eighth\"*\n- **F:** *\"ninth\"*\n- **M:** *\"tenth\"*\n- **F:** *\"eleventh\"*\n- **M:** *\"twelfth\"*\n- **F:** *\"thirteenth\"*\n- **M:** *\"fourteenth\"*\n- **F:** *\"fifteenth\"*\n- **M:** *\"sixteenth\"*\n- **F:** *\"seventeenth\"*\n- **M:** *\"eighteenth\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Rob:** *\"What's the date today?\"*\n- **Alan:** *\"I think it's the 2nd of June.\"*\n- **Rob:** *\"Are you sure? Isn't it the 1st?\"*\n- **Alan:** *\"No, definitely the 2nd.\"*\n- **Rob:** *\"Oh no!\"*\n> *\"It's my dad's birthday.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **First, second, third** | ordinal numbers | `/f\u025c\u02d0st/ - /\u02c8s\u025bk\u0259nd/ - /\u03b8\u025c\u02d0d/` | Numbered sequence | *\"The 1st, 2nd, and 3rd of the month.\"* |\n| **What's the date today?** | question | `/w\u0252ts \u00f0\u0259 de\u026at t\u0259\u02c8de\u026a/` | Inquiring about calendar date | *\"It's the second of November.\"* |\n| **Months of the year** | noun | `January to December` | Twelve months | *\"My birthday is in August.\"* |\n| **On the phone** | phrase | `Telephone conversation` | Hello, this is Rob speaking. | *\"-\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Saying the date, ordinal numbers (1st - 31st), talking on the phone\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
+                          {
+                            question: "What comes after 'second'? - ________.",
+                            optionA: "third",
+                            optionB: "three",
+                            optionC: "first",
+                            optionD: "None of the above",
+                            correctOption: 0,
+                            order: 1,
+                          },
                           {
                             question: "What's the ________ today? - It's the 15th of June.",
                             optionA: "date",
@@ -1826,22 +1835,13 @@ async function main() {
                             optionC: "time",
                             optionD: "None of the above",
                             correctOption: 0,
-                            order: 1,
+                            order: 2,
                           },
                           {
                             question: "His birthday is on the ________ of March.",
                             optionA: "twenty-first",
                             optionB: "twenty-one",
                             optionC: "twenty",
-                            optionD: "None of the above",
-                            correctOption: 0,
-                            order: 2,
-                          },
-                          {
-                            question: "What month comes after July? - ________.",
-                            optionA: "August",
-                            optionB: "September",
-                            optionC: "June",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 3,
@@ -1980,22 +1980,22 @@ async function main() {
                   isPublished: true,
                   isFree: false,
                   videoUrl: null,
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **can / can't: permission and ability; sentence rhythm** and essential vocabulary for **signs and more verb phrases (pay by card, smoke here, turn right, take photos)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_8.01_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Driver:** *\"Excuse me, can I park here?\"*\n- **Traffic Warden:** *\"No, you can't park here between 8:00 AM and 6:00 PM.\"*\n- **Driver:** *\"Where can I park?\"*\n- **Traffic Warden:** *\"You can park in the pay-and-display car park down the street.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Can** | modal verb | `/k\u00e6n/ - /k\u0259n/` | Expressing ability or permission | *\"You can pay with a credit card.\"* |\n| **Can't** | modal verb | `/k\u0251\u02d0nt/` | Expressing inability or prohibition | *\"You can't smoke inside the building.\"* |\n| **Park** | verb | `/p\u0251\u02d0k/` | Bring a vehicle that one is driving to a halt | *\"Can we park here for free?\"* |\n| **Sign** | noun | `/sa\u026an/` | A notice displaying a warning or regulation | *\"Look at the 'No Parking' sign.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: can / can't: permission and ability; sentence rhythm\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **can / can't: permission and ability; sentence rhythm** and essential vocabulary for **driving tests around the world (take the driving test, theory test, practical test, pass the test)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_8.01_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Speaker:** *\"In Qatar, you can take the driving test when you're 14.\"*\n> *\"In some states in Mexico, you only need to take a theory test, not a practical test.\"*\n> *\"In Vietnam, it's very difficult to pass the theory test. It has 450 questions!\"*\n> *\"In Croatia, you need to have 85 hours of driving lessons before you take the practical test.\"*\n> *\"In Ukraine, if you do two things wrong in your practical test, you fail.\"*\n> *\"In Brazil, after your driving test, you need to pass a psychological test to get your driving license.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Driving test** | noun | `/\u02c8dra\u026av\u026a\u014b t\u025bst/` | Official examination to drive a car | *\"You can take the driving test when you're 17.\"* |\n| **Theory test / Practical test** | noun | `Written exam vs driving exam` | In Vietnam, the theory test has 450 questions! | *\"-\"* |\n| **Can / Can't** | modal verbs | `/k\u00e6n/ - /k\u0251\u02d0nt/` | Permission or ability | *\"You can park here / You can't park here.\"* |\n| **Pass the test** | verb phrase | `/p\u0251\u02d0s \u00f0\u0259 t\u025bst/` | Succeed in an exam | *\"It's difficult to pass the driving test.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: can / can't: permission and ability; sentence rhythm\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "Can I ________ by credit card?",
-                            optionA: "pay",
-                            optionB: "paying",
-                            optionC: "pays",
+                            question: "In Qatar, you ________ take the driving test when you're 14.",
+                            optionA: "can",
+                            optionB: "can to",
+                            optionC: "are can",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 1,
                           },
                           {
-                            question: "You ________ use mobile phones in the exam room.",
+                            question: "You ________ use mobile phones during the exam.",
                             optionA: "can't",
                             optionB: "don't",
                             optionC: "aren't",
@@ -2013,7 +2013,7 @@ async function main() {
                             order: 3,
                           },
                           {
-                            question: "Where ________ we buy tickets?",
+                            question: "Where ________ we park our car?",
                             optionA: "can",
                             optionB: "do can",
                             optionC: "are",
@@ -2031,44 +2031,44 @@ async function main() {
                   order: 2,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_8b_1_vocabulary_1.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **like / love / don't mind / hate + verb + -ing** and essential vocabulary for **shopping and leisure activities (cooking, dancing, swimming, reading, buying clothes)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_8.08_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Emma:** *\"Do you like shopping for clothes?\"*\n- **Liam:** *\"No, I hate shopping in busy malls! I prefer buying things online.\"*\n- **Emma:** *\"I love shopping with my friends on Saturdays. We always have fun.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Love** | verb | `/l\u028cv/` | Have a great liking or affection for | *\"I love cooking Italian pasta.\"* |\n| **Like** | verb | `/la\u026ak/` | Find agreeable or enjoyable | *\"She likes reading on the balcony.\"* |\n| **Don't mind** | phrase | `/d\u0259\u028ant ma\u026and/` | Feel neutral towards an activity | *\"I don't mind doing the dishes.\"* |\n| **Hate** | verb | `/he\u026at/` | Dislike intensely | *\"They hate waiting in long queues.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: like / love / don't mind / hate + verb + -ing\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "[{\"title\": \"Part 1: Vocabulary (Activities & Hobbies)\", \"url\": \"/videos/beginner/ef5e_beg_8b_1_vocabulary_1.mp4\"}, {\"title\": \"Part 2: Singing in a Choir\", \"url\": \"/videos/beginner/ef5e_beg_8b_2_listening.mp4\"}]",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **like / love / don't mind / hate + verb + -ing** and essential vocabulary for **pronunciation of can and can't (We can park here. / I can't help you.)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_8.08_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Narrator:** *\"1\"*\n- **M:** *\"We can park here.\"*\n- **Narrator:** *\"2\"*\n- **F:** *\"I can't help you.\"*\n- **Narrator:** *\"3\"*\n- **M:** *\"You can't sit here.\"*\n- **Narrator:** *\"4\"*\n- **F:** *\"Max can go with me.\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Interviewer:** *\"This is a choir.\"*\n> *\"They're called the Oxford Gargoyles.\"*\n> *\"A gargoyle is a type of statue.\"*\n> *\"You see them on a lot of old buildings in Oxford and other cities.\"*\n> *\"Today the Oxford Gargoyles have a rehearsal.\"*\n> *\"They have a new song to practise,\"*\n> *\"an old English folk song called Scarborough Fair.\"*\n> *\"Let's find out more about the choir and the people in it.\"*\n> *\"How many people are in the choir?\"*\n- **Freddie:** *\"There are thirteen people in the choir.\"*\n- **Interviewer:** *\"Are you all students?\"*\n- **Steph:** *\"Yes, we're all students at Oxford University.\"*\n- **Interviewer:** *\"What do you study?\"*\n- **Steph:** *\"I study music.\"*\n- **Alex:** *\"I study music.\"*\n- **Tegan:** *\"I study music.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **We can park here** | affirmative | `/wi k\u0259n p\u0251\u02d0k h\u026a\u0259/` | Permission statement | *\"We can park here for free.\"* |\n| **I can't help you** | negative | `/a\u026a k\u0251\u02d0nt h\u025blp ju\u02d0/` | Inability statement | *\"I'm sorry, I can't help you right now.\"* |\n| **Like / Love + -ing** | grammar | `Gerund after preference verbs` | I love singing in a choir. | *\"-\"* |\n| **Hate + -ing** | grammar | `Dislike intensely` | She hates waiting in long queues. | *\"-\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: like / love / don't mind / hate + verb + -ing\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "I love ________ in the ocean.",
-                            optionA: "swimming",
-                            optionB: "swim",
-                            optionC: "swims",
+                            question: "We ________ park here. Look at the sign.",
+                            optionA: "can",
+                            optionB: "are can",
+                            optionC: "can to",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 1,
+                          },
+                          {
+                            question: "I'm sorry, I ________ help you with your bags.",
+                            optionA: "can't",
+                            optionB: "don't",
+                            optionC: "am not",
+                            optionD: "None of the above",
+                            correctOption: 0,
+                            order: 2,
+                          },
+                          {
+                            question: "I love ________ in a choir on Sundays.",
+                            optionA: "singing",
+                            optionB: "sing",
+                            optionC: "sings",
+                            optionD: "None of the above",
+                            correctOption: 0,
+                            order: 3,
                           },
                           {
                             question: "She hates ________ up early on cold mornings.",
                             optionA: "getting",
                             optionB: "get",
                             optionC: "gets",
-                            optionD: "None of the above",
-                            correctOption: 0,
-                            order: 2,
-                          },
-                          {
-                            question: "Do you like ________ for clothes?",
-                            optionA: "shopping",
-                            optionB: "shop",
-                            optionC: "shops",
-                            optionD: "None of the above",
-                            correctOption: 0,
-                            order: 3,
-                          },
-                          {
-                            question: "He doesn't mind ________ dinner.",
-                            optionA: "cooking",
-                            optionB: "cook",
-                            optionC: "cooks",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 4,
@@ -2083,12 +2083,30 @@ async function main() {
                   order: 3,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_rc_7and8_video.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Review of can/can't, like + -ing, question word order, imperatives** and essential vocabulary for **Hobbies, abilities, shopping preferences**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_8.15_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Interviewer:** *\"Can you speak any other foreign languages?\"*\n- **Person 1:** *\"Yes, I can speak Spanish and a little French.\"*\n- **Interviewer:** *\"What do you like doing in your free time?\"*\n- **Person 1:** *\"I love cycling and playing the acoustic guitar.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Ability** | noun | `/\u0259\u02c8b\u026al\u026ati/` | Talent or capacity to do something | *\"Describe your personal abilities.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Review of can/can't, like + -ing, question word order, imperatives\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "/videos/beginner/ef5e_beg_rc_7and8_video.mp4",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Review of can/can't, like + -ing, questions, imperatives** and essential vocabulary for **Cooking alone, eating with friends in a restaurant**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_8.15_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Narrator:** *\"Chris\"*\n- **Chris:** *\"I like cooking alone. I don't like having other people in the kitchen.\"*\n> *\"But I like eating with friends, especially when I'm out. I don't like being alone in a restaurant.\"*\n- **Narrator:** *\"Sarah\"*\n- **Sarah:** *\"I don't like travelling alone \u2013 I prefer going on holiday with friends.\"*\n> *\"But they need to be the right friends!\"*\n- **Narrator:** *\"Mike\"*\n- **Mike:** *\"I like shopping with friends.\"*\n> *\"When I go alone I usually buy things that look horrible on me.\"*\n> *\"I need a second opinion!\"*\n- **Narrator:** *\"Greta\"*\n- **Greta:** *\"I love dancing alone at home to really old music from the 70s, like Abba.\"*\n> *\"But I never dance with other people at parties because I know I'm a terrible dancer.\"*\n- **Narrator:** *\"Veronica\"*\n- **Veronica:** *\"I like watching films with friends. When the film finishes, we can talk about it,\"*\n> *\"and I like having someone with me so we can be happy or frightened together!\"*\n- **Narrator:** *\"Becca\"*\n- **Becca:** *\"I like running alone. It helps me to concentrate, and it's very peaceful!\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **I:** *\"What do you usually do in the evening after school?\"*\n- **S:** *\"Um, I usually go to sports practices, and finish homework,\"*\n> *\"and have dinner and things.\"*\n- **I:** *\"What kind of films do you like?\"*\n- **S:** *\"Normally action movies or comedy.\"*\n- **I:** *\"Do you usually watch films at home or at the cinema?\"*\n- **S:** *\"Depends.\"*\n> *\"If it's a good action movie, I like to go out and watch.\"*\n- **I:** *\"When's your birthday?\"*\n- **S:** *\"My birthday is the fifth of April.\"*\n- **I:** *\"What do you usually do on your birthday?\"*\n- **S:** *\"Go out for a meal with family and friends.\"*\n- **I:** *\"Do you drive to work?\"*\n- **K:** *\"Yes, I do.\"*\n- **I:** *\"Can you park near where you work?\"*\n- **K:** *\"Yes, there's a car park at my office.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **I like cooking alone** | example | `Personal preference` | Chris: I like cooking alone. I don't like having other people in the kitchen. | *\"-\"* |\n| **Eating with friends** | example | `Social preference` | I like eating with friends, especially when I'm out. | *\"-\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Review of can/can't, like + -ing, questions, imperatives\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
+                          {
+                            question: "Chris: I like ________ alone in my kitchen.",
+                            optionA: "cooking",
+                            optionB: "cook",
+                            optionC: "cooks",
+                            optionD: "None of the above",
+                            correctOption: 0,
+                            order: 1,
+                          },
+                          {
+                            question: "Chris: I like ________ with friends when I'm out.",
+                            optionA: "eating",
+                            optionB: "eat",
+                            optionC: "eats",
+                            optionD: "None of the above",
+                            correctOption: 0,
+                            order: 2,
+                          },
                           {
                             question: "Can they speak Italian? - No, they ________.",
                             optionA: "can't",
@@ -2096,31 +2114,13 @@ async function main() {
                             optionC: "aren't",
                             optionD: "None of the above",
                             correctOption: 0,
-                            order: 1,
-                          },
-                          {
-                            question: "I enjoy ________ books in English.",
-                            optionA: "reading",
-                            optionB: "read",
-                            optionC: "reads",
-                            optionD: "None of the above",
-                            correctOption: 0,
-                            order: 2,
+                            order: 3,
                           },
                           {
                             question: "Don't ________ the door, please.",
                             optionA: "close",
                             optionB: "closing",
                             optionC: "closes",
-                            optionD: "None of the above",
-                            correctOption: 0,
-                            order: 3,
-                          },
-                          {
-                            question: "Can you play tennis? - Yes, I ________.",
-                            optionA: "can",
-                            optionB: "do",
-                            optionC: "am",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 4,
@@ -2249,41 +2249,41 @@ async function main() {
                   order: 1,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_9a_1_pronunciation.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **present continuous (be + verb-ing); sentence rhythm** and essential vocabulary for **common verb phrases: travelling and actions right now**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_9.01_NEW2.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Tourist:** *\"Look at that street artist! What is he painting?\"*\n- **Guide:** *\"He's painting a panorama of the Eiffel Tower.\"*\n- **Tourist:** *\"And those people over there, are they waiting for the boat?\"*\n- **Guide:** *\"Yes, they're waiting for the evening river cruise.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Present continuous** | grammar | `am/is/are + verb-ing` | Action occurring right at this moment | *\"She is studying right now.\"* |\n| **Wait for** | verb phrase | `/we\u026at f\u0254\u02d0/` | Stay where one is until someone arrives | *\"They are waiting for the bus.\"* |\n| **Travel** | verb | `/\u02c8tr\u00e6vl/` | Make a journey, typically of some length | *\"We are travelling across Europe.\"* |\n| **Take photos** | phrase | `/te\u026ak \u02c8f\u0259\u028at\u0259\u028az/` | Capture images with a camera or phone | *\"He is taking photos of the monuments.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: present continuous (be + verb-ing); sentence rhythm\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "/videos/beginner/ef5e_beg_9a_1_pronunciation.mp4",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **present continuous (be + verb-ing); sentence rhythm** and essential vocabulary for **phone call dialogue (Hello? Tony? - Oh hi darling, how's Zurich? Fine, fine. I'm staying in a nice hotel - but it's raining.)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_9.01_NEW2.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Carol:** *\"Hello? Tony?\"*\n- **Tony:** *\"Oh, hi, darling. How's Zurich?\"*\n- **Carol:** *\"Fine, fine. I'm staying in a nice hotel \u2013 but it's raining.\"*\n> *\"Can you hear it?\"*\n- **Tony:** *\"Yes, yes, I can.\"*\n- **Carol:** *\"How are the children?\"*\n- **Tony:** *\"Oh, they're fine.\"*\n- **Carol:** *\"Where are they? What are they doing?\"*\n- **Tony:** *\"Lily's in the living room. She's doing her homework.\"*\n- **Carol:** *\"And Matt and Josh?\"*\n- **Tony:** *\"They're in their bedroom. They're reading.\"*\n- **Carol:** *\"I think I can hear them. Are you sure they're reading?\"*\n- **Tony:** *\"Yes, yes. That noise is the TV.\"*\n> *\"Your mother's watching a film.\"*\n- **Carol:** *\"What about you? Are you OK?\"*\n- **Tony:** *\"I'm fine. I'm making dinner \u2013 fish and vegetables.\"*\n- **Carol:** *\"Oh, great! Very healthy.\"*\n> *\"OK darling, I need to go now. See you on Tuesday.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **How's Zurich?** | question | `Asking about city/trip` | Oh hi darling, how's Zurich? | *\"-\"* |\n| **I'm staying in a hotel** | present continuous | `Temporary ongoing action` | I'm staying in a nice hotel. | *\"-\"* |\n| **It's raining** | present continuous | `Weather right now` | It's raining. Can you hear it? | *\"-\"* |\n| **Sentence rhythm** | pronunciation | `Stress-timed English beats` | I'm staying in a nice hotel. | *\"-\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: present continuous (be + verb-ing); sentence rhythm\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "What ________ you doing right now?",
-                            optionA: "are",
-                            optionB: "do",
-                            optionC: "is",
+                            question: "Tony: Oh hi darling. How's ________? Carol: Fine, fine.",
+                            optionA: "Zurich",
+                            optionB: "London",
+                            optionC: "Paris",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 1,
                           },
                           {
-                            question: "She ________ wearing a yellow raincoat.",
-                            optionA: "is",
-                            optionB: "are",
-                            optionC: "does",
+                            question: "Carol: I'm ________ in a nice hotel.",
+                            optionA: "staying",
+                            optionB: "stay",
+                            optionC: "stays",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 2,
                           },
                           {
-                            question: "They aren't ________ to the teacher.",
-                            optionA: "listening",
-                            optionB: "listen",
-                            optionC: "listens",
+                            question: "Look outside! It's ________ right now.",
+                            optionA: "raining",
+                            optionB: "rain",
+                            optionC: "rains",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 3,
                           },
                           {
-                            question: "Are they waiting for us? - Yes, they ________.",
+                            question: "What ________ you doing right now?",
                             optionA: "are",
                             optionB: "do",
                             optionC: "is",
@@ -2301,35 +2301,35 @@ async function main() {
                   order: 2,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_9b_1_vocabulary.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **present continuous or present simple? (habits vs right now)** and essential vocabulary for **clothes (jacket, jeans, shirt, shoes, skirt, trousers, coat, hat)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_9.09_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Detective A:** *\"What is the suspect wearing?\"*\n- **Detective B:** *\"He's wearing dark blue jeans, a black jacket, and white trainers.\"*\n- **Detective A:** *\"Does he usually wear glasses?\"*\n- **Detective B:** *\"No, but he's wearing sunglasses today.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Jacket** | noun | `/\u02c8d\u0292\u00e6k\u026at/` | An outer garment extending either to the waist or hips | *\"A warm leather jacket.\"* |\n| **Jeans** | noun (plural) | `/d\u0292i\u02d0nz/` | Trousers made of denim | *\"He always wears blue jeans.\"* |\n| **Shirt** | noun | `/\u0283\u025c\u02d0t/` | A garment for the upper body with collar and buttons | *\"A crisp white cotton shirt.\"* |\n| **Wear** | verb | `/we\u0259/` | Have on one's body as clothing or ornament | *\"What are you wearing today?\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: present continuous or present simple? (habits vs right now)\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "/videos/beginner/ef5e_beg_9b_1_vocabulary.mp4",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **present continuous or present simple? (habits vs right now)** and essential vocabulary for **day in the life of a Private Investigator; clothes (wear a suit, jacket, jeans, coat)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_9.09_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Narrator:** *\"A day in the life of a Private Investigator\"*\n> *\"People think a private investigator's job is exciting, but is it really true?\"*\n> *\"See what you think.\"*\n- **Speaker:** *\"On a typical day, I get up early and I go to my office. I don't need to wear a suit.\"*\n> *\"I usually wear a shirt and trousers.\"*\n> *\"I start work at about 9. I sit at my desk and work at my computer.\"*\n> *\"I answer phone calls. I speak to colleagues. Then at about 6.00, I finish work and go home.\"*\n> *\"The calls are usually from clients \u2013 new clients or current clients.\"*\n> *\"With a new client, first I usually meet them in person in our office.\"*\n> *\"Some clients are private individuals.\"*\n> *\"Perhaps they want us to find a missing person.\"*\n> *\"Other clients are companies.\"*\n> *\"Perhaps they want us to check out if an employee is really ill or not.\"*\n> *\"Then we need to investigate the problem. We usually do this online.\"*\n> *\"Clients pay for each day we work, and they don't want to pay a lot of money, so we try to work fast.\"*\n> *\"But sometimes our work is different, and today is one of those days.\"*\n> *\"I'm not working in the office, I'm working in the street.\"*\n> *\"I'm sitting in my car with my camera.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Private Investigator** | noun | `/\u02c8pra\u026av\u0259t \u026an\u02c8v\u025bst\u026a\u0261e\u026at\u0259/` | Detective hired for surveillance | *\"A day in the life of a Private Investigator.\"* |\n| **Wear a suit** | verb phrase | `/we\u0259r \u0259 su\u02d0t/` | Formal office clothing | *\"I don't need to wear a suit to work.\"* |\n| **Typical day** | phrase | `Daily routine` | On a typical day, I get up early and go to my office. | *\"-\"* |\n| **Present continuous vs simple** | grammar | `Right now vs Routine` | I wear jeans usually, but today I'm wearing a suit. | *\"-\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: present continuous or present simple? (habits vs right now)\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "He usually ________ a suit to work, but today he is wearing jeans.",
-                            optionA: "wears",
-                            optionB: "is wearing",
-                            optionC: "wear",
+                            question: "On a typical day, I don't need to wear a ________.",
+                            optionA: "suit",
+                            optionB: "jeans",
+                            optionC: "shoes",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 1,
                           },
                           {
-                            question: "Look out the window! It ________ right now.",
-                            optionA: "is raining",
-                            optionB: "rains",
-                            optionC: "rain",
+                            question: "He usually wears a t-shirt, but today he is ________ a suit.",
+                            optionA: "wearing",
+                            optionB: "wears",
+                            optionC: "wear",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 2,
                           },
                           {
-                            question: "What are those? - They're my new ________.",
-                            optionA: "shoes",
-                            optionB: "shoe",
-                            optionC: "shoess",
+                            question: "What is the detective ________ right now?",
+                            optionA: "doing",
+                            optionB: "do",
+                            optionC: "does",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 3,
@@ -2353,20 +2353,29 @@ async function main() {
                   order: 3,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_pe5_1.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Inviting and offering: Would you like to...? / Would you like a...?** and essential vocabulary for **invitations, accepting and declining politely**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_9.16_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Rob:** *\"Hi Jenny! Are you free on Friday evening?\"*\n- **Jenny:** *\"Yes, I am. Why?\"*\n- **Rob:** *\"Would you like to come to a jazz concert with me?\"*\n- **Jenny:** *\"I'd love to! What time does it start?\"*\n- **Rob:** *\"At eight o'clock. I can pick you up at seven thirty.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Would you like to...** | phrase | `/w\u028ad ju\u02d0 la\u026ak tu\u02d0/` | Polite formula for offering an invitation | *\"Would you like to have dinner?\"* |\n| **I'd love to** | phrase | `/a\u026ad l\u028cv tu\u02d0/` | Enthusiastic and polite acceptance | *\"Yes, I'd love to come!\"* |\n| **I'm sorry, I can't** | phrase | `/a\u026am \u02c8s\u0252ri a\u026a k\u0251\u02d0nt/` | Polite refusal of an invitation | *\"I'd love to, but I'm busy.\"* |\n| **Concert** | noun | `/\u02c8k\u0252ns\u0259t/` | A musical performance before an audience | *\"A live rock concert.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Inviting and offering: Would you like to...? / Would you like a...?\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "[{\"title\": \"Scene 1: Inviting Jenny to Dinner\", \"url\": \"/videos/beginner/ef5e_beg_pe5_1.mp4\"}, {\"title\": \"Scene 2: At the Restaurant\", \"url\": \"/videos/beginner/ef5e_beg_pe5_2.mp4\"}, {\"title\": \"Scene 3: Useful Social Phrases\", \"url\": \"/videos/beginner/ef5e_beg_pe5_3mp4.mp4\"}]",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Inviting and offering: Would you like a pizza? / Would you like to see a film?** and essential vocabulary for **invitations, accepting and declining politely**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_9.16_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **F:** *\"a pizza\"*\n> *\"like a pizza\"*\n> *\"Would you like a pizza?\"*\n- **M:** *\"see a film\"*\n> *\"to see a film\"*\n> *\"Would you like to see a film?\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Rob:** *\"Hey, Alan.\"*\n> *\"Would you like to come to the match with me on Sunday?\"*\n> *\"It's Norwich against Chelsea, and I have two tickets.\"*\n- **Alan:** *\"Wow!\"*\n> *\"What time's the match?\"*\n- **Rob:** *\"It's at four o'clock.\"*\n- **Alan:** *\"Yeah, I'd love to. Thanks.\"*\n- **Rob:** *\"Would you like to meet for lunch first?\"*\n- **Alan:** *\"Sorry, I can't.\"*\n> *\"It's my mum's birthday,\"*\n> *\"and I need to have lunch with her.\"*\n> *\"But I can meet you there.\"*\n- **Rob:** *\"Great.\"*\n> *\"Let's meet at half past three at the entrance to the Tube station.\"*\n- **Alan:** *\"Fine. See you there.\"*\n- **Alan:** *\"They are playing really badly.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Would you like a pizza?** | invitation/offer | `/w\u028ad ju\u02d0 la\u026ak \u0259 \u02c8pi\u02d0ts\u0259/` | Offering food politely | *\"Would you like a pizza?\"* |\n| **Would you like to see a film?** | invitation | `Inviting someone out` | Would you like to see a film tonight? | *\"-\"* |\n| **I'd love to** | phrase | `/a\u026ad l\u028cv tu\u02d0/` | Accepting enthusiastically | *\"Yes, I'd love to!\"* |\n| **I'm sorry, I can't** | phrase | `Polite refusal` | I'd love to, but I'm busy. | *\"-\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Inviting and offering: Would you like a pizza? / Would you like to see a film?\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "Would you like to ________ to the cinema tonight?",
-                            optionA: "come",
-                            optionB: "coming",
-                            optionC: "comes",
+                            question: "Would you like ________ pizza?",
+                            optionA: "a",
+                            optionB: "an",
+                            optionC: "the",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 1,
+                          },
+                          {
+                            question: "Would you like to ________ a film tonight?",
+                            optionA: "see",
+                            optionB: "seeing",
+                            optionC: "sees",
+                            optionD: "None of the above",
+                            correctOption: 0,
+                            order: 2,
                           },
                           {
                             question: "A: Would you like a cup of tea? B: Yes, ________.",
@@ -2375,22 +2384,13 @@ async function main() {
                             optionC: "I like",
                             optionD: "None of the above",
                             correctOption: 0,
-                            order: 2,
-                          },
-                          {
-                            question: "I'd ________ to, but I have to study for my exam.",
-                            optionA: "love",
-                            optionB: "like",
-                            optionC: "loving",
-                            optionD: "None of the above",
-                            correctOption: 0,
                             order: 3,
                           },
                           {
-                            question: "Are you ________ tomorrow evening? - Yes, I have no plans.",
-                            optionA: "free",
-                            optionB: "empty",
-                            optionC: "open",
+                            question: "I'd ________ to, but I have an exam tomorrow.",
+                            optionA: "love",
+                            optionB: "like",
+                            optionC: "loving",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 4,
@@ -2520,19 +2520,28 @@ async function main() {
                   isPublished: true,
                   isFree: false,
                   videoUrl: null,
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **there's a... / there are some...; prepositions: in, on, under, behind, opposite** and essential vocabulary for **hotels (lift, gym, swimming pool, reception, minibar, Wi-Fi)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_10.01.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Guest:** *\"Excuse me, is there a swimming pool in this hotel?\"*\n- **Receptionist:** *\"Yes, there is. There's a heated pool on the roof, and there is a gym on the second floor.\"*\n- **Guest:** *\"And are there any restaurants nearby?\"*\n- **Receptionist:** *\"Yes, there are some wonderful Italian restaurants opposite the park.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **There is / There are** | grammar | `/\u00f0e\u0259r \u026az/ - /\u00f0e\u0259r \u0251\u02d0/` | Used to indicate the presence or existence of things | *\"There is a king-sized bed in the room.\"* |\n| **Swimming pool** | noun | `/\u02c8sw\u026am\u026a\u014b pu\u02d0l/` | An artificial basin filled with water for swimming | *\"The hotel swimming pool is open until 10 PM.\"* |\n| **Gym** | noun | `/d\u0292\u026am/` | A hall or room equipped for physical exercise | *\"Is there a gym in the hotel?\"* |\n| **Opposite / Behind** | preposition | `/\u02c8\u0252p\u0259z\u026at/ - /b\u026a\u02c8ha\u026and/` | Facing directly across / at the back of | *\"The pharmacy is opposite the bank.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: there's a... / there are some...; prepositions: in, on, under, behind, opposite\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **there's a... / there are some...; prepositions: in, on, under, behind, opposite** and essential vocabulary for **Visit Scotland narrative (10,000 km of coast, 790 islands, 30,000 lochs, famous castles)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_10.01.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Narrator:** *\"Visit Scotland\"*\n- **Speaker:** *\"Scotland is one of the world's top tourist destinations, with 10,000 kilometres of coast,\"*\n> *\"790 islands, more than 30,000 'lochs' (the word in Scotland for lakes), famous castles,\"*\n> *\"and beautiful cities.\"*\n> *\"There's something for visitors of all ages.\"*\n- **Narrator:** *\"Why Loch Ness?\"*\n- **Speaker:** *\"Loch Ness is 10 km south west of the city of Inverness \u2013 perfect for day trips.\"*\n> *\"You can take a boat trip on the loch and visit the Loch Ness Centre to find out all about 'Nessie', the monster.\"*\n> *\"One of the most beautiful castles in the world, Urquhart Castle, is on the banks of the loch.\"*\n> *\"There are wonderful places for walking and cycling very near.\"*\n- **Narrator:** *\"Accommodation\"*\n- **Speaker:** *\"Stay at the Craigdarroch Hotel. It's the perfect place for a great view of the loch.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Visit Scotland** | reading topic | `Scottish tourism` | Scotland is one of the world's top tourist destinations. | *\"-\"* |\n| **Lochs / Castles** | noun | `/l\u0252ks/ - /\u02c8k\u0251\u02d0slz/` | Scottish lakes and historic fortresses | *\"More than 30,000 lochs and famous castles.\"* |\n| **There is / There are** | grammar | `/\u00f0e\u0259r \u026az/ - /\u00f0e\u0259r \u0251\u02d0/` | Stating presence or existence | *\"There's a castle on the hill.\"* |\n| **Coast / Islands** | noun | `/k\u0259\u028ast/ - /\u02c8a\u026al\u0259ndz/` | Geographic features | *\"790 beautiful Scottish islands.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: there's a... / there are some...; prepositions: in, on, under, behind, opposite\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "________ a comfortable double bed in the bedroom.",
+                            question: "Scotland has more than 30,000 ________ (the word for lakes).",
+                            optionA: "lochs",
+                            optionB: "rivers",
+                            optionC: "seas",
+                            optionD: "None of the above",
+                            correctOption: 0,
+                            order: 1,
+                          },
+                          {
+                            question: "________ a comfortable double bed in the room.",
                             optionA: "There is",
                             optionB: "There are",
                             optionC: "It is",
                             optionD: "None of the above",
                             correctOption: 0,
-                            order: 1,
+                            order: 2,
                           },
                           {
                             question: "Are there ________ clean towels in the bathroom?",
@@ -2541,22 +2550,13 @@ async function main() {
                             optionC: "a",
                             optionD: "None of the above",
                             correctOption: 0,
-                            order: 2,
+                            order: 3,
                           },
                           {
                             question: "There are ________ pictures on the wall.",
                             optionA: "some",
                             optionB: "any",
                             optionC: "a",
-                            optionD: "None of the above",
-                            correctOption: 0,
-                            order: 3,
-                          },
-                          {
-                            question: "Is there a lift? - No, there ________.",
-                            optionA: "isn't",
-                            optionB: "aren't",
-                            optionC: "not",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 4,
@@ -2571,8 +2571,8 @@ async function main() {
                   order: 2,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_10b_1_vocabulary.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **past simple: be (was / were, wasn't / weren't)** and essential vocabulary for **in, on, at; historical places and past time expressions (yesterday, last night, in 2020)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_10.09.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Officer:** *\"Where were you at eight o'clock yesterday evening?\"*\n- **Witness:** *\"I was at home with my family. We were in the kitchen having dinner.\"*\n- **Officer:** *\"Was your brother with you?\"*\n- **Witness:** *\"No, he wasn't. He was at work in the restaurant.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Was / Were** | past verb | `/w\u0252z/ - /w\u025c\u02d0/` | Past forms of the verb be (I/he/she/it was; we/you/they were) | *\"Where were you born?\"* |\n| **Yesterday** | adverb | `/\u02c8j\u025bst\u0259de\u026a/` | On the day before today | *\"I was at the library yesterday.\"* |\n| **Last night / week** | phrase | `/l\u0251\u02d0st na\u026at/` | During the previous night or week | *\"We were at the theatre last night.\"* |\n| **At home / at work** | prepositional phrase | `/\u00e6t h\u0259\u028am/` | Indicating specific locations | *\"She was at work until seven.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: past simple: be (was / were, wasn't / weren't)\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "[{\"title\": \"Part 1: Vocabulary (in, on, at)\", \"url\": \"/videos/beginner/ef5e_beg_10b_1_vocabulary.mp4\"}, {\"title\": \"Part 2: Buildings with a Past\", \"url\": \"/videos/beginner/ef5e_beg_10b_2_listening.mp4\"}]",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **past simple: be (was / were, wasn't / weren't)** and essential vocabulary for **pronunciation /\u026a\u0259/ and /e\u0259/; in, on, at; past time expressions**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_10.09.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **M:** *\"ear\"*\n> *\"/\u026a\u0259/\"*\n> *\"beer\"*\n> *\"dear\"*\n> *\"idea\"*\n> *\"really\"*\n> *\"we're\"*\n> *\"year\"*\n- **F:** *\"chair\"*\n> *\"/e\u0259/\"*\n> *\"airport\"*\n> *\"repair\"*\n> *\"their\"*\n> *\"where\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Greg:** *\"Hi! I'm Greg.\"*\n> *\"Welcome to Oxford.\"*\n> *\"I'm visiting the Old Bank Hotel.\"*\n> *\"It's an unusual hotel in the centre of the city.\"*\n> *\"The Old Bank is in the High Street, in the centre of Oxford.\"*\n> *\"Today it's a luxury hotel, but these buildings \u2013\"*\n> *\"from number ninety-two to number ninety-four \u2013\"*\n> *\"have a very interesting history.\"*\n> *\"In the sixteenth century, they were part of Christ Church College.\"*\n> *\"In the eighteenth century, they were different shops.\"*\n> *\"And we know that in 1808 the buildings were one business \u2013\"*\n> *\"a bank.\"*\n> *\"There was a bank here for almost two hundred years,\"*\n> *\"but today it's a famous Oxford hotel.\"*\n> *\"Would you like to go in and look?\"*\n> *\"Let's go.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Was / Were** | past verb | `/w\u0252z/ - /w\u025c\u02d0/` | Past of be | *\"Where were you yesterday? - I was at home.\"* |\n| **Buildings with a past** | topic | `Historic structures` | This building was a hotel in 1920. | *\"-\"* |\n| **In, on, at** | prepositions | `Location markers` | At work, at school, in the kitchen, on the train. | *\"-\"* |\n| **Yesterday / Last night** | time expressions | `Past references` | We were at the theatre last night. | *\"-\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: past simple: be (was / were, wasn't / weren't)\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
@@ -2623,26 +2623,26 @@ async function main() {
                   order: 3,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_rc_9and10_video.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Review of present continuous, there is/are, was/were, prepositions of place** and essential vocabulary for **Clothes, hotel amenities, buildings with a past**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_10.16_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Interviewer:** *\"Where were you born?\"*\n- **Person 1:** *\"I was born in Manchester, in the north of England.\"*\n- **Interviewer:** *\"Were you in Manchester yesterday?\"*\n- **Person 1:** *\"No, I was here in London on business.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **History** | noun | `/\u02c8h\u026ast\u0259ri/` | The study of past events | *\"This building has a fascinating history.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Review of present continuous, there is/are, was/were, prepositions of place\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "/videos/beginner/ef5e_beg_rc_9and10_video.mp4",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Review of present continuous, there is/are, was/were** and essential vocabulary for **Street interviews about birthplace, hometown, and hotels**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_10.16_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **A:** *\"Where were you at seven o'clock yesterday morning?\"*\n- **B:** *\"I was at home.\"*\n- **A:** *\"Were you in bed?\"*\n- **B:** *\"Yes, I was.\"*\n- **A:** *\"Where were you at ten o'clock?\"*\n- **B:** *\"I was in a caf\u00e9 with friends.\"*\n- **A:** *\"Were you there all morning?\"*\n- **B:** *\"No, we weren't. We were there for an hour.\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Interviewer:** *\"What are you doing in Oxford today?\"*\n- **Anna:** *\"I'm here visiting a friend and just looking around.\"*\n- **Interviewer:** *\"What clothes do you usually wear for work?\"*\n- **Iain:** *\"I wear semi-formal clothes, so a shirt and trousers,\"*\n> *\"but I don't need to wear a tie.\"*\n- **Interviewer:** *\"Would you like to live in England?\"*\n- **Jayna:** *\"Yes.\"*\n- **Interviewer:** *\"Why?\"*\n- **Jayna:** *\"The history of the place, and just, um,\"*\n> *\"it really is a beautiful country.\"*\n- **Interviewer:** *\"Are you staying in a hotel?\"*\n- **Sandra:** *\"Yes.\"*\n- **Interviewer:** *\"Do you like it?\"*\n- **Sandra:** *\"Yes, I like it very much.\"*\n- **Interviewer:** *\"Why?\"*\n- **Sandra:** *\"It's situated near the river, it's really nice and cosy,\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Where were you born?** | question | `Birthplace inquiry` | Where were you born? - I was born in London. | *\"-\"* |\n| **Were you at home?** | question | `Past location inquiry` | No, I was at work all day. | *\"-\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Review of present continuous, there is/are, was/were\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "There ________ three chairs in the room.",
-                            optionA: "are",
-                            optionB: "is",
-                            optionC: "was",
+                            question: "Where ________ you born? - In Manchester.",
+                            optionA: "were",
+                            optionB: "was",
+                            optionC: "are",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 1,
                           },
                           {
-                            question: "Where ________ your parents born?",
-                            optionA: "were",
-                            optionB: "was",
-                            optionC: "are",
+                            question: "There ________ three chairs in the hotel bedroom.",
+                            optionA: "are",
+                            optionB: "is",
+                            optionC: "was",
                             optionD: "None of the above",
                             correctOption: 0,
                             order: 2,
@@ -2790,7 +2790,7 @@ async function main() {
                   isPublished: true,
                   isFree: false,
                   videoUrl: null,
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **past simple: regular verbs (-ed endings: /t/, /d/, /\u026ad/); did / didn't** and essential vocabulary for **regular verbs (arrive, live, move, start, study, work, visit, play)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_11.01.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Grandmother:** *\"In 1975, my family arrived in New York to start a new life.\"*\n- **Grandson:** *\"Did you live in Manhattan?\"*\n- **Grandmother:** *\"No, we lived in Brooklyn. My father worked in a bakery and my mother studied English.\"*\n- **Grandson:** *\"Did you like living there?\"*\n- **Grandmother:** *\"Yes, we loved it! It was an exciting time.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Arrive** | regular verb | `/\u0259\u02c8ra\u026avd/` | Reach a destination | *\"The ship arrived in New York on Tuesday.\"* |\n| **Live** | regular verb | `/l\u026avd/` | Make one's home in a particular place | *\"They lived in a small flat in Brooklyn.\"* |\n| **Work** | regular verb | `/w\u025c\u02d0kt/` | Perform labor or employment | *\"He worked in a local factory for twenty years.\"* |\n| **Pronunciation of -ed** | grammar | `/t/, /d/, or /\u026ad/` | Pronounced /\u026ad/ only after T and D sounds | *\"wanted (/\u026ad/), worked (/t/), lived (/d/).\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: past simple: regular verbs (-ed endings: /t/, /d/, /\u026ad/); did / didn't\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **past simple: regular verbs (-ed endings: /t/, /d/, /\u026ad/); did / didn't** and essential vocabulary for **regular verbs (arrive, live, move, start, study, work, visit, play)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_11.01.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Dominic:** *\"We followed our dream. My wife and I always wanted to live abroad.\"*\n> *\"But Miriam and I both work in the UK \u2013 she's a doctor and I'm a designer \u2013\"*\n> *\"and we have two small children, Sacha and Elena.\"*\n> *\"Then an American university, Duke in Durham, North Carolina, asked Miriam to go and work there for a year.\"*\n> *\"At first, we weren't sure what to do. There were so many questions.\"*\n> *\"What about Sacha's school?\"*\n> *\"What do we do with our house?\"*\n> *\"But finally, we decided to go!\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Regular past -ed** | grammar | `/t/, /d/, or /\u026ad/` | Forming past tense with regular verbs | *\"arrived, lived, worked, studied.\"* |\n| **Did you live in New York?** | question | `Past simple interrogative with did` | Did you live in Manhattan? - No, we lived in Brooklyn. | *\"-\"* |\n| **Didn't arrive** | negative | `Past simple negative with didn't` | The ship didn't arrive until Tuesday. | *\"-\"* |\n| **New life in the USA** | topic | `Immigrant story` | In 1975, my family arrived in America. | *\"-\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: past simple: regular verbs (-ed endings: /t/, /d/, /\u026ad/); did / didn't\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
@@ -2842,7 +2842,7 @@ async function main() {
                   isPublished: true,
                   isFree: false,
                   videoUrl: null,
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **past simple irregular verbs: get, go, have, do (got, went, had, did)** and essential vocabulary for **verb phrases with get, go, have, do (get up, go out, have lunch, do homework)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_11.08_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Alex:** *\"Hi Clara! How was your day?\"*\n- **Clara:** *\"It was busy. I got up at seven, had breakfast, and went to the office.\"*\n- **Alex:** *\"Did you have lunch with colleagues?\"*\n- **Clara:** *\"Yes, we had lunch at that new Italian place. What did you do?\"*\n- **Alex:** *\"I did my chores and went to the gym.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Go -> Went** | irregular verb | `/w\u025bnt/` | Past tense of go | *\"Yesterday we went to the beach.\"* |\n| **Have -> Had** | irregular verb | `/h\u00e6d/` | Past tense of have | *\"I had a wonderful conversation with her.\"* |\n| **Get -> Got** | irregular verb | `/\u0261\u0252t/` | Past tense of get | *\"She got home late last night.\"* |\n| **Do -> Did** | irregular verb | `/d\u026ad/` | Past tense of do | *\"What did you do on Saturday?\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: past simple irregular verbs: get, go, have, do (got, went, had, did)\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **past simple irregular verbs: get, go, have, do (got, went, had, did)** and essential vocabulary for **verb phrases with get, go, have, do (get up, go out, have lunch, do homework)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_11.08_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Ben:** *\"Hi. I'm back. Linda! What are you doing at home?\"*\n- **Linda:** *\"Hi, Dad. You're very early.\"*\n- **Ben:** *\"Yes, I got an early flight.\"*\n- **Linda:** *\"Er, how was your day?\"*\n- **Ben:** *\"My day was fine. But what about your day? Why aren't you at school?\"*\n- **Linda:** *\"We didn't have classes today. We went to the British Museum in the morning.\"*\n> *\"It was great. And then we had lunch in the caf\u00e9 there.\"*\n- **Ben:** *\"Why didn't you go to school this afternoon?\"*\n- **Linda:** *\"We had a free afternoon. I stayed at home.\"*\n- **Ben:** *\"What did you do?\"*\n- **Linda:** *\"I did my homework. I had a lot of work.\"*\n- **Ben:** *\"Good girl. When are your exams?\"*\n- **Linda:** *\"They're next week.\"*\n- **Ben:** *\"Where's your mother?\"*\n- **Linda:** *\"She went out. I think she went shopping.\"*\n- **Ben:** *\"What's that?\"*\n- **Linda:** *\"What?\"*\n- **Ben:** *\"That noise.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Go -> Went** | irregular verb | `/w\u025bnt/` | Past of go | *\"Yesterday we went to the beach.\"* |\n| **Have -> Had** | irregular verb | `/h\u00e6d/` | Past of have | *\"We had lunch at an Italian restaurant.\"* |\n| **Get -> Got** | irregular verb | `/\u0261\u0252t/` | Past of get | *\"I got up early this morning.\"* |\n| **Do -> Did** | irregular verb | `/d\u026ad/` | Past of do | *\"What did you do on Saturday?\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: past simple irregular verbs: get, go, have, do (got, went, had, did)\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
@@ -2893,14 +2893,14 @@ async function main() {
                   order: 3,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_pe6_1.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Asking for and giving directions; polite intonation** and essential vocabulary for **prepositions of place (turn left, turn right, go straight on, on the corner, opposite)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_11.15_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Tourist:** *\"Excuse me. Is there a bank near here?\"*\n- **Local:** *\"Yes, there is. Go straight on and turn left at the traffic lights.\"*\n- **Tourist:** *\"Turn left at the lights?\"*\n- **Local:** *\"That's right. The bank is on your right, next to the post office.\"*\n- **Tourist:** *\"Thank you very much!\"*\n- **Local:** *\"You're welcome.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Turn left / right** | direction phrase | `/t\u025c\u02d0n l\u025bft/ - /ra\u026at/` | Change course towards the left or right side | *\"Turn right at the bookstore.\"* |\n| **Go straight on** | direction phrase | `/\u0261\u0259\u028a stre\u026at \u0252n/` | Continue forward without turning | *\"Go straight on for two blocks.\"* |\n| **Traffic lights** | noun | `/\u02c8tr\u00e6f\u026ak la\u026ats/` | Signals controlling road traffic | *\"Stop at the red traffic light.\"* |\n| **Near here** | phrase | `/n\u026a\u0259 h\u026a\u0259/` | In this immediate vicinity | *\"Is there a good caf\u00e9 near here?\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Asking for and giving directions; polite intonation\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "[{\"title\": \"Scene 1: Rob Asking for Directions\", \"url\": \"/videos/beginner/ef5e_beg_pe6_1.mp4\"}, {\"title\": \"Scene 2: Finding the Bank\", \"url\": \"/videos/beginner/ef5e_beg_pe6_2.mp4\"}, {\"title\": \"Scene 3: Turn Left, Turn Right\", \"url\": \"/videos/beginner/ef5e_beg_pe6_3.mp4\"}, {\"title\": \"Scene 4: Social English Phrases\", \"url\": \"/videos/beginner/ef5e_beg_pe6_4.mp4\"}]",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Asking for and giving directions; polite intonation** and essential vocabulary for **turn left, turn right, go straight on, traffic lights, on your right**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_11.15_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Narrator:** *\"1\"*\n- **A:** *\"Excuse me?\"*\n- **B:** *\"Yes?\"*\n- **A:** *\"Is there a coffee shop near here?\"*\n- **B:** *\"Yes, there's one in South Street. It's next to the cinema, on the right.\"*\n- **A:** *\"Thanks.\"*\n- **Narrator:** *\"2\"*\n- **A:** *\"Excuse me. Is there a Chinese restaurant near here?\"*\n- **B:** *\"Yes, there's one in King Street, between the bank and the gym.\"*\n- **A:** *\"Thank you.\"*\n- **Narrator:** *\"3\"*\n- **A:** *\"Excuse me. Is there a phone shop near here?\"*\n- **B:** *\"Yes, there's one in North Street, next to the hotel, on the left.\"*\n- **A:** *\"Thanks.\"*\n- **Narrator:** *\"4\"*\n- **A:** *\"Excuse me. Where's the park?\"*\n- **B:** *\"It's in London Road, opposite the gym.\"*\n- **A:** *\"Oh, great. Thank you.\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **Rob:** *\"Excuse me.\"*\n> *\"Is there a cash machine near here?\"*\n- **Woman:** *\"Yes. There's one at Barclays Bank.\"*\n- **Rob:** *\"Sorry, where is that?\"*\n- **Woman:** *\"Turn left and go straight on.\"*\n> *\"Then turn right and it's on the right.\"*\n- **Rob:** *\"Thanks very much.\"*\n- **Woman:** *\"You're welcome.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Is there a bank near here?** | question | `/\u026az \u00f0e\u0259r \u0259 b\u00e6\u014bk n\u026a\u0259 h\u026a\u0259/` | Asking for nearby locations | *\"Excuse me, is there a bank near here?\"* |\n| **Go straight on** | direction phrase | `/\u0261\u0259\u028a stre\u026at \u0252n/` | Continue forward | *\"Go straight on and turn left.\"* |\n| **Traffic lights** | noun | `/\u02c8tr\u00e6f\u026ak la\u026ats/` | Road signals | *\"Turn right at the traffic lights.\"* |\n| **On your right** | direction phrase | `/\u0252n j\u0254\u02d0 ra\u026at/` | Located on the right side | *\"The bank is on your right.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Asking for and giving directions; polite intonation\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
                         create: [
                           {
-                            question: "Excuse me, ________ a chemist near here?",
+                            question: "Excuse me, ________ a bank near here?",
                             optionA: "is there",
                             optionB: "are there",
                             optionC: "there is",
@@ -2909,7 +2909,7 @@ async function main() {
                             order: 1,
                           },
                           {
-                            question: "Go straight ________ and turn right at the museum.",
+                            question: "Go straight ________ and turn left at the lights.",
                             optionA: "on",
                             optionB: "in",
                             optionC: "to",
@@ -2918,7 +2918,7 @@ async function main() {
                             order: 2,
                           },
                           {
-                            question: "The post office is ________ your left.",
+                            question: "The pharmacy is ________ your right.",
                             optionA: "on",
                             optionB: "in",
                             optionC: "at",
@@ -3059,8 +3059,8 @@ async function main() {
                   order: 1,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_12a_1_listening.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **past simple regular and irregular verbs storytelling sequence** and essential vocabulary for **storytelling words (saw, met, spoke, told, thought, suddenly)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_12.01.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Narrator:** *\"It was a rainy Tuesday afternoon. Bernard sat in the train compartment reading a book.\"*\n- **Woman:** *\"Excuse me, is this seat free?\"*\n- **Narrator:** *\"He looked up and saw a mysterious woman wearing an elegant black coat. He smiled and said: 'Yes, please sit down.' That conversation changed his life.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **See -> Saw** | irregular verb | `/s\u0254\u02d0/` | Past of see; perceived with eyes | *\"I saw an old friend at the train station.\"* |\n| **Meet -> Met** | irregular verb | `/m\u025bt/` | Past of meet; encountered for the first time | *\"They met on a train to Paris.\"* |\n| **Tell -> Told** | irregular verb | `/t\u0259\u028ald/` | Past of tell; recounted a story or information | *\"She told him the truth.\"* |\n| **Suddenly** | adverb | `/\u02c8s\u028cd\u0259nli/` | Quickly and unexpectedly | *\"Suddenly the train stopped in the tunnel.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: past simple regular and irregular verbs storytelling sequence\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "[{\"title\": \"Scene 1: Strangers on a Train (Part 1)\", \"url\": \"/videos/beginner/ef5e_beg_12a_1_listening.mp4\"}, {\"title\": \"Scene 2: Strangers on a Train (Part 2)\", \"url\": \"/videos/beginner/ef5e_beg_12a_2_listening.mp4\"}, {\"title\": \"Scene 3: Strangers on a Train (Part 3)\", \"url\": \"/videos/beginner/ef5e_beg_12a_3_listening.mp4\"}]",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **past simple regular and irregular verbs storytelling sequence** and essential vocabulary for **storytelling verbs (sat, read, looked up, saw, smiled, said, changed)**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_12.01.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Narrator:** *\"Regular verbs\"*\n- **M:** *\"arrived\"*\n> *\"asked\"*\n> *\"exchanged\"*\n> *\"finished\"*\n> *\"looked\"*\n> *\"moved\"*\n> *\"opened\"*\n> *\"phoned\"*\n> *\"started\"*\n> *\"stopped\"*\n> *\"talked\"*\n> *\"waited\"*\n- **Narrator:** *\"Irregular verbs\"*\n- **F:** *\"bought\"*\n> *\"left\"*\n> *\"said\"*\n> *\"saw\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **David:** *\"Olivia's car was in the station car park.\"*\n> *\"'Nice car.'\"*\n> *\"It was a big BMW.\"*\n> *\"She was a very fast driver.\"*\n> *\"She stopped outside my flat.\"*\n> *\"We said goodbye and exchanged phone numbers.\"*\n> *\"The next morning there was a message from Olivia.\"*\n- **Olivia:** *\"I really want to see you again!\"*\n> *\"Friday?\"*\n- **David:** *\"On Friday morning, Olivia phoned me.\"*\n> *\"Hello.\"*\n- **Olivia:** *\"I have two tickets for a Beethoven concert tonight at the Royal Albert Hall!\"*\n> *\"Can you get them from the box office at seven fifteen?\"*\n> *\"We can meet in the bar at seven thirty.\"*\n> *\"The concert starts at eight.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Strangers on a train** | narrative title | `Story` | A classic English storytelling narrative. | *\"-\"* |\n| **See -> Saw** | irregular verb | `/s\u0254\u02d0/` | Perceived with eyes | *\"He looked up and saw a mysterious woman.\"* |\n| **Say -> Said** | irregular verb | `/s\u025bd/` | Spoke words | *\"He smiled and said: 'Please sit down.'\"* |\n| **Meet -> Met** | irregular verb | `/m\u025bt/` | Encountered | *\"They met on a train to Paris.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: past simple regular and irregular verbs storytelling sequence\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
@@ -3112,7 +3112,7 @@ async function main() {
                   isPublished: true,
                   isFree: false,
                   videoUrl: null,
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **revision of all past simple forms: affirmative, negative, interrogative, regular and irregular** and essential vocabulary for **revision of past time expressions and high-frequency verbs**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_12.05_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Teacher:** *\"Let's review the past simple rules.\"*\n- **Student:** *\"For regular verbs we add -ed, like 'worked' and 'started'.\"*\n- **Teacher:** *\"Excellent! And for questions and negatives?\"*\n- **Student:** *\"We use 'did' or 'didn't' with the infinitive: 'Did you go?' and 'I didn't see.'\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Revision** | noun | `/r\u026a\u02c8v\u026a\u0292\u0259n/` | Reviewing previously learned material | *\"Do a thorough revision before the final exam.\"* |\n| **Infinitive** | grammar | `Base form of verb (go, see, have)` | Always use the infinitive after did or didn't | *\"Did you have lunch?\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: revision of all past simple forms: affirmative, negative, interrogative, regular and irregular\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **revision of all past simple forms: affirmative, negative, interrogative, regular and irregular** and essential vocabulary for **revision of past time expressions and high-frequency verbs**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_12.05_new.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n> *[Authentic listening and pronunciation drill from Oxford English File]*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Revision** | noun | `/r\u026a\u02c8v\u026a\u0292\u0259n/` | Reviewing learned material | *\"Review all past forms before the final exam.\"* |\n| **Infinitive with did** | grammar | `Base verb after auxiliary` | Did you go? / I didn't see. | *\"-\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: revision of all past simple forms: affirmative, negative, interrogative, regular and irregular\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
@@ -3163,8 +3163,8 @@ async function main() {
                   order: 3,
                   isPublished: true,
                   isFree: false,
-                  videoUrl: '/videos/beginner/ef5e_beg_rc_11and12_video.mp4',
-                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Comprehensive course review of past events, travel experiences, daily life** and essential vocabulary for **Vocabulary review across all 12 units**.\n\n---\n\n### \ud83c\udfa7 Audio Listening & Pronunciation Practice\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_12.09_NEW_2.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript & Dialogue\n- **Interviewer:** *\"What was the most memorable trip you took this year?\"*\n- **Person 1:** *\"I went to Italy in July. I visited Rome and Florence, ate incredible pasta, and practiced speaking Italian!\"*\n- **Interviewer:** *\"How did you travel?\"*\n- **Person 1:** *\"We travelled by train across the entire country.\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Memorable** | adjective | `/\u02c8m\u025bm\u0259r\u0259bl/` | Worth remembering; easily remembered | *\"It was a truly memorable journey.\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Comprehensive course review of past events, travel experiences, daily life\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read both parts of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat clearly.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
+                  videoUrl: "/videos/beginner/ef5e_beg_rc_11and12_video.mp4",
+                  content: "### \ud83c\udfaf Can-Do Objective\nCan understand, pronounce, and confidently use **Comprehensive course review of past events, travel experiences, daily life** and essential vocabulary for **Vocabulary review across all 12 units**.\n\n---\n\n### \ud83c\udfa7 Audio Listening Drill\n<audio controls src=\"/audio/beginner/EF_5e_Beginner_SB_12.09_NEW_2.mp3\"></audio>\n\n#### \ud83d\udcdc Audio Transcript\n- **Narrator:** *\"11A\"*\n- **Speaker:** *\"a designer\"*\n> *\"a National Park\"*\n> *\"public transport\"*\n> *\"a trumpet\"*\n> *\"a sports club\"*\n> *\"blueberries\"*\n> *\"abroad\"*\n> *\"cheaper than\"*\n> *\"decide\"*\n> *\"invite\"*\n> *\"offer\"*\n> *\"miss\"*\n> *\"visit\"*\n> *\"pick\"*\n> *\"return\"*\n- **Narrator:** *\"11B\"*\n- **Speaker:** *\"an early flight\"*\n\n---\n\n### \ud83c\udfac Video Dialogue Transcript\n- **I:** *\"What did you do last weekend?\"*\n- **S:** *\"Last weekend it was my birthday, so I went out for a meal with friends,\"*\n> *\"and it was very sunny as well, so we went for a long walk afterwards.\"*\n- **I:** *\"Where did you go for your last holiday?\"*\n- **J:** *\"I went to Japan for Christmas.\"*\n- **I:** *\"When was the last time you went to a restaurant?\"*\n- **R:** *\"The last time I went to a restaurant, er,\"*\n> *\"was over the weekend.\"*\n> *\"I went to Sweetwater, in, er,\"*\n> *\"it's a French restaurant in Brooklyn.\"*\n- **I:** *\"Did you enjoy the meal?\"*\n- **R:** *\"I loved it. It was great.\"*\n- **I:** *\"Are you good at giving directions?\"*\n- **C:** *\"No, I'm not.\"*\n> *\"I am the worst person to ask for directions.\"*\n> *\"I myself am not good at finding places or following directions,\"*\n\n---\n\n### \ud83d\udcda Core Vocabulary Essentials\n| Word / Phrase | Part of Speech | Pronunciation (IPA) | Meaning in Context | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| **Memorable trip** | phrase | `Travel recap` | What was the most memorable trip you took this year? | *\"-\"* |\n| **We travelled by train** | example | `Journey description` | We travelled by train across the entire country. | *\"-\"* |\n\n---\n\n### \ud83d\udca1 Grammar In Depth: Comprehensive course review of past events, travel experiences, daily life\nUnderstanding sentence structure is key to speaking accurately. Review the rules and practice with the native audio above.\n\n> *\"Always pay attention to word order and listen to native sentence rhythm to sound more natural.\"*\n\n---\n\n### \ud83d\udde3\ufe0f Speaking & Conversation Practice\n- **Roleplay Practice:** Use the Speaking Practice Studio below to read the lines of the dialogue aloud.\n- **Listen & Repeat Drill:** Play the audio track above, pause after each phrase, and repeat with natural rhythm.\n\n---\n\n### \ud83c\udf1f Key Expressions to Memorize\n- Practice introducing the topic in conversation.\n- Use full sentences when answering questions.\n- Focus on clear vowel sounds and correct stress.\n",
                   quiz: {
                     create: {
                       questions: {
