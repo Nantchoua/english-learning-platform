@@ -139,7 +139,7 @@ export default function StudentCreationForm({ courses }: { courses: CourseOption
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
-                  placeholder="Min 6 characters"
+                  placeholder="Min 8 characters"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full border border-slate-300 rounded-lg px-3 py-2 pr-10 text-sm focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 font-mono"

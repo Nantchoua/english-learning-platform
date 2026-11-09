@@ -27,8 +27,8 @@ export default function StudentTable({ students }: { students: StudentItem[] }) 
   const [loading, setLoading] = useState(false);
 
   const handleResetSubmit = async (studentId: string) => {
-    if (!newPassword || newPassword.length < 6) {
-      alert('Password must be at least 6 characters');
+    if (!newPassword || newPassword.length < 8) {
+      alert('Password must be at least 8 characters');
       return;
     }
     setLoading(true);

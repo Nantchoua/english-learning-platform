@@ -29,8 +29,8 @@ export async function createStudent(formData: FormData) {
     throw new Error('Name, email, and password are required');
   }
 
-  if (password.length < 6) {
-    throw new Error('Password must be at least 6 characters long');
+  if (password.length < 8) {
+    throw new Error('Password must be at least 8 characters long');
   }
 
   const existing = await db.user.findUnique({ where: { email } });
@@ -85,8 +85,8 @@ export async function resetStudentPassword(formData: FormData) {
   const studentId = formData.get('studentId') as string;
   const newPassword = formData.get('newPassword') as string;
 
-  if (!newPassword || newPassword.length < 6) {
-    throw new Error('New password must be at least 6 characters');
+  if (!newPassword || newPassword.length < 8) {
+    throw new Error('New password must be at least 8 characters');
   }
 
   const hashedPassword = await bcrypt.hash(newPassword, 10);
